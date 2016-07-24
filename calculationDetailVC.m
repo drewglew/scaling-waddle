@@ -8,11 +8,18 @@
 
 #import "calculationDetailVC.h"
 #import "dbHelper.h"
+#import "Reachability.h"
 
 @interface calculationDetailVC () <searchDelegate, calcDetailDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *textDesc;
 @property (weak, nonatomic) IBOutlet UITextField *textVessel;
 @property (weak, nonatomic) IBOutlet UITextField *textFromPort;
+@property (strong, nonatomic) IBOutlet UITextField *textBallastFromPort;
+@property (strong, nonatomic) IBOutlet UITextField *textToPort;
+@property (strong, nonatomic) IBOutlet UIButton *getDistButton;
+@property (strong, nonatomic) IBOutlet UILabel *labelDistanceOutput;
+
+typedef void(^connection)(BOOL);
 
 @end
 
@@ -55,7 +62,7 @@
     }
     
     
-    
+    [self checkInternet];
     
 }
 
@@ -84,6 +91,7 @@
     clonecalc = [self.c copy];
     
     clonecalc.descr = [NSString stringWithFormat:@"<cloned> %@", self.c.descr];
+    clonecalc.id = nil;
     clonecalc.statustext = @"unsaved clone";
     //[self.opencalcs addObject:clonecalc];
     [self.opencalcs insertObject:clonecalc atIndex:self.currentpageindex];
@@ -142,10 +150,10 @@
     NSNumber *existing = self.c.id;
     if (existing == nil) {
         // its a new calc that is not in the db
-        self.c = [self.db updateCalculationData :self.c];
+        self.c = [self.db insertCalculationData :self.c];
         
     } else {
-        self.c = [self.db insertCalculationData :self.c];
+        self.c = [self.db updateCalculationData :self.c];
     }
     self.statusLabel.text=@"";
     // we can add perhaps the date here it was saved...
@@ -167,8 +175,30 @@
         controller.searchtype = @"vessel";
         
         //controller.c = [sender c];
+    
+    } else if([segue.identifier isEqualToString:@"ballfromportsearch"]){
         
-    } else if([segue.identifier isEqualToString:@"portsearch"]){
+        searchVC *controller = (searchVC *)segue.destinationViewController;
+        controller.delegate = self;
+        
+        
+        //TODO - should pass the dbHelper through the segues
+        controller.searchItems = [self.db getPorts];
+        
+        controller.searchtype = @"ballfromport";
+        
+    } else if([segue.identifier isEqualToString:@"toportsearch"]){
+        
+        searchVC *controller = (searchVC *)segue.destinationViewController;
+        controller.delegate = self;
+        
+        
+        //TODO - should pass the dbHelper through the segues
+        controller.searchItems = [self.db getPorts];
+        
+        controller.searchtype = @"toport";
+        
+    } else if([segue.identifier isEqualToString:@"fromportsearch"]){
             
             searchVC *controller = (searchVC *)segue.destinationViewController;
             controller.delegate = self;
@@ -176,7 +206,8 @@
             
             //TODO - should pass the dbHelper through the segues
             controller.searchItems = [self.db getPorts];
-            controller.searchtype = @"port";
+            
+            controller.searchtype = @"fromport";
             
             //controller.c = [sender c];
     } else if([segue.identifier isEqualToString:@"clonecalculation"]) {
@@ -215,11 +246,21 @@
 
 - (void)didPickPortItem :(NSString*)refport :(NSString*)searchitem {
     
-    if ([searchitem isEqualToString:@"port"]) {
+    if ([searchitem isEqualToString:@"fromport"]) {
         self.c.port_from = [self.db getPortByPortCode :refport :self.c.port_from];
         self.textFromPort.text = [self.c.port_from getPortFullName];
         
+    } else if ([searchitem isEqualToString:@"toport"]) {
+        self.c.port_to = [self.db getPortByPortCode :refport :self.c.port_to];
+        self.textToPort.text = [self.c.port_to getPortFullName];
+            
+    } else if ([searchitem isEqualToString:@"ballfromport"]) {
+        self.c.port_ballast_from = [self.db getPortByPortCode :refport :self.c.port_ballast_from];
+        self.textBallastFromPort.text = [self.c.port_ballast_from getPortFullName];
+        
     }
+    
+    
     [self.navigationController popViewControllerAnimated:YES];
     
 }
@@ -407,6 +448,9 @@
     self.textDesc.text = self.c.descr;
     self.textVessel.text = [self.c.vessel getVesselFullName];
     self.textFromPort.text = self.c.port_from.name;
+    self.textToPort.text = self.c.port_to.name;
+    self.textBallastFromPort.text = self.c.port_ballast_from.name;
+    
     self.calcRefLabel.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.currentpageindex,(unsigned long)[self.opencalcs count]];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -417,6 +461,44 @@
     }
     self.statusLabel.text = self.c.statustext;
     
+}
+
+- (IBAction)getDistPressed:(id)sender {
+    bool errorWithWebService = false;
+    
+    if ([self checkInternet]) {
+        
+        NSString *url = [NSString stringWithFormat:@"https://api.atobviaconline.com/v1/Distance?port=%@&port=%@&port=%@&open=MES&close=SUZ&api_key=demo",self.c.port_ballast_from.abc_code,self.c.port_from.abc_code,self.c.port_to.abc_code];
+        
+        //NSString *url = @"https://api.atobviaconline.com/v1/Distance?port=Copenhagen&port=Chiba&open=MES&close=SUZ&api_key=demo";
+        NSData *jsonFeed = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+        
+        if (!jsonFeed) {
+            NSLog(@"Error obtaining JSON");
+             self.labelDistanceOutput.text = @"error";
+            errorWithWebService = true;
+        } else {
+           self.labelDistanceOutput.text = [[NSString alloc] initWithData:jsonFeed encoding:NSUTF8StringEncoding];
+        }
+    }
+}
+
+
+- (bool)checkInternet
+{
+    if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable)
+    {
+        //connection unavailable
+        //self.getDistButton.enabled=false;
+        self.labelDistanceOutput.text = @"no internet";
+        return false;
+    }
+    else
+    {
+        //connection available
+        return true;
+    }
+
 }
 
 

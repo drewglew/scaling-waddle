@@ -355,7 +355,9 @@
                 c.lastmodified = [dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 9)]];
                 
                 c.vessel = [self getVesselByVesselNr :c.vessel.nr :c.vessel];
+                c.port_ballast_from = [self getPortByPortCode :c.port_ballast_from.code :c.port_ballast_from];
                 c.port_from = [self getPortByPortCode :c.port_from.code :c.port_from];
+                c.port_to = [self getPortByPortCode :c.port_to.code :c.port_to];
                 
                 
                 [calcs addObject:c];

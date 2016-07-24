@@ -77,7 +77,12 @@
     
     cell.descr.text = c.descr;
     cell.vesselfullname.text = [c.vessel getVesselFullName];
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"dd-MMM-yyyy HH:mm"];
+    NSString *dateLastModified=[dateFormat stringFromDate:c.lastmodified];
+    cell.lastmodifiedlabel.text = [NSString stringWithFormat:@"%@",dateLastModified];
     cell.c = c;
+    
     cell.multipleSelectionBackgroundView.backgroundColor = [UIColor clearColor];
     
     return cell;
@@ -182,10 +187,11 @@
     } else if([segue.identifier isEqualToString:@"newcalculation"]){
         calculationDetailVC *controller = (calculationDetailVC *)segue.destinationViewController;
         controller.delegate = self;
-       // controller.cloneid = [NSNumber numberWithInt:-1];
-        controller.db = self.db;
         calculationNSO *c = [[calculationNSO alloc] init];
         controller.c = c;
+        [self.selectedcalcs addObject:c];
+        controller.opencalcs = self.selectedcalcs;
+        controller.db = self.db;
         
     } else if([segue.identifier isEqualToString:@"calculationwitharray"]){
         calculationDetailVC *controller = (calculationDetailVC *)segue.destinationViewController;

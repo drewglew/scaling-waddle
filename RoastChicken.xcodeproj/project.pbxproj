@@ -27,6 +27,7 @@
 		3A4C760D1D4355FE00728DDA /* calculationPVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C760C1D4355FE00728DDA /* calculationPVC.m */; };
 		3A520E231D416D7800D7DEC6 /* searchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A520E221D416D7800D7DEC6 /* searchVC.m */; };
 		3A520E261D4172AB00D7DEC6 /* searchTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A520E251D4172AB00D7DEC6 /* searchTVC.m */; };
+		3ABC9F8F1D454A6700328249 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC9F8E1D454A6700328249 /* Reachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,8 @@
 		3A520E221D416D7800D7DEC6 /* searchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchVC.m; sourceTree = "<group>"; };
 		3A520E241D4172AB00D7DEC6 /* searchTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = searchTVC.h; sourceTree = "<group>"; };
 		3A520E251D4172AB00D7DEC6 /* searchTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchTVC.m; sourceTree = "<group>"; };
+		3ABC9F8D1D454A6700328249 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		3ABC9F8E1D454A6700328249 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,7 @@
 		3A2744F31D412FA500CB23BD /* RoastChicken */ = {
 			isa = PBXGroup;
 			children = (
+				3ABC9F8C1D454A5B00328249 /* 3rdParty */,
 				3A2744D41D412D1000CB23BD /* Main.storyboard */,
 				3A2744EB1D412D6C00CB23BD /* Default-568h@2x.png */,
 				3A2744C61D412D1000CB23BD /* AppDelegate.h */,
@@ -140,6 +144,15 @@
 				3A2744F41D41300A00CB23BD /* Info.plist */,
 			);
 			name = RoastChicken;
+			sourceTree = "<group>";
+		};
+		3ABC9F8C1D454A5B00328249 /* 3rdParty */ = {
+			isa = PBXGroup;
+			children = (
+				3ABC9F8D1D454A6700328249 /* Reachability.h */,
+				3ABC9F8E1D454A6700328249 /* Reachability.m */,
+			);
+			name = 3rdParty;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +234,7 @@
 				3A2744E71D412D1000CB23BD /* ViewController.m in Sources */,
 				3A2744E61D412D1000CB23BD /* vesselNSO.m in Sources */,
 				3A2744DD1D412D1000CB23BD /* CalcTVC.m in Sources */,
+				3ABC9F8F1D454A6700328249 /* Reachability.m in Sources */,
 				3A520E231D416D7800D7DEC6 /* searchVC.m in Sources */,
 				3A2744F21D412E7200CB23BD /* dbHelper.m in Sources */,
 				3A2744DB1D412D1000CB23BD /* AppDelegate.m in Sources */,
@@ -275,7 +289,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -314,7 +328,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

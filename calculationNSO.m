@@ -49,7 +49,7 @@
     [calcCopy setVessel:[[self vessel] copyWithZone:zone]];
     [calcCopy setPort_to:[[self port_to] copyWithZone:zone]];
     [calcCopy setPort_from:[[self port_from] copyWithZone:zone]];
-    [calcCopy setPort_from:[[self port_ballast_from] copyWithZone:zone]];
+    [calcCopy setPort_ballast_from:[[self port_ballast_from] copyWithZone:zone]];
     return calcCopy;
 }
 

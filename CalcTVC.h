@@ -14,6 +14,7 @@
 @property (strong, nonatomic) calculationNSO *c;
 @property (weak, nonatomic) IBOutlet UILabel *vesselfullname;
 @property (strong, nonatomic) IBOutlet UIView *viewbackground;
+@property (strong, nonatomic) IBOutlet UILabel *lastmodifiedlabel;
 
 
 @end
