@@ -7,27 +7,63 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3A2744991D40156500CB23BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744981D40156500CB23BD /* main.m */; };
-		3A27449C1D40156500CB23BD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A27449B1D40156500CB23BD /* AppDelegate.m */; };
-		3A27449F1D40156500CB23BD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A27449E1D40156500CB23BD /* ViewController.m */; };
-		3A2744A21D40156500CB23BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A2744A01D40156500CB23BD /* Main.storyboard */; };
-		3A2744A51D40156500CB23BD /* RoastChicken.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744A31D40156500CB23BD /* RoastChicken.xcdatamodeld */; };
-		3A2744A71D40156500CB23BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A2744A61D40156500CB23BD /* Assets.xcassets */; };
-		3A2744AA1D40156500CB23BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A2744A81D40156500CB23BD /* LaunchScreen.storyboard */; };
+		3A2744B61D40183000CB23BD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2744B51D40183000CB23BD /* libsqlite3.tbd */; };
+		3A2744DB1D412D1000CB23BD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744C71D412D1000CB23BD /* AppDelegate.m */; };
+		3A2744DC1D412D1000CB23BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A2744C81D412D1000CB23BD /* Assets.xcassets */; };
+		3A2744DD1D412D1000CB23BD /* CalcTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744CA1D412D1000CB23BD /* CalcTVC.m */; };
+		3A2744DE1D412D1000CB23BD /* calculationListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744CC1D412D1000CB23BD /* calculationListVC.m */; };
+		3A2744DF1D412D1000CB23BD /* calculationNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744CE1D412D1000CB23BD /* calculationNSO.m */; };
+		3A2744E21D412D1000CB23BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A2744D21D412D1000CB23BD /* LaunchScreen.storyboard */; };
+		3A2744E31D412D1000CB23BD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744D31D412D1000CB23BD /* main.m */; };
+		3A2744E41D412D1000CB23BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A2744D41D412D1000CB23BD /* Main.storyboard */; };
+		3A2744E51D412D1000CB23BD /* portNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744D61D412D1000CB23BD /* portNSO.m */; };
+		3A2744E61D412D1000CB23BD /* vesselNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744D81D412D1000CB23BD /* vesselNSO.m */; };
+		3A2744E71D412D1000CB23BD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744DA1D412D1000CB23BD /* ViewController.m */; };
+		3A2744EC1D412D6C00CB23BD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2744EB1D412D6C00CB23BD /* Default-568h@2x.png */; };
+		3A2744F21D412E7200CB23BD /* dbHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744F11D412E7200CB23BD /* dbHelper.m */; };
+		3A2744F51D41300A00CB23BD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A2744F41D41300A00CB23BD /* Info.plist */; };
+		3A2744F81D4130AD00CB23BD /* calculationDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744F71D4130AD00CB23BD /* calculationDetailVC.m */; };
+		3A2744FB1D41318D00CB23BD /* calculationNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744FA1D41318D00CB23BD /* calculationNC.m */; };
+		3A4C760D1D4355FE00728DDA /* calculationPVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4C760C1D4355FE00728DDA /* calculationPVC.m */; };
+		3A520E231D416D7800D7DEC6 /* searchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A520E221D416D7800D7DEC6 /* searchVC.m */; };
+		3A520E261D4172AB00D7DEC6 /* searchTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A520E251D4172AB00D7DEC6 /* searchTVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3A2744941D40156500CB23BD /* RoastChicken.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoastChicken.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A2744981D40156500CB23BD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3A27449A1D40156500CB23BD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		3A27449B1D40156500CB23BD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3A27449D1D40156500CB23BD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3A27449E1D40156500CB23BD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		3A2744A11D40156500CB23BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3A2744A41D40156500CB23BD /* RoastChicken.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RoastChicken.xcdatamodel; sourceTree = "<group>"; };
-		3A2744A61D40156500CB23BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3A2744A91D40156500CB23BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3A2744AB1D40156500CB23BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3A2744B51D40183000CB23BD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		3A2744C61D412D1000CB23BD /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3A2744C71D412D1000CB23BD /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3A2744C81D412D1000CB23BD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3A2744C91D412D1000CB23BD /* CalcTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalcTVC.h; sourceTree = "<group>"; };
+		3A2744CA1D412D1000CB23BD /* CalcTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalcTVC.m; sourceTree = "<group>"; };
+		3A2744CB1D412D1000CB23BD /* calculationListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calculationListVC.h; sourceTree = "<group>"; };
+		3A2744CC1D412D1000CB23BD /* calculationListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calculationListVC.m; sourceTree = "<group>"; };
+		3A2744CD1D412D1000CB23BD /* calculationNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calculationNSO.h; sourceTree = "<group>"; };
+		3A2744CE1D412D1000CB23BD /* calculationNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calculationNSO.m; sourceTree = "<group>"; };
+		3A2744D21D412D1000CB23BD /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3A2744D31D412D1000CB23BD /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3A2744D41D412D1000CB23BD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		3A2744D51D412D1000CB23BD /* portNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = portNSO.h; sourceTree = "<group>"; };
+		3A2744D61D412D1000CB23BD /* portNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = portNSO.m; sourceTree = "<group>"; };
+		3A2744D71D412D1000CB23BD /* vesselNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vesselNSO.h; sourceTree = "<group>"; };
+		3A2744D81D412D1000CB23BD /* vesselNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vesselNSO.m; sourceTree = "<group>"; };
+		3A2744D91D412D1000CB23BD /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		3A2744DA1D412D1000CB23BD /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3A2744EB1D412D6C00CB23BD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		3A2744F01D412E7200CB23BD /* dbHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dbHelper.h; sourceTree = "<group>"; };
+		3A2744F11D412E7200CB23BD /* dbHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dbHelper.m; sourceTree = "<group>"; };
+		3A2744F41D41300A00CB23BD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = RoastChicken/Info.plist; sourceTree = "<group>"; };
+		3A2744F61D4130AD00CB23BD /* calculationDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calculationDetailVC.h; sourceTree = "<group>"; };
+		3A2744F71D4130AD00CB23BD /* calculationDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calculationDetailVC.m; sourceTree = "<group>"; };
+		3A2744F91D41318D00CB23BD /* calculationNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calculationNC.h; sourceTree = "<group>"; };
+		3A2744FA1D41318D00CB23BD /* calculationNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calculationNC.m; sourceTree = "<group>"; };
+		3A4C760B1D4355FE00728DDA /* calculationPVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calculationPVC.h; sourceTree = "<group>"; };
+		3A4C760C1D4355FE00728DDA /* calculationPVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calculationPVC.m; sourceTree = "<group>"; };
+		3A520E211D416D7800D7DEC6 /* searchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = searchVC.h; sourceTree = "<group>"; };
+		3A520E221D416D7800D7DEC6 /* searchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchVC.m; sourceTree = "<group>"; };
+		3A520E241D4172AB00D7DEC6 /* searchTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = searchTVC.h; sourceTree = "<group>"; };
+		3A520E251D4172AB00D7DEC6 /* searchTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchTVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A2744B61D40183000CB23BD /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,8 +81,9 @@
 		3A27448B1D40156500CB23BD = {
 			isa = PBXGroup;
 			children = (
-				3A2744961D40156500CB23BD /* RoastChicken */,
+				3A2744F31D412FA500CB23BD /* RoastChicken */,
 				3A2744951D40156500CB23BD /* Products */,
+				3A2744B41D40183000CB23BD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,29 +95,51 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3A2744961D40156500CB23BD /* RoastChicken */ = {
+		3A2744B41D40183000CB23BD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3A27449A1D40156500CB23BD /* AppDelegate.h */,
-				3A27449B1D40156500CB23BD /* AppDelegate.m */,
-				3A27449D1D40156500CB23BD /* ViewController.h */,
-				3A27449E1D40156500CB23BD /* ViewController.m */,
-				3A2744A01D40156500CB23BD /* Main.storyboard */,
-				3A2744A61D40156500CB23BD /* Assets.xcassets */,
-				3A2744A81D40156500CB23BD /* LaunchScreen.storyboard */,
-				3A2744AB1D40156500CB23BD /* Info.plist */,
-				3A2744A31D40156500CB23BD /* RoastChicken.xcdatamodeld */,
-				3A2744971D40156500CB23BD /* Supporting Files */,
+				3A2744B51D40183000CB23BD /* libsqlite3.tbd */,
 			);
-			path = RoastChicken;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3A2744971D40156500CB23BD /* Supporting Files */ = {
+		3A2744F31D412FA500CB23BD /* RoastChicken */ = {
 			isa = PBXGroup;
 			children = (
-				3A2744981D40156500CB23BD /* main.m */,
+				3A2744D41D412D1000CB23BD /* Main.storyboard */,
+				3A2744EB1D412D6C00CB23BD /* Default-568h@2x.png */,
+				3A2744C61D412D1000CB23BD /* AppDelegate.h */,
+				3A2744C71D412D1000CB23BD /* AppDelegate.m */,
+				3A2744F01D412E7200CB23BD /* dbHelper.h */,
+				3A2744F11D412E7200CB23BD /* dbHelper.m */,
+				3A2744C91D412D1000CB23BD /* CalcTVC.h */,
+				3A2744CA1D412D1000CB23BD /* CalcTVC.m */,
+				3A520E241D4172AB00D7DEC6 /* searchTVC.h */,
+				3A520E251D4172AB00D7DEC6 /* searchTVC.m */,
+				3A4C760B1D4355FE00728DDA /* calculationPVC.h */,
+				3A4C760C1D4355FE00728DDA /* calculationPVC.m */,
+				3A2744CB1D412D1000CB23BD /* calculationListVC.h */,
+				3A2744CC1D412D1000CB23BD /* calculationListVC.m */,
+				3A520E211D416D7800D7DEC6 /* searchVC.h */,
+				3A520E221D416D7800D7DEC6 /* searchVC.m */,
+				3A2744F91D41318D00CB23BD /* calculationNC.h */,
+				3A2744FA1D41318D00CB23BD /* calculationNC.m */,
+				3A2744F61D4130AD00CB23BD /* calculationDetailVC.h */,
+				3A2744F71D4130AD00CB23BD /* calculationDetailVC.m */,
+				3A2744CD1D412D1000CB23BD /* calculationNSO.h */,
+				3A2744CE1D412D1000CB23BD /* calculationNSO.m */,
+				3A2744D21D412D1000CB23BD /* LaunchScreen.storyboard */,
+				3A2744D31D412D1000CB23BD /* main.m */,
+				3A2744D51D412D1000CB23BD /* portNSO.h */,
+				3A2744D61D412D1000CB23BD /* portNSO.m */,
+				3A2744D71D412D1000CB23BD /* vesselNSO.h */,
+				3A2744D81D412D1000CB23BD /* vesselNSO.m */,
+				3A2744D91D412D1000CB23BD /* ViewController.h */,
+				3A2744DA1D412D1000CB23BD /* ViewController.m */,
+				3A2744C81D412D1000CB23BD /* Assets.xcassets */,
+				3A2744F41D41300A00CB23BD /* Info.plist */,
 			);
-			name = "Supporting Files";
+			name = RoastChicken;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,9 +202,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A2744AA1D40156500CB23BD /* LaunchScreen.storyboard in Resources */,
-				3A2744A71D40156500CB23BD /* Assets.xcassets in Resources */,
-				3A2744A21D40156500CB23BD /* Main.storyboard in Resources */,
+				3A2744E21D412D1000CB23BD /* LaunchScreen.storyboard in Resources */,
+				3A2744DC1D412D1000CB23BD /* Assets.xcassets in Resources */,
+				3A2744EC1D412D6C00CB23BD /* Default-568h@2x.png in Resources */,
+				3A2744F51D41300A00CB23BD /* Info.plist in Resources */,
+				3A2744E41D412D1000CB23BD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,33 +217,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A27449F1D40156500CB23BD /* ViewController.m in Sources */,
-				3A27449C1D40156500CB23BD /* AppDelegate.m in Sources */,
-				3A2744991D40156500CB23BD /* main.m in Sources */,
-				3A2744A51D40156500CB23BD /* RoastChicken.xcdatamodeld in Sources */,
+				3A2744FB1D41318D00CB23BD /* calculationNC.m in Sources */,
+				3A2744E71D412D1000CB23BD /* ViewController.m in Sources */,
+				3A2744E61D412D1000CB23BD /* vesselNSO.m in Sources */,
+				3A2744DD1D412D1000CB23BD /* CalcTVC.m in Sources */,
+				3A520E231D416D7800D7DEC6 /* searchVC.m in Sources */,
+				3A2744F21D412E7200CB23BD /* dbHelper.m in Sources */,
+				3A2744DB1D412D1000CB23BD /* AppDelegate.m in Sources */,
+				3A2744E51D412D1000CB23BD /* portNSO.m in Sources */,
+				3A520E261D4172AB00D7DEC6 /* searchTVC.m in Sources */,
+				3A2744DF1D412D1000CB23BD /* calculationNSO.m in Sources */,
+				3A2744DE1D412D1000CB23BD /* calculationListVC.m in Sources */,
+				3A2744E31D412D1000CB23BD /* main.m in Sources */,
+				3A2744F81D4130AD00CB23BD /* calculationDetailVC.m in Sources */,
+				3A4C760D1D4355FE00728DDA /* calculationPVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		3A2744A01D40156500CB23BD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3A2744A11D40156500CB23BD /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		3A2744A81D40156500CB23BD /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3A2744A91D40156500CB23BD /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3A2744AC1D40156500CB23BD /* Debug */ = {
@@ -309,21 +362,9 @@
 				3A2744B01D40156500CB23BD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		3A2744A31D40156500CB23BD /* RoastChicken.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				3A2744A41D40156500CB23BD /* RoastChicken.xcdatamodel */,
-			);
-			currentVersion = 3A2744A41D40156500CB23BD /* RoastChicken.xcdatamodel */;
-			path = RoastChicken.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 3A27448C1D40156500CB23BD /* Project object */;
 }

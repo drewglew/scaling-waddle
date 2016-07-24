@@ -2,7 +2,7 @@
 //  ViewController.h
 //  RoastChicken
 //
-//  Created by andrew glew on 20/07/2016.
+//  Created by andrew glew on 21/07/2016.
 //  Copyright © 2016 andrew glew. All rights reserved.
 //
 
@@ -10,6 +10,4 @@
 
 @interface ViewController : UIViewController
 
-
 @end
-
