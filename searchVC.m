@@ -88,7 +88,7 @@
         cell.indexLabel.text = [NSString stringWithFormat:@"%@",v.nr];
         cell.ref = v.nr;
         
-    } else if ([self.searchtype isEqual:@"ballfromport"] || [self.searchtype isEqual:@"fromport"] || [self.searchtype isEqual:@"toport"] ){
+    } else if ([self.searchtype isEqual:@"ballfromport"] || [self.searchtype isEqual:@"cargoport"] ){
         portNSO *p;
         // Configure the cell...
         if (isSearching) {
@@ -124,7 +124,7 @@
         }
         [self.delegate didPickItem:v.nr :@"vessel"];
     
-    } else if ([self.searchtype isEqual:@"ballfromport"] || [self.searchtype isEqual:@"fromport"] || [self.searchtype isEqual:@"toport"] ) {
+    } else if ([self.searchtype isEqual:@"ballfromport"] || [self.searchtype isEqual:@"cargoport"]) {
         
         portNSO *p;
         
@@ -156,7 +156,7 @@
   
         }
          
-     }  else if ([self.searchtype isEqual:@"ballfromport"] || [self.searchtype isEqual:@"fromport"] || [self.searchtype isEqual:@"toport"] ) {
+     }  else if ([self.searchtype isEqual:@"ballfromport"] || [self.searchtype isEqual:@"cargoport"] ) {
          for (portNSO *p in self.searchItems) {
              
              NSRange range = [p.searchstring rangeOfString:searchData];

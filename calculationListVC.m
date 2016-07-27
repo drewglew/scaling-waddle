@@ -47,7 +47,8 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.calculations = [self.db getCalculations];
+    //self.calculations = [self.db getCalculations];
+    self.listing = [self.db getListing];
     [self.tableView reloadData];
 }
 
@@ -57,7 +58,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.calculations count];
+    return [self.listing count];
 }
 
 
@@ -73,16 +74,16 @@
     if (cell == nil) {
         cell = [[CalcTVC alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    calculationNSO *c = [self.calculations objectAtIndex:indexPath.row];
+    listingItemNSO *l = [self.listing objectAtIndex:indexPath.row];
     
-    cell.descr.text = c.descr;
-    cell.vesselfullname.text = [c.vessel getVesselFullName];
+    cell.descr.text = l.descr;
+    cell.vesselfullname.text = l.full_name_vessel;
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd-MMM-yyyy HH:mm"];
-    NSString *dateLastModified=[dateFormat stringFromDate:c.lastmodified];
+    NSString *dateLastModified=[dateFormat stringFromDate:l.lastmodified];
     cell.lastmodifiedlabel.text = [NSString stringWithFormat:@"%@",dateLastModified];
-    cell.c = c;
-    
+    cell.ldportslabel.text = l.ld_ports;
+    cell.l = l;
     cell.multipleSelectionBackgroundView.backgroundColor = [UIColor clearColor];
     
     return cell;
@@ -120,7 +121,7 @@
             
             for (NSIndexPath *path in rowsSelected) {
                 NSUInteger index = [path indexAtPosition:[path length] - 1];
-                [self.selectedcalcs addObject:[self.calculations objectAtIndex:index]];
+                [self.selectedcalcs addObject:[self.listing objectAtIndex:index]];
             }
             [self performSegueWithIdentifier:@"calculationwitharray" sender:sender];
             
@@ -135,14 +136,14 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     //Here the dataSource array is of dictionary objects
-    calculationNSO *c = [self.calculations objectAtIndex:indexPath.row];
+    listingItemNSO *l = [self.listing objectAtIndex:indexPath.row];
     
     
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-       // [self.db deleteWholeMatchData:m.matchid];
-        [self.calculations removeObjectAtIndex:indexPath.row];
-        [self.db deleteCalculation: c.id];
+       
+        [self.listing removeObjectAtIndex:indexPath.row];
+        [self.db deleteCalculation: l.id];
         [tableView reloadData]; // tell table to refresh now
     }
 }
@@ -169,21 +170,23 @@
     return !self.tableView.isEditing;
 }
 
+
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
+    NSMutableArray *items = [[NSMutableArray alloc] init];
+    
     if([segue.identifier isEqualToString:@"calculation"]){
         calculationDetailVC *controller = (calculationDetailVC *)segue.destinationViewController;
         controller.delegate = self;
-        controller.c = [sender c];
-        //if ([self.selectedcalcs count]==0) [self.selectedcalcs addObject:[sender c]];
-        [self.selectedcalcs addObject:[sender c]];
-        controller.opencalcs = self.selectedcalcs;
+        [items addObject:[sender l]];
+        
+        controller.opencalcs = [self.db getCalculations :items];
+        controller.c = [controller.opencalcs firstObject];
         controller.db = self.db;
         
-        
-        //controller.cloneid = [NSNumber numberWithInt:0];
     } else if([segue.identifier isEqualToString:@"newcalculation"]){
         calculationDetailVC *controller = (calculationDetailVC *)segue.destinationViewController;
         controller.delegate = self;
@@ -198,11 +201,8 @@
         controller.delegate = self;
         // controller.cloneid = [NSNumber numberWithInt:-1];
         controller.db = self.db;
-        
-        
-        controller.opencalcs = self.selectedcalcs;
-        calculationNSO *c = [[calculationNSO alloc] init];
-        controller.c = c;
+        controller.opencalcs = [self.db getCalculations :self.selectedcalcs];
+        controller.c = [controller.opencalcs firstObject];
         
     }
     

@@ -9,13 +9,13 @@
 #import "calculationDetailVC.h"
 #import "dbHelper.h"
 #import "Reachability.h"
+#import "cargoVC.h"
 
-@interface calculationDetailVC () <searchDelegate, calcDetailDelegate>
+@interface calculationDetailVC () <searchDelegate, calcDetailDelegate, cargoIODelegate>
 @property (weak, nonatomic) IBOutlet UITextField *textDesc;
 @property (weak, nonatomic) IBOutlet UITextField *textVessel;
-@property (weak, nonatomic) IBOutlet UITextField *textFromPort;
+@property (weak, nonatomic) IBOutlet UITextField *textLDPort;
 @property (strong, nonatomic) IBOutlet UITextField *textBallastFromPort;
-@property (strong, nonatomic) IBOutlet UITextField *textToPort;
 @property (strong, nonatomic) IBOutlet UIButton *getDistButton;
 @property (strong, nonatomic) IBOutlet UILabel *labelDistanceOutput;
 
@@ -61,8 +61,15 @@ typedef void(^connection)(BOOL);
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
     
+
     
     [self checkInternet];
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self loadData];
     
 }
 
@@ -71,6 +78,9 @@ typedef void(^connection)(BOOL);
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
 
 /*
 #pragma mark - Navigation
@@ -124,8 +134,10 @@ typedef void(^connection)(BOOL);
     calculationNSO *newcalc = [[calculationNSO alloc] init];
     newcalc.descr = @"";
     newcalc.statustext = @"new unsaved";
+    
     //[self.opencalcs addObject:newcalc];
     [self.opencalcs insertObject:newcalc atIndex:self.currentpageindex];
+    
     self.currentpageindex ++;
     [self transitionNewCalc];
     
@@ -151,6 +163,7 @@ typedef void(^connection)(BOOL);
     if (existing == nil) {
         // its a new calc that is not in the db
         self.c = [self.db insertCalculationData :self.c];
+        [self.db prepareld :self.c];
         
     } else {
         self.c = [self.db updateCalculationData :self.c];
@@ -220,6 +233,16 @@ typedef void(^connection)(BOOL);
         controller.c.descr = @"clone";
         controller.cloneid = [NSNumber numberWithInt:[self.cloneid intValue] + 1 ];
         
+    } else if([segue.identifier isEqualToString:@"cargoes"]) {
+        
+        
+        cargoVC *controller = (cargoVC *)segue.destinationViewController;
+        controller.delegate = self;
+        controller.ports = self.c.cargoios;
+        controller.c = self.c.copy;
+        controller.c.descr = @"clone";
+        controller.db = self.db;
+        
     }
     
     
@@ -248,12 +271,8 @@ typedef void(^connection)(BOOL);
     
     if ([searchitem isEqualToString:@"fromport"]) {
         self.c.port_from = [self.db getPortByPortCode :refport :self.c.port_from];
-        self.textFromPort.text = [self.c.port_from getPortFullName];
+        self.textLDPort.text = [self.c.port_from getPortFullName];
         
-    } else if ([searchitem isEqualToString:@"toport"]) {
-        self.c.port_to = [self.db getPortByPortCode :refport :self.c.port_to];
-        self.textToPort.text = [self.c.port_to getPortFullName];
-            
     } else if ([searchitem isEqualToString:@"ballfromport"]) {
         self.c.port_ballast_from = [self.db getPortByPortCode :refport :self.c.port_ballast_from];
         self.textBallastFromPort.text = [self.c.port_ballast_from getPortFullName];
@@ -447,12 +466,12 @@ typedef void(^connection)(BOOL);
     
     self.textDesc.text = self.c.descr;
     self.textVessel.text = [self.c.vessel getVesselFullName];
-    self.textFromPort.text = self.c.port_from.name;
-    self.textToPort.text = self.c.port_to.name;
+    self.c.ld_ports = [self.c getldportnames];
+    self.textLDPort.text = self.c.ld_ports;
     self.textBallastFromPort.text = self.c.port_ballast_from.name;
     
     self.calcRefLabel.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.currentpageindex,(unsigned long)[self.opencalcs count]];
-    
+
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd-MMM-yy HH:mm"];
     NSString *dateLastModified=[dateFormat stringFromDate:self.c.lastmodified];
@@ -500,6 +519,12 @@ typedef void(^connection)(BOOL);
     }
 
 }
+
+- (IBAction)descrEditingEnded:(id)sender {
+    self.c.descr = self.textDesc.text;
+    
+}
+
 
 
 

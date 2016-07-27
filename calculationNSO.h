@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "vesselNSO.h"
 #import "portNSO.h"
+#import "cargoioNSO.h"
 
 
 @interface calculationNSO : NSObject
@@ -16,6 +17,7 @@
 @property (nonatomic) NSNumber *id;
 @property (nonatomic) NSString *descr;
 @property (nonatomic) NSString *statustext;
+@property (nonatomic) NSString *ld_ports;
 @property (nonatomic) NSNumber *rate;
 @property (nonatomic) NSNumber *tce;
 @property (strong, nonatomic) vesselNSO *vessel;
@@ -24,6 +26,9 @@
 @property (strong, nonatomic) portNSO *port_ballast_from;
 @property (nonatomic) NSDate *created;
 @property (nonatomic) NSDate *lastmodified;
+
+@property (strong, nonatomic) NSMutableArray *cargoios;
 -(id) copyWithZone: (NSZone *) zone;
+-(NSString*)getldportnames;
 
 @end

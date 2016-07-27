@@ -57,16 +57,26 @@
             }
             
             
-           // sql_statement = "CREATE TABLE matches(matchid INTEGER PRIMARY KEY, player1_number INTEGER, player2_number INTEGER, startdate TEXT, enddate TEXT, player1_frameswon INTEGER, player2_frameswon INTEGER, player1_hibreak INTEGER, player2_hibreak INTEGER, matchkey TEXT, FOREIGN KEY(player1_number) REFERENCES players(playernumber), FOREIGN KEY(player2_number) REFERENCES players(playernumber))";
-            
-            
             /* number 3: calculations */
-            sql_statement = "CREATE TABLE calculations(calc_id INTEGER PRIMARY KEY, calc_vessel_nr INTEGER, calc_description TEXT, calc_rate DECIMAL(10, 5), calc_tce DECIMAL(10, 5), calc_port_from TEXT, calc_port_to TEXT, calc_port_ballast_from TEXT, calc_created DATETIME, calc_last_modified DATETIME, FOREIGN KEY(calc_vessel_nr) REFERENCES vessels(vessel_nr), FOREIGN KEY(calc_port_from) REFERENCES ports(port_code), FOREIGN KEY(calc_port_to) REFERENCES ports(port_code), FOREIGN KEY(calc_port_ballast_from) REFERENCES ports(port_code) )";
+            sql_statement = "CREATE TABLE calculations(calc_id INTEGER PRIMARY KEY, calc_vessel_nr INTEGER, calc_description TEXT, calc_rate DECIMAL(10, 5), calc_tce DECIMAL(10, 5), calc_port_from TEXT, calc_port_to TEXT, calc_port_ballast_from TEXT, calc_created DATETIME, calc_last_modified DATETIME, calc_ld_ports TEXT, FOREIGN KEY(calc_vessel_nr) REFERENCES vessels(vessel_nr), FOREIGN KEY(calc_port_from) REFERENCES ports(port_code), FOREIGN KEY(calc_port_to) REFERENCES ports(port_code), FOREIGN KEY(calc_port_ballast_from) REFERENCES ports(port_code) )";
             if(sqlite3_exec(_DB, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK) {
                 NSLog(@"failed to create calculations table");
                 sqlite3_close(_DB);
                 return false;
             }
+            
+            
+            /* number 4: cargo in/out  */
+            sql_statement = "CREATE TABLE cargoio(cargoio_id INTEGER, cargoio_units INTEGER, cargoio_expense DECIMAL(8,2), cargoio_estimated DECIMAL(10,4), cargoio_terms_id INTEGER, cargoio_notice_time INTEGER, cargoio_type_id INTEGER, cargoio_purpose_code TEXT, cargoio_port_code TEXT, cargoio_calc_id INTEGER, FOREIGN KEY(cargoio_port_code) REFERENCES ports(port_code), FOREIGN KEY(cargoio_calc_id) REFERENCES calculations(calc_id), PRIMARY KEY (cargoio_id, cargoio_calc_id))";
+            if(sqlite3_exec(_DB, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK) {
+                NSLog(@"failed to create table cargoio");
+                sqlite3_close(_DB);
+                return false;
+            } else {
+                NSLog(@"Whoopee successul in creating table cargioio");
+            }
+            
+            
             
            // NSString *matchkey = [[NSUUID UUID] UUIDString];
             
@@ -167,7 +177,7 @@
             p.name = @"LOOP Terminal";
             [self insertPortData :p];
             
-            p.code = @"MEL";
+            p.code = @"MEB";
             p.abc_code = @"AU0181";
             p.name = @"Melbourne";
             [self insertPortData :p];
@@ -180,10 +190,43 @@
             c.vessel.nr =  [NSNumber numberWithInt:5];
             c.created =  [NSDate date];
             
-            c.port_from.code = @"HAM";
-            c.port_to.code = @"LON";
+            // soon to be discarded..
+            c.port_from.code = @"CPH";
+            c.port_to.code = @"MEB";
+            c.ld_ports = @"Copenhagen-Melbourne";
+            
             c.port_ballast_from.code = @"CPH";
             [self insertCalculationData :c];
+            
+            
+            
+            //lets add this to calculation and lose the calc_id!
+   
+            cargoioNSO *cio = [[cargoioNSO alloc] init];
+            
+            cio.id = [NSNumber numberWithInt:1];  // this is actually the sort order
+            cio.calc_id = c.id;
+            cio.units = [NSNumber numberWithInt:2000];
+            cio.expense = [NSNumber numberWithDouble:200.00];
+            cio.estimated = [NSNumber numberWithDouble:1000.00];
+            cio.terms_id = [NSNumber numberWithInt:1];
+            cio.notice_time = [NSNumber numberWithInt:5];
+            cio.type_id = [NSNumber numberWithInt:1];
+            cio.purpose_code = @"L";
+            cio.port.code = @"CPH";
+            [self insertCargoPort :cio];
+            cio.id = [NSNumber numberWithInt:2];  // this is actually the sort order
+            cio.calc_id = c.id;
+            cio.units = [NSNumber numberWithInt:2000];
+            cio.expense = [NSNumber numberWithDouble:175.00];
+            cio.estimated = [NSNumber numberWithDouble:500.00];
+            cio.terms_id = [NSNumber numberWithInt:1];
+            cio.notice_time = [NSNumber numberWithInt:2];
+            cio.type_id = [NSNumber numberWithInt:1];
+            cio.purpose_code = @"D";
+            cio.port.code = @"MEB";
+            [self insertCargoPort :cio];
+            
             
 
             sqlite3_close(_DB);
@@ -194,6 +237,46 @@
     }
     return true;
 }
+
+
+
+/* created 20160725 */
+/* modified 20160726 */
+-(bool) insertCargoPort :(cargoioNSO *) cio {
+    
+    
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO cargoio (cargoio_id,cargoio_units,cargoio_expense,cargoio_estimated,cargoio_terms_id,cargoio_notice_time,cargoio_type_id,cargoio_purpose_code,cargoio_port_code,cargoio_calc_id) VALUES (%@,%@,%@,%@,%@,%@,%@,'%@','%@',%@)", cio.id, cio.units, cio.expense, cio.estimated, cio.terms_id, cio.notice_time, cio.type_id, cio.purpose_code, cio.port.code, cio.calc_id];
+    
+    sqlite3_stmt *statement;
+    const char *insert_statement = [insertSQL UTF8String];
+    sqlite3_prepare_v2(_DB, insert_statement, -1, &statement, NULL);
+    if (sqlite3_step(statement) != SQLITE_DONE) {
+        NSLog(@"Failed to insert new cargoio record inside vessels table");
+        return false;
+    } else {
+        NSLog(@"inserted new cargoio record inside vessels table!");
+    }
+    sqlite3_finalize(statement);
+    
+    return true;
+}
+
+/* created 20160725 */
+/* modified 20160726 */
+-(bool) prepareld :(calculationNSO *) c {
+
+    cargoioNSO *loadport = [c.cargoios firstObject];
+    loadport.calc_id = c.id;
+    [self insertCargoPort:loadport];
+    
+    cargoioNSO *dischargeport = [c.cargoios lastObject];
+    dischargeport.calc_id = c.id;
+    [self insertCargoPort:dischargeport];
+    
+    return true;
+}
+
+
 
 /* created 20160721 */
 -(bool) insertVesselData :(vesselNSO *) v {
@@ -262,7 +345,7 @@
         
         
         
-       NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO calculations (calc_id, calc_description, calc_rate, calc_tce, calc_vessel_nr, calc_port_from, calc_port_to, calc_port_ballast_from, calc_created, calc_last_modified) VALUES (%@,'%@', %@, %@, %@,'%@','%@','%@','%s', '%s')", newCalcId, c.descr, c.rate,c.tce,c.vessel.nr,c.port_from.code,c.port_to.code,c.port_ballast_from.code, dateCreated.UTF8String, dateCreated.UTF8String ];
+       NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO calculations (calc_id, calc_description, calc_rate, calc_tce, calc_vessel_nr, calc_port_from, calc_port_to, calc_port_ballast_from, calc_created, calc_last_modified, calc_ld_ports) VALUES (%@,'%@', %@, %@, %@,'%@','%@','%@','%s', '%s', '%@')", newCalcId, c.descr, c.rate,c.tce,c.vessel.nr,c.port_from.code,c.port_to.code,c.port_ballast_from.code, dateCreated.UTF8String, dateCreated.UTF8String,c.ld_ports];
         
         const char *insert_statement = [insertSQL UTF8String];
         sqlite3_prepare_v2(_DB, insert_statement, -1, &statement, NULL);
@@ -273,6 +356,7 @@
             c.id = newCalcId;
         }
         sqlite3_finalize(statement);
+        
     }
 
     return c;
@@ -294,7 +378,7 @@
         NSString *dateLastModified=[dateFormat stringFromDate:lastmodified];
         
         
-        NSString *updateSQL = [NSString stringWithFormat:@"UPDATE calculations set calc_description = '%@', calc_rate = %@, calc_tce = %@, calc_vessel_nr=%@, calc_port_from='%@', calc_port_to='%@', calc_port_ballast_from='%@', calc_last_modified = '%s'  where calc_id=%@", c.descr, c.rate,c.tce,c.vessel.nr,c.port_from.code,c.port_to.code,c.port_ballast_from.code, dateLastModified.UTF8String, c.id];
+        NSString *updateSQL = [NSString stringWithFormat:@"UPDATE calculations set calc_description = '%@', calc_rate = %@, calc_tce = %@, calc_vessel_nr=%@, calc_port_from='%@', calc_port_to='%@', calc_port_ballast_from='%@', calc_last_modified = '%s', calc_ld_ports = '%@' where calc_id=%@", c.descr, c.rate,c.tce,c.vessel.nr,c.port_from.code,c.port_to.code,c.port_ballast_from.code, dateLastModified.UTF8String, c.ld_ports, c.id ];
         
         const char *update_statement = [updateSQL UTF8String];
         sqlite3_prepare_v2(_DB, update_statement, -1, &statement, NULL);
@@ -306,10 +390,89 @@
             c.lastmodified = lastmodified;
         }
         sqlite3_finalize(statement);
-        sqlite3_close(_DB);
+        
+        cargoioNSO *l_port = [c.cargoios firstObject];
+        
+        
+        updateSQL = [NSString stringWithFormat:@"UPDATE cargoio set cargoio_units=%@, cargoio_expense=%@, cargoio_estimated=%@, cargoio_terms_id=%@, cargoio_notice_time=%@, cargoio_type_id=%@,cargoio_purpose_code='L', cargoio_port_code='%@' where cargoio_calc_id=%@ and cargoio_id=1", l_port.units, l_port.expense, l_port.estimated, l_port.terms_id, l_port.notice_time, l_port.type_id, l_port.port.code, c.id];
+        
+        
+        update_statement = [updateSQL UTF8String];
+        sqlite3_prepare_v2(_DB, update_statement, -1, &statement, NULL);
+        if (sqlite3_step(statement) != SQLITE_DONE) {
+            NSLog(@"Failed to update Load port record inside cargo table");
+        } else {
+            NSLog(@"Update of Load port to cargo table successful");
+        }
+        sqlite3_finalize(statement);
+
+ 
+        cargoioNSO *d_port = [c.cargoios lastObject];
+        
+        updateSQL = [NSString stringWithFormat:@"UPDATE cargoio set cargoio_units=%@, cargoio_expense=%@, cargoio_estimated=%@, cargoio_terms_id=%@, cargoio_notice_time=%@, cargoio_type_id=%@,cargoio_purpose_code='D', cargoio_port_code='%@' where cargoio_calc_id=%@ and cargoio_id=2", d_port.units, d_port.expense, d_port.estimated, d_port.terms_id, d_port.notice_time, d_port.type_id, d_port.port.code, c.id];
+        
+        update_statement = [updateSQL UTF8String];
+        sqlite3_prepare_v2(_DB, update_statement, -1, &statement, NULL);
+        if (sqlite3_step(statement) != SQLITE_DONE) {
+            NSLog(@"Failed to update Discharge port record inside cargo table");
+        } else {
+            NSLog(@"Update of Discharge port to cargo table successful");
+        }
+        sqlite3_finalize(statement);
+        
+        
+        
+        
+        
+        //sqlite3_close(_DB);
     }
     
     return c;
+}
+
+
+/* created 20160726 */
+-(NSMutableArray*) getListing {
+    NSMutableArray *listing = [[NSMutableArray alloc] init];
+    sqlite3_stmt *statement;
+    const char *dbpath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
+        
+        NSString *selectSQL = @"SELECT calculations.calc_id, calculations.calc_vessel_nr, '(' || vessels.vessel_ref_nr || ')' || vessels.vessel_name, calculations.calc_description, calculations.calc_last_modified, calculations.calc_ld_ports from calculations, vessels WHERE vessels.vessel_nr = calculations.calc_vessel_nr ORDER BY calc_id DESC";
+        
+        
+        const char *select_statement = [selectSQL UTF8String];
+        
+        
+        if (sqlite3_prepare_v2(_DB, select_statement, -1, &statement, NULL) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                
+                listingItemNSO *l = [[listingItemNSO alloc] init];
+                
+                NSNumber *calcid = [NSNumber numberWithInt:sqlite3_column_int(statement, 0)];
+                
+                l.id = calcid;
+                l.vessel_nr = [NSNumber numberWithInt:sqlite3_column_int(statement, 1)];
+                l.full_name_vessel = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)] ;
+                l.descr = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)];
+                NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                l.lastmodified = [dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)]];
+                l.ld_ports = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)] ;
+               
+                [listing addObject:l];
+            }
+        }
+        sqlite3_finalize(statement);
+        sqlite3_close(_DB);
+    } else {
+        NSLog(@"Cannot open database");
+    }
+    
+    return listing;
 }
 
 
@@ -317,7 +480,8 @@
 
 
 /* created 20160721 */
--(NSMutableArray*) getCalculations {
+/* modified 20160726 */
+-(NSMutableArray*) getCalculations :(NSMutableArray*) listing {
     
     NSMutableArray *calcs = [[NSMutableArray alloc] init];
     sqlite3_stmt *statement;
@@ -325,7 +489,9 @@
     
     if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
 
-        NSString *selectSQL = @"SELECT calc_id, calc_vessel_nr, calc_description, calc_rate, calc_tce, calc_port_from, calc_port_to, calc_port_ballast_from, calc_created, calc_last_modified from calculations ORDER BY calc_id DESC";
+        NSString *result = [[listing valueForKey:@"id"] componentsJoinedByString:@","];
+        
+        NSString *selectSQL = [NSString stringWithFormat:@"SELECT calc_id, calc_vessel_nr, calc_description, calc_rate, calc_tce, calc_port_from, calc_port_to, calc_port_ballast_from, calc_created, calc_last_modified from calculations where calc_id IN (%@) ORDER BY calc_id DESC", result];
         
         
         const char *select_statement = [selectSQL UTF8String];
@@ -358,7 +524,7 @@
                 c.port_ballast_from = [self getPortByPortCode :c.port_ballast_from.code :c.port_ballast_from];
                 c.port_from = [self getPortByPortCode :c.port_from.code :c.port_from];
                 c.port_to = [self getPortByPortCode :c.port_to.code :c.port_to];
-                
+                c.cargoios = [self getCargoes :c.id];
                 
                 [calcs addObject:c];
             }
@@ -371,6 +537,58 @@
     
     return calcs;
 }
+
+
+/* created 20160725 */
+-(NSMutableArray*) getCargoes :(NSNumber*) calc_id {
+    NSMutableArray *cios = [[NSMutableArray alloc] init];
+    
+    //sql_statement = "CREATE TABLE cargoio(cargoio_id INTEGER PRIMARY KEY, cargoio_units INTEGER, cargoio_expense DECIMAL(8,2), cargoio_estimated DECIMAL(10,4), cargoio_terms_id INTEGER, cargoio_notice_time INTEGER, cargoio_type_id INTEGER, cargoio_purpose_code TEXT, cargoio_port_code TEXT, cargoio_calc_id INTEGER, FOREIGN KEY(cargoio_port_code) REFERENCES ports(port_code), FOREIGN KEY(cargoio_calc_id) REFERENCES calculations(calc_id))";
+    
+    sqlite3_stmt *statement;
+    const char *dbpath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
+        NSString *selectSQL = [NSString stringWithFormat:@"SELECT cargoio_id ,cargoio_units,cargoio_expense, cargoio_estimated, cargoio_terms_id, cargoio_notice_time, cargoio_type_id, cargoio_purpose_code, cargoio_port_code, cargoio_calc_id FROM cargoio WHERE cargoio_calc_id=%@ order by cargoio_id",calc_id];
+        
+        const char *select_statement = [selectSQL UTF8String];
+        
+        if (sqlite3_prepare_v2(_DB, select_statement, -1, &statement, NULL) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement) == SQLITE_ROW)
+            {
+                cargoioNSO *cio = [[cargoioNSO alloc] init];
+                
+                cio.id = [NSNumber numberWithInt:sqlite3_column_int(statement, 0)];
+                cio.units = [NSNumber numberWithInt:sqlite3_column_int(statement, 1)];
+                cio.expense = [NSNumber numberWithDouble:sqlite3_column_double(statement, 2)];
+                cio.estimated = [NSNumber numberWithDouble:sqlite3_column_double(statement, 3)];
+                cio.terms_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 4)];
+                cio.notice_time = [NSNumber numberWithInt:sqlite3_column_int(statement, 5)];
+                cio.type_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 6)];
+                cio.purpose_code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)] ;
+                cio.port.code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)] ;
+                cio.calc_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 8)];
+                
+                cio.port = [self getPortByPortCode :cio.port.code :cio.port];
+                
+                [cios addObject:cio];
+            }
+        }
+        sqlite3_finalize(statement);
+        sqlite3_close(_DB);
+    } else {
+        NSLog(@"Cannot open database");
+    }
+    
+    
+    
+    
+    return cios;
+    
+}
+
+
 
 /* created 20160721 */
 -(vesselNSO*) getVesselByVesselNr :(NSNumber*) vessel_nr :(vesselNSO*) v  {
@@ -510,34 +728,6 @@
 }
 
 
-
-/* created 20160722 */
-/* currently not used */
--(NSNumber *) getNextCalcId {
-    
-    sqlite3_stmt *statement;
-    const char *dbpath = [_databasePath UTF8String];
-    
-    NSNumber *nextCalcId = [NSNumber numberWithInt:0];
-    
-    if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
-        NSString *selectSQL;
-        selectSQL = @"select MAX(calc_id)+1 from calculations";
-        const char *select_statement = [selectSQL UTF8String];
-        
-        if (sqlite3_prepare_v2(_DB, select_statement, -1, &statement, NULL) == SQLITE_OK)
-        {
-            if (sqlite3_step(statement) == SQLITE_ROW) {
-                nextCalcId = [NSNumber numberWithInt:sqlite3_column_int(statement, 0)];
-            }
-        }
-        sqlite3_finalize(statement);
-        sqlite3_close(_DB);
-       
-    }
-    
-    return nextCalcId;
-}
 
 
 

@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "calculationNSO.h"
+#import "listingItemNSO.h"
 
 @interface CalcTVC : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *descr;
-@property (strong, nonatomic) calculationNSO *c;
+@property (strong, nonatomic) listingItemNSO *l;
 @property (weak, nonatomic) IBOutlet UILabel *vesselfullname;
 @property (strong, nonatomic) IBOutlet UIView *viewbackground;
 @property (strong, nonatomic) IBOutlet UILabel *lastmodifiedlabel;
+@property (strong, nonatomic) IBOutlet UILabel *ldportslabel;
 
 
 @end

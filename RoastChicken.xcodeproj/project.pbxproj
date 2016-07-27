@@ -28,6 +28,10 @@
 		3A520E231D416D7800D7DEC6 /* searchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A520E221D416D7800D7DEC6 /* searchVC.m */; };
 		3A520E261D4172AB00D7DEC6 /* searchTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A520E251D4172AB00D7DEC6 /* searchTVC.m */; };
 		3ABC9F8F1D454A6700328249 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC9F8E1D454A6700328249 /* Reachability.m */; };
+		3ABC9F921D466E5000328249 /* cargoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC9F911D466E5000328249 /* cargoVC.m */; };
+		3ABC9F951D466E9700328249 /* CargoInOutTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC9F941D466E9700328249 /* CargoInOutTVCell.m */; };
+		3ABC9F9B1D4671D800328249 /* cargoioNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC9F9A1D4671D800328249 /* cargoioNSO.m */; };
+		3ABC9F9F1D47B63800328249 /* listingItemNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC9F9E1D47B63800328249 /* listingItemNSO.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +71,14 @@
 		3A520E251D4172AB00D7DEC6 /* searchTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchTVC.m; sourceTree = "<group>"; };
 		3ABC9F8D1D454A6700328249 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		3ABC9F8E1D454A6700328249 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		3ABC9F901D466E5000328249 /* cargoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cargoVC.h; sourceTree = "<group>"; };
+		3ABC9F911D466E5000328249 /* cargoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cargoVC.m; sourceTree = "<group>"; };
+		3ABC9F931D466E9700328249 /* CargoInOutTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CargoInOutTVCell.h; sourceTree = "<group>"; };
+		3ABC9F941D466E9700328249 /* CargoInOutTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CargoInOutTVCell.m; sourceTree = "<group>"; };
+		3ABC9F991D4671D800328249 /* cargoioNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cargoioNSO.h; sourceTree = "<group>"; };
+		3ABC9F9A1D4671D800328249 /* cargoioNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cargoioNSO.m; sourceTree = "<group>"; };
+		3ABC9F9D1D47B63800328249 /* listingItemNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = listingItemNSO.h; sourceTree = "<group>"; };
+		3ABC9F9E1D47B63800328249 /* listingItemNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = listingItemNSO.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +121,7 @@
 		3A2744F31D412FA500CB23BD /* RoastChicken */ = {
 			isa = PBXGroup;
 			children = (
-				3ABC9F8C1D454A5B00328249 /* 3rdParty */,
+				3ABC9F9C1D4671E400328249 /* NSObjects */,
 				3A2744D41D412D1000CB23BD /* Main.storyboard */,
 				3A2744EB1D412D6C00CB23BD /* Default-568h@2x.png */,
 				3A2744C61D412D1000CB23BD /* AppDelegate.h */,
@@ -120,28 +132,27 @@
 				3A2744CA1D412D1000CB23BD /* CalcTVC.m */,
 				3A520E241D4172AB00D7DEC6 /* searchTVC.h */,
 				3A520E251D4172AB00D7DEC6 /* searchTVC.m */,
+				3ABC9F931D466E9700328249 /* CargoInOutTVCell.h */,
+				3ABC9F941D466E9700328249 /* CargoInOutTVCell.m */,
 				3A4C760B1D4355FE00728DDA /* calculationPVC.h */,
 				3A4C760C1D4355FE00728DDA /* calculationPVC.m */,
 				3A2744CB1D412D1000CB23BD /* calculationListVC.h */,
 				3A2744CC1D412D1000CB23BD /* calculationListVC.m */,
+				3ABC9F901D466E5000328249 /* cargoVC.h */,
+				3ABC9F911D466E5000328249 /* cargoVC.m */,
 				3A520E211D416D7800D7DEC6 /* searchVC.h */,
 				3A520E221D416D7800D7DEC6 /* searchVC.m */,
 				3A2744F91D41318D00CB23BD /* calculationNC.h */,
 				3A2744FA1D41318D00CB23BD /* calculationNC.m */,
 				3A2744F61D4130AD00CB23BD /* calculationDetailVC.h */,
 				3A2744F71D4130AD00CB23BD /* calculationDetailVC.m */,
-				3A2744CD1D412D1000CB23BD /* calculationNSO.h */,
-				3A2744CE1D412D1000CB23BD /* calculationNSO.m */,
 				3A2744D21D412D1000CB23BD /* LaunchScreen.storyboard */,
 				3A2744D31D412D1000CB23BD /* main.m */,
-				3A2744D51D412D1000CB23BD /* portNSO.h */,
-				3A2744D61D412D1000CB23BD /* portNSO.m */,
-				3A2744D71D412D1000CB23BD /* vesselNSO.h */,
-				3A2744D81D412D1000CB23BD /* vesselNSO.m */,
 				3A2744D91D412D1000CB23BD /* ViewController.h */,
 				3A2744DA1D412D1000CB23BD /* ViewController.m */,
 				3A2744C81D412D1000CB23BD /* Assets.xcassets */,
 				3A2744F41D41300A00CB23BD /* Info.plist */,
+				3ABC9F8C1D454A5B00328249 /* 3rdParty */,
 			);
 			name = RoastChicken;
 			sourceTree = "<group>";
@@ -153,6 +164,23 @@
 				3ABC9F8E1D454A6700328249 /* Reachability.m */,
 			);
 			name = 3rdParty;
+			sourceTree = "<group>";
+		};
+		3ABC9F9C1D4671E400328249 /* NSObjects */ = {
+			isa = PBXGroup;
+			children = (
+				3A2744CD1D412D1000CB23BD /* calculationNSO.h */,
+				3A2744CE1D412D1000CB23BD /* calculationNSO.m */,
+				3ABC9F991D4671D800328249 /* cargoioNSO.h */,
+				3ABC9F9A1D4671D800328249 /* cargoioNSO.m */,
+				3A2744D51D412D1000CB23BD /* portNSO.h */,
+				3A2744D61D412D1000CB23BD /* portNSO.m */,
+				3A2744D71D412D1000CB23BD /* vesselNSO.h */,
+				3A2744D81D412D1000CB23BD /* vesselNSO.m */,
+				3ABC9F9D1D47B63800328249 /* listingItemNSO.h */,
+				3ABC9F9E1D47B63800328249 /* listingItemNSO.m */,
+			);
+			name = NSObjects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A2744FB1D41318D00CB23BD /* calculationNC.m in Sources */,
+				3ABC9F9F1D47B63800328249 /* listingItemNSO.m in Sources */,
 				3A2744E71D412D1000CB23BD /* ViewController.m in Sources */,
 				3A2744E61D412D1000CB23BD /* vesselNSO.m in Sources */,
 				3A2744DD1D412D1000CB23BD /* CalcTVC.m in Sources */,
@@ -243,7 +272,10 @@
 				3A2744DF1D412D1000CB23BD /* calculationNSO.m in Sources */,
 				3A2744DE1D412D1000CB23BD /* calculationListVC.m in Sources */,
 				3A2744E31D412D1000CB23BD /* main.m in Sources */,
+				3ABC9F9B1D4671D800328249 /* cargoioNSO.m in Sources */,
+				3ABC9F921D466E5000328249 /* cargoVC.m in Sources */,
 				3A2744F81D4130AD00CB23BD /* calculationDetailVC.m in Sources */,
+				3ABC9F951D466E9700328249 /* CargoInOutTVCell.m in Sources */,
 				3A4C760D1D4355FE00728DDA /* calculationPVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -21,6 +21,8 @@
 @synthesize tce;
 @synthesize created;
 @synthesize lastmodified;
+@synthesize cargoios;
+@synthesize ld_ports;
 
 - (id)init
 {
@@ -29,11 +31,21 @@
     // just initialize readonly tests:
     
     self.vessel = [[vesselNSO alloc] init];
+    
+    /* we need to direct these to the other table we will have */
     self.port_from = [[portNSO alloc] init];
     self.port_to = [[portNSO alloc] init];
+    self.cargoios = [[NSMutableArray alloc] init];
+    
+    cargoioNSO *loadport = [[cargoioNSO alloc ] init];
+    loadport.id = [NSNumber numberWithInt:1];
+    loadport.purpose_code = @"L";
+    [self.cargoios addObject:loadport];
+    cargoioNSO *dischargeport = [[cargoioNSO alloc ] init];
+    dischargeport.id = [NSNumber numberWithInt:2];
+    dischargeport.purpose_code = @"D";
+    [self.cargoios addObject:dischargeport];
     self.port_ballast_from = [[portNSO alloc] init];
-    
-    
     return self;
 }
 
@@ -50,9 +62,23 @@
     [calcCopy setPort_to:[[self port_to] copyWithZone:zone]];
     [calcCopy setPort_from:[[self port_from] copyWithZone:zone]];
     [calcCopy setPort_ballast_from:[[self port_ballast_from] copyWithZone:zone]];
+    [calcCopy setCargoios:[[self cargoios] copyWithZone:zone]];
+    [calcCopy setLd_ports:self.ld_ports];
     return calcCopy;
 }
 
+
+
+-(NSString*)getldportnames {
+
+    cargoioNSO *loadPort = [self.cargoios firstObject];
+    cargoioNSO *dischargePort = [self.cargoios lastObject];
+    
+    
+    NSString *returnVal = [NSString stringWithFormat:@"%@ - %@", loadPort.port.name,dischargePort.port.name];
+    
+    return returnVal;
+}
 
 
 
