@@ -61,7 +61,20 @@ typedef void(^connection)(BOOL);
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
     
-
+    
+    UIColor *buttonTintColour = [UIColor colorWithRed:222.0f/255.0f green:119.0f/255.0f blue:65.0f/255.0f alpha:1.0];
+    
+    UIImage *changecolourimage = [[UIImage imageNamed:@"rightarrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.expandLDButton setImage:changecolourimage forState:UIControlStateNormal];
+    self.expandLDButton.tintColor = buttonTintColour;
+    [self.expandAdditionalsButton setImage:changecolourimage forState:UIControlStateNormal];
+    self.expandAdditionalsButton.tintColor = buttonTintColour;
+    
+    changecolourimage = [[UIImage imageNamed:@"lookup"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.searchVesselButton setImage:changecolourimage forState:UIControlStateNormal];
+    self.searchVesselButton.tintColor = buttonTintColour;
+    [self.searchBallastButton setImage:changecolourimage forState:UIControlStateNormal];
+    self.searchBallastButton.tintColor = buttonTintColour;
     
     [self checkInternet];
     
@@ -293,8 +306,6 @@ typedef void(^connection)(BOOL);
     
     long calsccount = [self.opencalcs count];
     
-    NSLog(@"boo:%@", [NSString stringWithFormat:@"%lu",(unsigned long)swipe.direction]);
-    
     // next record
     if (swipe.direction == UISwipeGestureRecognizerDirectionLeft) {
         NSLog(@"Swipe Left");
@@ -306,9 +317,9 @@ typedef void(^connection)(BOOL);
 
             CGRect initCalcViewFrame = self.calcBackgroundView.frame;
             
-            CGRect movedcalcToLeftViewFrame = CGRectMake(initCalcViewFrame.origin.x - 1000, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
+            CGRect movedcalcToLeftViewFrame = CGRectMake(initCalcViewFrame.origin.x - initCalcViewFrame.size.width, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
             
-            CGRect movedcalcToRightViewFrame = CGRectMake(initCalcViewFrame.origin.x + 1000, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
+            CGRect movedcalcToRightViewFrame = CGRectMake(initCalcViewFrame.origin.x + initCalcViewFrame.size.width, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
 
             [UIView animateWithDuration:0.4
                              animations:^{self.calcBackgroundView.frame = movedcalcToLeftViewFrame;}
@@ -336,9 +347,9 @@ typedef void(^connection)(BOOL);
             //to animate the view as new view is loaded
             CGRect initCalcViewFrame = self.calcBackgroundView.frame;
             
-            CGRect movedcalcToLeftViewFrame = CGRectMake(initCalcViewFrame.origin.x - 1000, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
+            CGRect movedcalcToLeftViewFrame = CGRectMake(initCalcViewFrame.origin.x - initCalcViewFrame.size.width, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
             
-            CGRect movedcalcToRightViewFrame = CGRectMake(initCalcViewFrame.origin.x + 1000, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
+            CGRect movedcalcToRightViewFrame = CGRectMake(initCalcViewFrame.origin.x + initCalcViewFrame.size.width, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
             
             [UIView animateWithDuration:0.4
                              animations:^{self.calcBackgroundView.frame = movedcalcToRightViewFrame;}
@@ -376,9 +387,9 @@ typedef void(^connection)(BOOL);
     /* move the original item left side to right odd the screen */
     CGRect initCalcViewFrame = self.calcBackgroundView.frame;
     
-    CGRect movedcalcToLeftViewFrame = CGRectMake(initCalcViewFrame.origin.x - 1000, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
+    CGRect movedcalcToLeftViewFrame = CGRectMake(initCalcViewFrame.origin.x - initCalcViewFrame.size.width, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
     
-    CGRect movedcalcToTopViewFrame = CGRectMake(initCalcViewFrame.origin.x, initCalcViewFrame.origin.y - 1000, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
+    CGRect movedcalcToTopViewFrame = CGRectMake(initCalcViewFrame.origin.x, initCalcViewFrame.origin.y - initCalcViewFrame.size.height, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
     
     
     [UIView animateWithDuration:0.2
@@ -392,7 +403,7 @@ typedef void(^connection)(BOOL);
          
          self.calcBackgroundView.frame = movedcalcToTopViewFrame;
          
-         [UIView animateWithDuration:0.5
+         [UIView animateWithDuration:0.4
                           animations:^{self.calcBackgroundView.frame = initCalcViewFrame;}
                           completion:nil];
      }];
@@ -407,11 +418,11 @@ typedef void(^connection)(BOOL);
         /* move the original item left side to right odd the screen */
         CGRect initCalcViewFrame = self.calcBackgroundView.frame;
         
-        CGRect movedcalcToLeftViewFrame = CGRectMake(initCalcViewFrame.origin.x - 1000, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
+        CGRect movedcalcToLeftViewFrame = CGRectMake(initCalcViewFrame.origin.x - initCalcViewFrame.size.width, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
         
-        CGRect movedcalcToRightViewFrame = CGRectMake(initCalcViewFrame.origin.x + 1000, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
+        CGRect movedcalcToRightViewFrame = CGRectMake(initCalcViewFrame.origin.x + initCalcViewFrame.size.width, initCalcViewFrame.origin.y, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
         
-        CGRect movedcalcToBottomViewFrame = CGRectMake(initCalcViewFrame.origin.x, initCalcViewFrame.origin.y + 1000, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
+        CGRect movedcalcToBottomViewFrame = CGRectMake(initCalcViewFrame.origin.x, initCalcViewFrame.origin.y + initCalcViewFrame.size.height, initCalcViewFrame.size.width, initCalcViewFrame.size.height);
         
     
     
@@ -438,7 +449,7 @@ typedef void(^connection)(BOOL);
                  
             self.calcBackgroundView.frame = movedcalcToLeftViewFrame;
                  
-            [UIView animateWithDuration:0.5
+            [UIView animateWithDuration:0.4
                                   animations:^{self.calcBackgroundView.frame = initCalcViewFrame;}
                                   completion:nil];
                  
@@ -448,7 +459,7 @@ typedef void(^connection)(BOOL);
             self.calcBackgroundView.frame = movedcalcToRightViewFrame;
             [self loadData];
                  
-            [UIView animateWithDuration:0.5
+            [UIView animateWithDuration:0.4
                                   animations:^{self.calcBackgroundView.frame = initCalcViewFrame;}
                                   completion:nil];
         }

@@ -202,30 +202,30 @@
             
             //lets add this to calculation and lose the calc_id!
    
-            cargoioNSO *cio = [[cargoioNSO alloc] init];
+            cargoNSO *cargo = [[cargoNSO alloc] init];
             
-            cio.id = [NSNumber numberWithInt:1];  // this is actually the sort order
-            cio.calc_id = c.id;
-            cio.units = [NSNumber numberWithInt:2000];
-            cio.expense = [NSNumber numberWithDouble:200.00];
-            cio.estimated = [NSNumber numberWithDouble:1000.00];
-            cio.terms_id = [NSNumber numberWithInt:1];
-            cio.notice_time = [NSNumber numberWithInt:5];
-            cio.type_id = [NSNumber numberWithInt:1];
-            cio.purpose_code = @"L";
-            cio.port.code = @"CPH";
-            [self insertCargoPort :cio];
-            cio.id = [NSNumber numberWithInt:2];  // this is actually the sort order
-            cio.calc_id = c.id;
-            cio.units = [NSNumber numberWithInt:2000];
-            cio.expense = [NSNumber numberWithDouble:175.00];
-            cio.estimated = [NSNumber numberWithDouble:500.00];
-            cio.terms_id = [NSNumber numberWithInt:1];
-            cio.notice_time = [NSNumber numberWithInt:2];
-            cio.type_id = [NSNumber numberWithInt:1];
-            cio.purpose_code = @"D";
-            cio.port.code = @"MEB";
-            [self insertCargoPort :cio];
+            cargo.id = [NSNumber numberWithInt:1];  // this is actually the sort order
+            cargo.calc_id = c.id;
+            cargo.units = [NSNumber numberWithInt:2000];
+            cargo.expense = [NSNumber numberWithDouble:200.00];
+            cargo.estimated = [NSNumber numberWithDouble:1000.00];
+            cargo.terms_id = [NSNumber numberWithInt:1];
+            cargo.notice_time = [NSNumber numberWithInt:5];
+            cargo.type_id = [NSNumber numberWithInt:1];
+            cargo.purpose_code = @"L";
+            cargo.port.code = @"CPH";
+            [self insertCargoPort :cargo];
+            cargo.id = [NSNumber numberWithInt:2];  // this is actually the sort order
+            cargo.calc_id = c.id;
+            cargo.units = [NSNumber numberWithInt:2000];
+            cargo.expense = [NSNumber numberWithDouble:175.00];
+            cargo.estimated = [NSNumber numberWithDouble:500.00];
+            cargo.terms_id = [NSNumber numberWithInt:1];
+            cargo.notice_time = [NSNumber numberWithInt:2];
+            cargo.type_id = [NSNumber numberWithInt:1];
+            cargo.purpose_code = @"D";
+            cargo.port.code = @"MEB";
+            [self insertCargoPort :cargo];
             
             
 
@@ -242,10 +242,10 @@
 
 /* created 20160725 */
 /* modified 20160726 */
--(bool) insertCargoPort :(cargoioNSO *) cio {
+-(bool) insertCargoPort :(cargoNSO *) cargo {
     
     
-    NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO cargoio (cargoio_id,cargoio_units,cargoio_expense,cargoio_estimated,cargoio_terms_id,cargoio_notice_time,cargoio_type_id,cargoio_purpose_code,cargoio_port_code,cargoio_calc_id) VALUES (%@,%@,%@,%@,%@,%@,%@,'%@','%@',%@)", cio.id, cio.units, cio.expense, cio.estimated, cio.terms_id, cio.notice_time, cio.type_id, cio.purpose_code, cio.port.code, cio.calc_id];
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO cargoio (cargoio_id,cargoio_units,cargoio_expense,cargoio_estimated,cargoio_terms_id,cargoio_notice_time,cargoio_type_id,cargoio_purpose_code,cargoio_port_code,cargoio_calc_id) VALUES (%@,%@,%@,%@,%@,%@,%@,'%@','%@',%@)", cargo.id, cargo.units, cargo.expense, cargo.estimated, cargo.terms_id, cargo.notice_time, cargo.type_id, cargo.purpose_code, cargo.port.code, cargo.calc_id];
     
     sqlite3_stmt *statement;
     const char *insert_statement = [insertSQL UTF8String];
@@ -265,11 +265,11 @@
 /* modified 20160726 */
 -(bool) prepareld :(calculationNSO *) c {
 
-    cargoioNSO *loadport = [c.cargoios firstObject];
+    cargoNSO *loadport = [c.cargoios firstObject];
     loadport.calc_id = c.id;
     [self insertCargoPort:loadport];
     
-    cargoioNSO *dischargeport = [c.cargoios lastObject];
+    cargoNSO *dischargeport = [c.cargoios lastObject];
     dischargeport.calc_id = c.id;
     [self insertCargoPort:dischargeport];
     
@@ -391,7 +391,7 @@
         }
         sqlite3_finalize(statement);
         
-        cargoioNSO *l_port = [c.cargoios firstObject];
+        cargoNSO *l_port = [c.cargoios firstObject];
         
         
         updateSQL = [NSString stringWithFormat:@"UPDATE cargoio set cargoio_units=%@, cargoio_expense=%@, cargoio_estimated=%@, cargoio_terms_id=%@, cargoio_notice_time=%@, cargoio_type_id=%@,cargoio_purpose_code='L', cargoio_port_code='%@' where cargoio_calc_id=%@ and cargoio_id=1", l_port.units, l_port.expense, l_port.estimated, l_port.terms_id, l_port.notice_time, l_port.type_id, l_port.port.code, c.id];
@@ -407,7 +407,7 @@
         sqlite3_finalize(statement);
 
  
-        cargoioNSO *d_port = [c.cargoios lastObject];
+        cargoNSO *d_port = [c.cargoios lastObject];
         
         updateSQL = [NSString stringWithFormat:@"UPDATE cargoio set cargoio_units=%@, cargoio_expense=%@, cargoio_estimated=%@, cargoio_terms_id=%@, cargoio_notice_time=%@, cargoio_type_id=%@,cargoio_purpose_code='D', cargoio_port_code='%@' where cargoio_calc_id=%@ and cargoio_id=2", d_port.units, d_port.expense, d_port.estimated, d_port.terms_id, d_port.notice_time, d_port.type_id, d_port.port.code, c.id];
         
@@ -541,7 +541,7 @@
 
 /* created 20160725 */
 -(NSMutableArray*) getCargoes :(NSNumber*) calc_id {
-    NSMutableArray *cios = [[NSMutableArray alloc] init];
+    NSMutableArray *cargoes = [[NSMutableArray alloc] init];
     
     //sql_statement = "CREATE TABLE cargoio(cargoio_id INTEGER PRIMARY KEY, cargoio_units INTEGER, cargoio_expense DECIMAL(8,2), cargoio_estimated DECIMAL(10,4), cargoio_terms_id INTEGER, cargoio_notice_time INTEGER, cargoio_type_id INTEGER, cargoio_purpose_code TEXT, cargoio_port_code TEXT, cargoio_calc_id INTEGER, FOREIGN KEY(cargoio_port_code) REFERENCES ports(port_code), FOREIGN KEY(cargoio_calc_id) REFERENCES calculations(calc_id))";
     
@@ -557,22 +557,22 @@
         {
             while (sqlite3_step(statement) == SQLITE_ROW)
             {
-                cargoioNSO *cio = [[cargoioNSO alloc] init];
+                cargoNSO *cargo = [[cargoNSO alloc] init];
                 
-                cio.id = [NSNumber numberWithInt:sqlite3_column_int(statement, 0)];
-                cio.units = [NSNumber numberWithInt:sqlite3_column_int(statement, 1)];
-                cio.expense = [NSNumber numberWithDouble:sqlite3_column_double(statement, 2)];
-                cio.estimated = [NSNumber numberWithDouble:sqlite3_column_double(statement, 3)];
-                cio.terms_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 4)];
-                cio.notice_time = [NSNumber numberWithInt:sqlite3_column_int(statement, 5)];
-                cio.type_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 6)];
-                cio.purpose_code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)] ;
-                cio.port.code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)] ;
-                cio.calc_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 8)];
+                cargo.id = [NSNumber numberWithInt:sqlite3_column_int(statement, 0)];
+                cargo.units = [NSNumber numberWithInt:sqlite3_column_int(statement, 1)];
+                cargo.expense = [NSNumber numberWithDouble:sqlite3_column_double(statement, 2)];
+                cargo.estimated = [NSNumber numberWithDouble:sqlite3_column_double(statement, 3)];
+                cargo.terms_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 4)];
+                cargo.notice_time = [NSNumber numberWithInt:sqlite3_column_int(statement, 5)];
+                cargo.type_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 6)];
+                cargo.purpose_code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)] ;
+                cargo.port.code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)] ;
+                cargo.calc_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 8)];
                 
-                cio.port = [self getPortByPortCode :cio.port.code :cio.port];
+                cargo.port = [self getPortByPortCode :cargo.port.code :cargo.port];
                 
-                [cios addObject:cio];
+                [cargoes addObject:cargo];
             }
         }
         sqlite3_finalize(statement);
@@ -584,7 +584,7 @@
     
     
     
-    return cios;
+    return cargoes;
     
 }
 

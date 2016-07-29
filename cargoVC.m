@@ -25,11 +25,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
 
+}
+/*
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+*/
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES]; // This line is needed for the 'auto slide up'
+    // Do other stuff
     
     
-    
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 
@@ -51,6 +63,45 @@
 }
 
 
+
+- (void)viewWillDisappear:(BOOL)animated {
+    /*
+     your code here
+     */
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [super viewWillDisappear:animated];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    //get the end position keyboard frame
+    NSDictionary *keyInfo = [notification userInfo];
+    CGRect keyboardFrame = [[keyInfo objectForKey:@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
+    //convert it to the same view coords as the tableView it might be occluding
+    keyboardFrame = [self.tableView convertRect:keyboardFrame fromView:nil];
+    //calculate if the rects intersect
+    CGRect intersect = CGRectIntersection(keyboardFrame, self.tableView.bounds);
+    if (!CGRectIsNull(intersect)) {
+        //yes they do - adjust the insets on tableview to handle it
+        //first get the duration of the keyboard appearance animation
+        NSTimeInterval duration = [[keyInfo objectForKey:@"UIKeyboardAnimationDurationUserInfoKey"] doubleValue];
+        //change the table insets to match - animated to the same duration of the keyboard appearance
+        [UIView animateWithDuration:duration animations:^{
+            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, intersect.size.height, 0);
+            self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, intersect.size.height, 0);
+        }];
+    }
+}
+
+- (void) keyboardWillHide:  (NSNotification *) notification{
+    NSDictionary *keyInfo = [notification userInfo];
+    NSTimeInterval duration = [[keyInfo objectForKey:@"UIKeyboardAnimationDurationUserInfoKey"] doubleValue];
+    //clear the table insets - animated to the same duration of the keyboard disappearance
+    [UIView animateWithDuration:duration animations:^{
+        self.tableView.contentInset = UIEdgeInsetsZero;
+        self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+    }];
+}
 
 
 #pragma mark - Navigation
@@ -95,26 +146,26 @@
 
 /* last modified 20160204 */
 
-- (CargoInOutTVCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (cargoCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"cargoport";
     
-    CargoInOutTVCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cargoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[CargoInOutTVCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[cargoCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    cargoioNSO *cio = [self.c.cargoios objectAtIndex:indexPath.row];
+    cargoNSO *cargo = [self.c.cargoios objectAtIndex:indexPath.row];
     
-    cell.portText.text = cio.port.getPortFullName;
-    cell.qtyText.text = [NSString stringWithFormat:@"%@",cio.units];
-    cell.typeText.text = [NSString stringWithFormat:@"%@",cio.type_id];
-    cell.estText.text = [NSString stringWithFormat:@"%@",cio.estimated];
-    cell.PEXText.text = [NSString stringWithFormat:@"%@",cio.expense];
-    cell.termsText.text = [NSString stringWithFormat:@"%@",cio.terms_id];
-    cell.noticeText.text = [NSString stringWithFormat:@"%@",cio.notice_time];
-    cell.ldLabel.text = cio.purpose_code;
-    cell.cio = cio;
+    cell.portText.text = cargo.port.getPortFullName;
+    cell.qtyText.text = [NSString stringWithFormat:@"%@",cargo.units];
+    cell.typeText.text = [NSString stringWithFormat:@"%@",cargo.type_id];
+    cell.estText.text = [NSString stringWithFormat:@"%@",cargo.estimated];
+    cell.PEXText.text = [NSString stringWithFormat:@"%@",cargo.expense];
+    cell.termsText.text = [NSString stringWithFormat:@"%@",cargo.terms_id];
+    cell.noticeText.text = [NSString stringWithFormat:@"%@",cargo.notice_time];
+    cell.ldLabel.text = cargo.purpose_code;
+    cell.cargo = cargo;
     return cell;
     
     
@@ -132,6 +183,9 @@
 }
 
 
+
+
+
 - (void)didPickItem :(NSNumber*)ref :(NSString*)searchitem {
 
 }
@@ -143,16 +197,16 @@
     
     if ([searchitem isEqualToString:@"cargoport"]) {
         
-        CargoInOutTVCell *cell = [self.tableView cellForRowAtIndexPath:self.buttonPressedIndexPath];
+        cargoCell *cell = [self.tableView cellForRowAtIndexPath:self.buttonPressedIndexPath];
         
-        cargoioNSO *cio;
+        cargoNSO *cargo;
         if ([cell.ldLabel.text isEqualToString:@"L"]) {
-             cio = [self.c.cargoios firstObject];
+             cargo = [self.c.cargoios firstObject];
         } else {
-            cio = [self.c.cargoios lastObject];
+            cargo = [self.c.cargoios lastObject];
         }
-        cio.port = [self.db getPortByPortCode :refport :cio.port];
-        cell.portText.text = [cio.port getPortFullName];
+        cargo.port = [self.db getPortByPortCode :refport :cargo.port];
+        cell.portText.text = [cargo.port getPortFullName];
     }
     
     [self.navigationController popViewControllerAnimated:YES];

@@ -27,5 +27,10 @@
 @property (strong, nonatomic) IBOutlet UIView *calcBackgroundView;
 @property (strong, nonatomic) IBOutlet UILabel *calcRefLabel;
 @property (strong, nonatomic) IBOutlet UILabel *statusLabel;
+@property (strong, nonatomic) IBOutlet UIButton *searchVesselButton;
+@property (strong, nonatomic) IBOutlet UIButton *searchBallastButton;
+@property (strong, nonatomic) IBOutlet UIButton *expandLDButton;
+@property (strong, nonatomic) IBOutlet UIButton *expandAdditionalsButton;
+
 
 @end

@@ -11,7 +11,7 @@
 #import "vesselNSO.h"
 #import "portNSO.h"
 #import "calculationNSO.h"
-#import "cargoioNSO.h"
+#import "cargoNSO.h"
 #import "listingItemNSO.h"
 
 @interface dbHelper : NSObject
@@ -29,7 +29,7 @@
 -(calculationNSO *) insertCalculationData :(calculationNSO *) c;
 -(bool) deleteCalculation :(NSNumber *) calc_id;
 -(calculationNSO *) updateCalculationData :(calculationNSO *) c;
--(bool) insertCargoPort :(cargoioNSO *) cio;
+-(bool) insertCargoPort :(cargoNSO *) cargo;
 -(NSMutableArray*) getListing;
 -(bool) prepareld :(calculationNSO *) c;
 @end

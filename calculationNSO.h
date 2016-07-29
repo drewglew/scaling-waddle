@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "vesselNSO.h"
 #import "portNSO.h"
-#import "cargoioNSO.h"
+#import "cargoNSO.h"
 
 
 @interface calculationNSO : NSObject

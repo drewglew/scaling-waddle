@@ -66,10 +66,10 @@
     
     static NSString *CellIdentifier = @"searchCell";
     
-    searchTVC *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    searchCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[searchTVC alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[searchCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     if ([self.searchtype isEqual:@"vessel"]){

@@ -9,7 +9,7 @@
 // THIS IS MASTER - need to redo page control based in the original project. DOH!
 
 #import <UIKit/UIKit.h>
-#import "calcTVC.h"
+#import "calculationCell.h"
 #import "calculationNC.h"
 #import "calculationDetailVC.h"
 #import "dbHelper.h"
@@ -23,5 +23,9 @@
 @property (strong, nonatomic) NSMutableArray *listing;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (assign) int displayState;
+
+
+
+
 @end
 

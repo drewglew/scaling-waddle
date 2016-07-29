@@ -18,7 +18,12 @@
 
 
 -(NSString*) getPortFullName {
-    return [NSString stringWithFormat:@"(%@) - %@",code,name];
+    if ([self.code isEqualToString:@"(null)"]) {
+        return @"";
+    
+    } else {
+        return [NSString stringWithFormat:@"(%@) - %@",code,name];
+    }
 }
 
 -(portNSO*) getPortData :(dbHelper*) db :(NSString*) port_code {

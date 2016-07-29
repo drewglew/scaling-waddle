@@ -69,10 +69,10 @@
     
     static NSString *CellIdentifier = @"calculationCell";
     
-    CalcTVC *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    calculationCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
-        cell = [[CalcTVC alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[calculationCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     listingItemNSO *l = [self.listing objectAtIndex:indexPath.row];
     

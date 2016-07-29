@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "calculationNSO.h"
-#import "CargoInOutTVCell.h"
-#import "cargoioNSO.h"
+#import "cargoCell.h"
+#import "cargoNSO.h"
 #import "searchVC.h"
 
 @class dbHelper;

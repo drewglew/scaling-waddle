@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "searchTVC.h"
+#import "searchCell.h"
 #import "vesselNSO.h"
 #import "portNSO.h"
 

@@ -37,11 +37,11 @@
     self.port_to = [[portNSO alloc] init];
     self.cargoios = [[NSMutableArray alloc] init];
     
-    cargoioNSO *loadport = [[cargoioNSO alloc ] init];
+    cargoNSO *loadport = [[cargoNSO alloc ] init];
     loadport.id = [NSNumber numberWithInt:1];
     loadport.purpose_code = @"L";
     [self.cargoios addObject:loadport];
-    cargoioNSO *dischargeport = [[cargoioNSO alloc ] init];
+    cargoNSO *dischargeport = [[cargoNSO alloc ] init];
     dischargeport.id = [NSNumber numberWithInt:2];
     dischargeport.purpose_code = @"D";
     [self.cargoios addObject:dischargeport];
@@ -71,12 +71,12 @@
 
 -(NSString*)getldportnames {
 
-    cargoioNSO *loadPort = [self.cargoios firstObject];
-    cargoioNSO *dischargePort = [self.cargoios lastObject];
-    
-    
-    NSString *returnVal = [NSString stringWithFormat:@"%@ - %@", loadPort.port.name,dischargePort.port.name];
-    
+    cargoNSO *loadPort = [self.cargoios firstObject];
+    cargoNSO *dischargePort = [self.cargoios lastObject];
+    NSString *returnVal = @"";
+    if (![loadPort.port.name isEqualToString:@"(null)"]) {
+        returnVal = [NSString stringWithFormat:@"%@ - %@", loadPort.port.name,dischargePort.port.name];
+    }
     return returnVal;
 }
 
