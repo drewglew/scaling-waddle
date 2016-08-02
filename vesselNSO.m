@@ -15,6 +15,18 @@
 @synthesize nr;
 @synthesize name;
 @synthesize searchstring;
+@synthesize laden_cons;
+@synthesize ballast_cons;
+
+- (id)init
+{
+    self = [super init];
+    if (nil == self) return nil;
+    // just initialize readonly tests:
+    self.ballast_cons = [[consumptionNSO alloc] init];
+    self.laden_cons = [[consumptionNSO alloc] init];
+    return self;
+}
 
 
 -(NSString*) getVesselFullName {
@@ -39,6 +51,8 @@
     [vesselCopy setNr:self.nr];
     [vesselCopy setName:self.name];
     [vesselCopy setRef_nr:self.ref_nr];
+    [vesselCopy setLaden_cons:[[self laden_cons] copyWithZone:zone]];
+    [vesselCopy setBallast_cons:[[self ballast_cons] copyWithZone:zone]];
     return vesselCopy;
 }
 

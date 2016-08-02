@@ -25,6 +25,10 @@
 		3A2744FB1D41318D00CB23BD /* calculationNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744FA1D41318D00CB23BD /* calculationNC.m */; };
 		3A37183D1D49BDF9003446C4 /* searchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A37183C1D49BDF9003446C4 /* searchCell.m */; };
 		3A37737A1D4CA22D000917E7 /* AdditionalsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3773791D4CA22D000917E7 /* AdditionalsVC.m */; };
+		3A37CFA71D50EA49005D101E /* bunkerNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A37CFA61D50EA49005D101E /* bunkerNSO.m */; };
+		3A37CFAA1D50EA5B005D101E /* consumptionNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A37CFA91D50EA5B005D101E /* consumptionNSO.m */; };
+		3A37CFAD1D50EA70005D101E /* resultNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A37CFAC1D50EA70005D101E /* resultNSO.m */; };
+		3A37CFB01D50F03F005D101E /* timeNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A37CFAF1D50F03F005D101E /* timeNSO.m */; };
 		3A4ED01F1D49BEE300609696 /* cargoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4ED01E1D49BEE300609696 /* cargoCell.m */; };
 		3A4ED0231D49C3C200609696 /* calculationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4ED0221D49C3C200609696 /* calculationCell.m */; };
 		3A4ED0261D49C53300609696 /* cargoNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4ED0251D49C53300609696 /* cargoNSO.m */; };
@@ -66,6 +70,14 @@
 		3A37183C1D49BDF9003446C4 /* searchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchCell.m; sourceTree = "<group>"; };
 		3A3773781D4CA22D000917E7 /* AdditionalsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdditionalsVC.h; sourceTree = "<group>"; };
 		3A3773791D4CA22D000917E7 /* AdditionalsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdditionalsVC.m; sourceTree = "<group>"; };
+		3A37CFA51D50EA49005D101E /* bunkerNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bunkerNSO.h; sourceTree = "<group>"; };
+		3A37CFA61D50EA49005D101E /* bunkerNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bunkerNSO.m; sourceTree = "<group>"; };
+		3A37CFA81D50EA5B005D101E /* consumptionNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = consumptionNSO.h; sourceTree = "<group>"; };
+		3A37CFA91D50EA5B005D101E /* consumptionNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = consumptionNSO.m; sourceTree = "<group>"; };
+		3A37CFAB1D50EA70005D101E /* resultNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = resultNSO.h; sourceTree = "<group>"; };
+		3A37CFAC1D50EA70005D101E /* resultNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = resultNSO.m; sourceTree = "<group>"; };
+		3A37CFAE1D50F03F005D101E /* timeNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timeNSO.h; sourceTree = "<group>"; };
+		3A37CFAF1D50F03F005D101E /* timeNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = timeNSO.m; sourceTree = "<group>"; };
 		3A4ED01D1D49BEE300609696 /* cargoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cargoCell.h; sourceTree = "<group>"; };
 		3A4ED01E1D49BEE300609696 /* cargoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cargoCell.m; sourceTree = "<group>"; };
 		3A4ED0211D49C3C200609696 /* calculationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = calculationCell.h; sourceTree = "<group>"; };
@@ -200,6 +212,14 @@
 				3ABC9F9E1D47B63800328249 /* listingItemNSO.m */,
 				3A4ED0241D49C53300609696 /* cargoNSO.h */,
 				3A4ED0251D49C53300609696 /* cargoNSO.m */,
+				3A37CFA51D50EA49005D101E /* bunkerNSO.h */,
+				3A37CFA61D50EA49005D101E /* bunkerNSO.m */,
+				3A37CFA81D50EA5B005D101E /* consumptionNSO.h */,
+				3A37CFA91D50EA5B005D101E /* consumptionNSO.m */,
+				3A37CFAB1D50EA70005D101E /* resultNSO.h */,
+				3A37CFAC1D50EA70005D101E /* resultNSO.m */,
+				3A37CFAE1D50F03F005D101E /* timeNSO.h */,
+				3A37CFAF1D50F03F005D101E /* timeNSO.m */,
 			);
 			name = NSObjects;
 			sourceTree = "<group>";
@@ -290,14 +310,18 @@
 				3A520E231D416D7800D7DEC6 /* searchVC.m in Sources */,
 				3A2744F21D412E7200CB23BD /* dbHelper.m in Sources */,
 				3A2744DB1D412D1000CB23BD /* AppDelegate.m in Sources */,
+				3A37CFB01D50F03F005D101E /* timeNSO.m in Sources */,
 				3A4ED02A1D4A821900609696 /* dbManager.m in Sources */,
 				3A2744E51D412D1000CB23BD /* portNSO.m in Sources */,
+				3A37CFA71D50EA49005D101E /* bunkerNSO.m in Sources */,
 				3A2744DF1D412D1000CB23BD /* calculationNSO.m in Sources */,
 				3A2744DE1D412D1000CB23BD /* calculationListVC.m in Sources */,
 				3A4ED0261D49C53300609696 /* cargoNSO.m in Sources */,
 				3A2744E31D412D1000CB23BD /* main.m in Sources */,
+				3A37CFAD1D50EA70005D101E /* resultNSO.m in Sources */,
 				3ABC9F921D466E5000328249 /* cargoVC.m in Sources */,
 				3A2744F81D4130AD00CB23BD /* calculationDetailVC.m in Sources */,
+				3A37CFAA1D50EA5B005D101E /* consumptionNSO.m in Sources */,
 				3A37183D1D49BDF9003446C4 /* searchCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

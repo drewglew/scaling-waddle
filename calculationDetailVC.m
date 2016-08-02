@@ -16,8 +16,16 @@
 @property (weak, nonatomic) IBOutlet UITextField *textVessel;
 @property (weak, nonatomic) IBOutlet UITextField *textLDPort;
 @property (strong, nonatomic) IBOutlet UITextField *textBallastFromPort;
-@property (strong, nonatomic) IBOutlet UIButton *getDistButton;
 @property (strong, nonatomic) IBOutlet UILabel *labelDistanceOutput;
+@property (strong, nonatomic) IBOutlet UITextField *textHsfoPrice;
+@property (strong, nonatomic) IBOutlet UITextField *textHsgoPrice;
+@property (strong, nonatomic) IBOutlet UITextField *textLsgoPrice;
+@property (strong, nonatomic) IBOutlet UITextField *textLsfoPrice;
+@property (strong, nonatomic) IBOutlet UITextField *textBrokerCommission;
+@property (strong, nonatomic) IBOutlet UITextField *textAddressCommission;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segRateType;
+
+
 
 typedef void(^connection)(BOOL);
 
@@ -282,17 +290,12 @@ typedef void(^connection)(BOOL);
 
 - (void)didPickPortItem :(NSString*)refport :(NSString*)searchitem {
     
-    if ([searchitem isEqualToString:@"fromport"]) {
-        self.c.port_from = [self.db getPortByPortCode :refport :self.c.port_from];
-        self.textLDPort.text = [self.c.port_from getPortFullName];
-        
-    } else if ([searchitem isEqualToString:@"ballfromport"]) {
+   if ([searchitem isEqualToString:@"ballfromport"]) {
         self.c.port_ballast_from = [self.db getPortByPortCode :refport :self.c.port_ballast_from];
         self.textBallastFromPort.text = [self.c.port_ballast_from getPortFullName];
         
     }
-    
-    
+
     [self.navigationController popViewControllerAnimated:YES];
     
 }
@@ -480,8 +483,18 @@ typedef void(^connection)(BOOL);
     self.c.ld_ports = [self.c getldportnames];
     self.textLDPort.text = self.c.ld_ports;
     self.textBallastFromPort.text = self.c.port_ballast_from.name;
-    
     self.calcRefLabel.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.currentpageindex,(unsigned long)[self.opencalcs count]];
+    
+    
+    self.textHsfoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.hfo_bunker.price];
+    self.textHsgoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.do_bunker.price];
+    self.textLsgoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.mgo_bunker.price];
+    self.textLsfoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.lsfo_bunker.price];
+    
+    self.textAddressCommission.text = [NSString stringWithFormat:@"%@",self.c.result.address_commission_percent];
+    
+    self.textBrokerCommission.text = [NSString stringWithFormat:@"%@",self.c.result.broker_commission_percent];
+    
 
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd-MMM-yy HH:mm"];
@@ -494,23 +507,15 @@ typedef void(^connection)(BOOL);
 }
 
 - (IBAction)getDistPressed:(id)sender {
-    bool errorWithWebService = false;
+    
     
     if ([self checkInternet]) {
+        cargoNSO *d_port = [self.c.cargoios lastObject];
+        cargoNSO *l_port = [self.c.cargoios firstObject];
+        [self.c.result getRoute:self.c.port_ballast_from :l_port.port :d_port.port :self.c];
         
-        NSString *url = [NSString stringWithFormat:@"https://api.atobviaconline.com/v1/Distance?port=%@&port=%@&port=%@&open=MES&close=SUZ&api_key=demo",self.c.port_ballast_from.abc_code,self.c.port_from.abc_code,self.c.port_to.abc_code];
-        
-        //NSString *url = @"https://api.atobviaconline.com/v1/Distance?port=Copenhagen&port=Chiba&open=MES&close=SUZ&api_key=demo";
-        NSData *jsonFeed = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-        
-        if (!jsonFeed) {
-            NSLog(@"Error obtaining JSON");
-             self.labelDistanceOutput.text = @"error";
-            errorWithWebService = true;
-        } else {
-           self.labelDistanceOutput.text = [[NSString alloc] initWithData:jsonFeed encoding:NSUTF8StringEncoding];
-        }
     }
+   
 }
 
 
@@ -518,8 +523,6 @@ typedef void(^connection)(BOOL);
 {
     if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable)
     {
-        //connection unavailable
-        //self.getDistButton.enabled=false;
         self.labelDistanceOutput.text = @"no internet";
         return false;
     }
@@ -536,7 +539,46 @@ typedef void(^connection)(BOOL);
     
 }
 
+- (IBAction)hsfoPriceEditingEnded:(id)sender {
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    self.c.result.hfo_bunker.price = [f numberFromString:self.textHsfoPrice.text];
+    
+}
 
+
+- (IBAction)doPriceEditingEnded:(id)sender {
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    self.c.result.do_bunker.price = [f numberFromString:self.textHsgoPrice.text];
+}
+
+- (IBAction)mgoPriceEditingEnded:(id)sender {
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    self.c.result.mgo_bunker.price = [f numberFromString:self.textLsgoPrice.text];
+}
+
+- (IBAction)lsfoPriceEditingEnded:(id)sender {
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    self.c.result.lsfo_bunker.price = [f numberFromString:self.textLsfoPrice.text];
+}
+
+
+- (IBAction)commissionEditingEnded:(id)sender {
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    self.c.result.broker_commission_percent = [f numberFromString:self.textBrokerCommission.text];
+    
+}
+
+
+- (IBAction)addressCommissionEditingEnded:(id)sender {
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    self.c.result.address_commission_percent = [f numberFromString:self.textAddressCommission.text];
+}
 
 
 

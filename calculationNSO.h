@@ -10,6 +10,7 @@
 #import "vesselNSO.h"
 #import "portNSO.h"
 #import "cargoNSO.h"
+#import "resultNSO.h"
 
 
 @interface calculationNSO : NSObject
@@ -21,11 +22,12 @@
 @property (nonatomic) NSNumber *rate;
 @property (nonatomic) NSNumber *tce;
 @property (strong, nonatomic) vesselNSO *vessel;
-@property (strong, nonatomic) portNSO *port_from;
-@property (strong, nonatomic) portNSO *port_to;
 @property (strong, nonatomic) portNSO *port_ballast_from;
+@property (strong, nonatomic) resultNSO *result;
 @property (nonatomic) NSDate *created;
 @property (nonatomic) NSDate *lastmodified;
+
+
 
 @property (strong, nonatomic) NSMutableArray *cargoios;
 -(id) copyWithZone: (NSZone *) zone;

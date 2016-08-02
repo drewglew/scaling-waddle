@@ -15,7 +15,8 @@
 
 
 
-/* modified 20160721 */
+/* modified 20160802 */
+
 -(bool)dbCreate :(NSString*) databaseName {
     NSString *docsDir;
     NSArray *dirPaths;
@@ -56,15 +57,13 @@
                 return false;
             }
             
-            
             /* number 3: calculations */
-            sql_statement = "CREATE TABLE calculations(calc_id INTEGER PRIMARY KEY, calc_vessel_nr INTEGER, calc_description TEXT, calc_rate DECIMAL(10, 5), calc_tce DECIMAL(10, 5), calc_port_from TEXT, calc_port_to TEXT, calc_port_ballast_from TEXT, calc_created DATETIME, calc_last_modified DATETIME, calc_ld_ports TEXT, FOREIGN KEY(calc_vessel_nr) REFERENCES vessels(vessel_nr), FOREIGN KEY(calc_port_from) REFERENCES ports(port_code), FOREIGN KEY(calc_port_to) REFERENCES ports(port_code), FOREIGN KEY(calc_port_ballast_from) REFERENCES ports(port_code) )";
+            sql_statement = "CREATE TABLE calculations(calc_id INTEGER PRIMARY KEY, calc_vessel_nr INTEGER, calc_description TEXT, calc_rate DECIMAL(10, 5), calc_tce DECIMAL(10, 5), calc_port_ballast_from TEXT, calc_created DATETIME, calc_last_modified DATETIME, calc_ld_ports TEXT, calc_hfo_price DECIMAL(10, 2), calc_do_price DECIMAL(10, 2), calc_mgo_price DECIMAL(10, 2), calc_lsfo_price DECIMAL(10, 2), calc_address_commission DECIMAL(10, 2), calc_broker_commission DECIMAL(10, 2),  FOREIGN KEY(calc_vessel_nr) REFERENCES vessels(vessel_nr), FOREIGN KEY(calc_port_ballast_from) REFERENCES ports(port_code) )";
             if(sqlite3_exec(_DB, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK) {
                 NSLog(@"failed to create calculations table");
                 sqlite3_close(_DB);
                 return false;
             }
-            
             
             /* number 4: cargo in/out  */
             sql_statement = "CREATE TABLE cargoio(cargoio_id INTEGER, cargoio_units INTEGER, cargoio_expense DECIMAL(8,2), cargoio_estimated DECIMAL(10,4), cargoio_terms_id INTEGER, cargoio_notice_time INTEGER, cargoio_type_id INTEGER, cargoio_purpose_code TEXT, cargoio_port_code TEXT, cargoio_calc_id INTEGER, FOREIGN KEY(cargoio_port_code) REFERENCES ports(port_code), FOREIGN KEY(cargoio_calc_id) REFERENCES calculations(calc_id), PRIMARY KEY (cargoio_id, cargoio_calc_id))";
@@ -77,69 +76,110 @@
             }
             
             
+            /* number 5: consumptions  */
+            sql_statement = "CREATE TABLE consumptions(cons_id INTEGER PRIMARY KEY, cons_vessel_nr INTEGER, cons_type_id INTEGER, cons_zone_id INTEGER, cons_speed DECIMAL(8, 2), cons_hfo DECIMAL(8, 2), cons_do DECIMAL(8,2), cons_mgo DECIMAL(8,2), cons_lsfo DECIMAL(8,2), FOREIGN KEY(cons_vessel_nr) REFERENCES vessels(vessel_nr))";
+            if(sqlite3_exec(_DB, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK) {
+                NSLog(@"failed to create table consumptions");
+                sqlite3_close(_DB);
+                return false;
+            } else {
+                NSLog(@"Whoopee successul in creating table consumptions");
+            }
             
-           // NSString *matchkey = [[NSUUID UUID] UUIDString];
             
-            /* number 3:  ports */
+            /* now we populate the database with dummy data */
             
- 
             vesselNSO *v = [[vesselNSO alloc] init];
             v.nr = [NSNumber numberWithInt:4];
             v.ref_nr = @"004";
             v.name = @"Hans Scholl";
+
+            v.laden_cons.speed = [NSNumber numberWithFloat:10.0];
+            v.laden_cons.hfo_amt = [NSNumber numberWithFloat:15.1];
+            v.laden_cons.do_amt = [NSNumber numberWithFloat:0.0];
+            v.laden_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
+            v.laden_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
+            
+            v.ballast_cons.speed = [NSNumber numberWithFloat:9.5];
+            v.ballast_cons.hfo_amt = [NSNumber numberWithFloat:14.9];
+            v.ballast_cons.do_amt = [NSNumber numberWithFloat:0.0];
+            v.ballast_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
+            v.ballast_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
+        
             [self insertVesselData:v];
+            [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
+            [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
+            
             
             v.nr = [NSNumber numberWithInt:5];
             v.ref_nr = @"555";
             v.name = @"Andys Magic";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
+            [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
             v.nr = [NSNumber numberWithInt:6];
             v.ref_nr = @"ABC";
             v.name = @"Alice";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
+            [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
             
             v.nr = [NSNumber numberWithInt:7];
             v.ref_nr = @"DEF";
             v.name = @"Bro Developer";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
+            [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
             
             v.nr = [NSNumber numberWithInt:8];
             v.ref_nr = @"GHI";
             v.name = @"Helle Maersk";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
+            [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
             
             v.nr = [NSNumber numberWithInt:9];
             v.ref_nr = @"JKL";
             v.name = @"Maersk Simon";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
+            [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
             
             v.nr = [NSNumber numberWithInt:10];
             v.ref_nr = @"MNO";
             v.name = @"Maersk Henry";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
+            [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
             
             v.nr = [NSNumber numberWithInt:11];
             v.ref_nr = @"PQR";
             v.name = @"Miguel Maersk";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
+            [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
             v.nr = [NSNumber numberWithInt:12];
             v.ref_nr = @"STU";
             v.name = @"Bro Designer";
             [self insertVesselData:v];
-            
+            [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
+            [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
+
             v.nr = [NSNumber numberWithInt:13];
             v.ref_nr = @"VWX";
             v.name = @"Sophie";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
+            [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
+            
 
-        
             portNSO *p = [[portNSO alloc] init];
             p.code = @"LON";
             p.abc_code = @"GB0004";
@@ -189,19 +229,20 @@
             c.tce = [NSNumber numberWithDouble:100.5];
             c.vessel.nr =  [NSNumber numberWithInt:5];
             c.created =  [NSDate date];
+            c.result.hfo_bunker.price = [NSNumber numberWithDouble:100.05];
+            c.result.do_bunker.price = [NSNumber numberWithDouble:90.50];
+            c.result.mgo_bunker.price = [NSNumber numberWithDouble:120.10];
+            c.result.lsfo_bunker.price = [NSNumber numberWithDouble:83.00];
+            c.result.broker_commission_percent = [NSNumber numberWithDouble:1.0];
+            c.result.address_commission_percent = [NSNumber numberWithDouble:1.125];
             
             // soon to be discarded..
-            c.port_from.code = @"CPH";
-            c.port_to.code = @"MEB";
             c.ld_ports = @"Copenhagen-Melbourne";
             
             c.port_ballast_from.code = @"CPH";
             [self insertCalculationData :c];
-            
-            
-            
+
             //lets add this to calculation and lose the calc_id!
-   
             cargoNSO *cargo = [[cargoNSO alloc] init];
             
             cargo.id = [NSNumber numberWithInt:1];  // this is actually the sort order
@@ -226,8 +267,6 @@
             cargo.purpose_code = @"D";
             cargo.port.code = @"MEB";
             [self insertCargoPort :cargo];
-            
-            
 
             sqlite3_close(_DB);
         } else {
@@ -261,6 +300,7 @@
     return true;
 }
 
+
 /* created 20160725 */
 /* modified 20160726 */
 -(bool) prepareld :(calculationNSO *) c {
@@ -293,9 +333,38 @@
         NSLog(@"inserted new vessel record inside vessels table!");
     }
     sqlite3_finalize(statement);
-    
+
+
     return true;
 }
+
+
+
+/* created 20160802 */
+-(bool) insertConsumptionData :(consumptionNSO*) c :(NSNumber*) vessel_nr :(NSNumber*) cons_type {
+    
+     NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO consumptions (cons_type_id, cons_zone_id, cons_vessel_nr, cons_speed, cons_hfo, cons_do, cons_mgo, cons_lsfo) VALUES (%@,%d,%@,%@,%@,%@,%@,%@)", cons_type, 1, vessel_nr, c.speed, c.hfo_amt, c.do_amt, c.mgo_amt, c.lsfo_amt];
+    
+    sqlite3_stmt *statement;
+    
+    const char *insert_statement = [insertSQL UTF8String];
+    sqlite3_prepare_v2(_DB, insert_statement, -1, &statement, NULL);
+    if (sqlite3_step(statement) != SQLITE_DONE) {
+        NSLog(@"Failed to insert new consumption record inside vessels table");
+        return false;
+    } else {
+        NSLog(@"inserted new consumption record inside vessels table!");
+    }
+    sqlite3_finalize(statement);
+    
+    
+    return true;
+    
+}
+
+
+
+
 
 /* created 20160721 */
 -(bool) insertPortData :(portNSO *) p {
@@ -320,6 +389,7 @@
 
 
 /* created 20160721 */
+/* modified 20160802 */
 -(calculationNSO *) insertCalculationData :(calculationNSO *) c {
     
     sqlite3_stmt *statement;
@@ -344,8 +414,7 @@
         NSString *dateCreated=[dateFormat stringFromDate:c.created];
         
         
-        
-       NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO calculations (calc_id, calc_description, calc_rate, calc_tce, calc_vessel_nr, calc_port_from, calc_port_to, calc_port_ballast_from, calc_created, calc_last_modified, calc_ld_ports) VALUES (%@,'%@', %@, %@, %@,'%@','%@','%@','%s', '%s', '%@')", newCalcId, c.descr, c.rate,c.tce,c.vessel.nr,c.port_from.code,c.port_to.code,c.port_ballast_from.code, dateCreated.UTF8String, dateCreated.UTF8String,c.ld_ports];
+       NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO calculations (calc_id, calc_description, calc_rate, calc_tce, calc_vessel_nr, calc_port_ballast_from, calc_created, calc_last_modified, calc_ld_ports, calc_hfo_price, calc_do_price, calc_mgo_price, calc_lsfo_price, calc_address_commission, calc_broker_commission) VALUES (%@,'%@', %@, %@, %@,'%@','%s', '%s', '%@', %@, %@, %@, %@, %@, %@)", newCalcId, c.descr, c.rate,c.tce,c.vessel.nr,c.port_ballast_from.code, dateCreated.UTF8String, dateCreated.UTF8String,c.ld_ports, c.result.hfo_bunker.price, c.result.do_bunker.price, c.result.mgo_bunker.price, c.result.lsfo_bunker.price, c.result.address_commission_percent, c.result.broker_commission_percent];
         
         const char *insert_statement = [insertSQL UTF8String];
         sqlite3_prepare_v2(_DB, insert_statement, -1, &statement, NULL);
@@ -354,6 +423,7 @@
         } else {
             NSLog(@"inserted new calculation record inside players table!");
             c.id = newCalcId;
+            c.lastmodified = c.created;
         }
         sqlite3_finalize(statement);
         
@@ -363,7 +433,7 @@
 }
 
 /* created 20160721 */
-/* modified 20160724 */
+/* modified 20160802 */
 -(calculationNSO *) updateCalculationData :(calculationNSO *) c {
     
     
@@ -377,8 +447,7 @@
         NSDate *lastmodified = [NSDate date];
         NSString *dateLastModified=[dateFormat stringFromDate:lastmodified];
         
-        
-        NSString *updateSQL = [NSString stringWithFormat:@"UPDATE calculations set calc_description = '%@', calc_rate = %@, calc_tce = %@, calc_vessel_nr=%@, calc_port_from='%@', calc_port_to='%@', calc_port_ballast_from='%@', calc_last_modified = '%s', calc_ld_ports = '%@' where calc_id=%@", c.descr, c.rate,c.tce,c.vessel.nr,c.port_from.code,c.port_to.code,c.port_ballast_from.code, dateLastModified.UTF8String, c.ld_ports, c.id ];
+        NSString *updateSQL = [NSString stringWithFormat:@"UPDATE calculations set calc_description = '%@', calc_rate = %@, calc_tce = %@, calc_vessel_nr=%@, calc_port_ballast_from='%@', calc_last_modified = '%s', calc_ld_ports = '%@', calc_hfo_price = %@, calc_do_price = %@, calc_mgo_price = %@, calc_lsfo_price = %@, calc_address_commission = %@, calc_broker_commission = %@ where calc_id=%@", c.descr, c.rate,c.tce,c.vessel.nr,c.port_ballast_from.code, dateLastModified.UTF8String, c.ld_ports, c.result.hfo_bunker.price, c.result.do_bunker.price, c.result.mgo_bunker.price, c.result.lsfo_bunker.price, c.result.address_commission_percent, c.result.broker_commission_percent, c.id ];
         
         const char *update_statement = [updateSQL UTF8String];
         sqlite3_prepare_v2(_DB, update_statement, -1, &statement, NULL);
@@ -419,11 +488,7 @@
             NSLog(@"Update of Discharge port to cargo table successful");
         }
         sqlite3_finalize(statement);
-        
-        
-        
-        
-        
+
         //sqlite3_close(_DB);
     }
     
@@ -476,9 +541,6 @@
 }
 
 
-
-
-
 /* created 20160721 */
 /* modified 20160726 */
 -(NSMutableArray*) getCalculations :(NSMutableArray*) listing {
@@ -491,7 +553,7 @@
 
         NSString *result = [[listing valueForKey:@"id"] componentsJoinedByString:@","];
         
-        NSString *selectSQL = [NSString stringWithFormat:@"SELECT calc_id, calc_vessel_nr, calc_description, calc_rate, calc_tce, calc_port_from, calc_port_to, calc_port_ballast_from, calc_created, calc_last_modified from calculations where calc_id IN (%@) ORDER BY calc_id DESC", result];
+        NSString *selectSQL = [NSString stringWithFormat:@"SELECT calc_id, calc_vessel_nr, calc_description, calc_rate, calc_tce, calc_port_ballast_from, calc_created, calc_last_modified, calc_hfo_price, calc_do_price, calc_mgo_price, calc_lsfo_price, calc_address_commission, calc_broker_commission from calculations where calc_id IN (%@) ORDER BY calc_id DESC", result];
         
         
         const char *select_statement = [selectSQL UTF8String];
@@ -511,19 +573,22 @@
                 c.descr = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)] ;
                 c.rate = [NSNumber numberWithDouble:sqlite3_column_double(statement, 3)];
                 c.tce = [NSNumber numberWithDouble:sqlite3_column_double(statement, 4)];
-                c.port_from.code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)] ;
-                c.port_to.code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 6)] ;
-                c.port_ballast_from.code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)] ;
+                c.port_ballast_from.code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)] ;
                 
                 NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
                 [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                c.created = [dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)]];
-                c.lastmodified = [dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 9)]];
+                c.created = [dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 6)]];
+                c.lastmodified = [dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)]];
+                
+                c.result.hfo_bunker.price = [NSNumber numberWithDouble:sqlite3_column_double(statement, 8)];
+                c.result.do_bunker.price = [NSNumber numberWithDouble:sqlite3_column_double(statement, 9)];
+                c.result.mgo_bunker.price = [NSNumber numberWithDouble:sqlite3_column_double(statement, 10)];
+                c.result.lsfo_bunker.price = [NSNumber numberWithDouble:sqlite3_column_double(statement, 11)];
+                c.result.address_commission_percent = [NSNumber numberWithDouble:sqlite3_column_double(statement, 12)];
+                c.result.broker_commission_percent = [NSNumber numberWithDouble:sqlite3_column_double(statement, 13)];
                 
                 c.vessel = [self getVesselByVesselNr :c.vessel.nr :c.vessel];
                 c.port_ballast_from = [self getPortByPortCode :c.port_ballast_from.code :c.port_ballast_from];
-                c.port_from = [self getPortByPortCode :c.port_from.code :c.port_from];
-                c.port_to = [self getPortByPortCode :c.port_to.code :c.port_to];
                 c.cargoios = [self getCargoes :c.id];
                 
                 [calcs addObject:c];
@@ -569,7 +634,6 @@
                 cargo.purpose_code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)] ;
                 cargo.port.code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)] ;
                 cargo.calc_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 8)];
-                
                 cargo.port = [self getPortByPortCode :cargo.port.code :cargo.port];
                 
                 [cargoes addObject:cargo];
@@ -581,9 +645,6 @@
         NSLog(@"Cannot open database");
     }
     
-    
-    
-    
     return cargoes;
     
 }
@@ -591,6 +652,8 @@
 
 
 /* created 20160721 */
+/* modified 20160802 */
+
 -(vesselNSO*) getVesselByVesselNr :(NSNumber*) vessel_nr :(vesselNSO*) v  {
 
     sqlite3_stmt *statement;
@@ -617,9 +680,47 @@
         NSLog(@"Cannot open database");
     }
 
+    v.ballast_cons = [self getConsumptionByVesselAndType:v.nr :[NSNumber numberWithInt:1]];
+    v.laden_cons = [self getConsumptionByVesselAndType:v.nr :[NSNumber numberWithInt:2]];
+    
     return v;
     
 }
+
+
+/* created 20160802 */
+-(consumptionNSO*) getConsumptionByVesselAndType :(NSNumber*) vessel_nr :(NSNumber*) cons_type {
+    
+    consumptionNSO *cons = [[consumptionNSO alloc] init];
+    sqlite3_stmt *statement;
+    const char *dbpath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
+        NSString *selectSQL = [NSString stringWithFormat:@"SELECT cons_speed, cons_hfo, cons_do, cons_mgo, cons_lsfo from consumptions WHERE cons_vessel_nr=%@ AND cons_type_id=%@",vessel_nr, cons_type];
+        
+        const char *select_statement = [selectSQL UTF8String];
+    
+        if (sqlite3_prepare_v2(_DB, select_statement, -1, &statement, NULL) == SQLITE_OK)
+            {
+                if (sqlite3_step(statement) == SQLITE_ROW) {
+                    cons.speed = [NSNumber numberWithFloat:sqlite3_column_double(statement, 0)];
+                    cons.hfo_amt = [NSNumber numberWithFloat:sqlite3_column_double(statement, 1)];
+                    cons.do_amt = [NSNumber numberWithFloat:sqlite3_column_double(statement, 2)];
+                    cons.mgo_amt = [NSNumber numberWithFloat:sqlite3_column_double(statement, 3)];
+                    cons.lsfo_amt = [NSNumber numberWithFloat:sqlite3_column_double(statement, 4)];
+                } else {
+                    NSLog(@"cannot obtain vessel data");
+                }
+            }
+        sqlite3_finalize(statement);
+    }
+    return cons;
+}
+
+
+
+
+
 
 /* created 20160722 */
 -(NSMutableArray*) getVessels {
