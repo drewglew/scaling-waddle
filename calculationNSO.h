@@ -32,5 +32,6 @@
 @property (strong, nonatomic) NSMutableArray *cargoios;
 -(id) copyWithZone: (NSZone *) zone;
 -(NSString*)getldportnames;
+-(NSString*)getldportcombo;
 
 @end

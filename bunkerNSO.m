@@ -11,6 +11,7 @@
 @implementation bunkerNSO
 @synthesize units;
 @synthesize price;
+@synthesize additionals;
 
 
 
@@ -22,11 +23,13 @@
 }
 
 /* created 20160802 */
+/* modified 20160803 */
 -(id) copyWithZone: (NSZone *) zone
 {
     bunkerNSO *bunkerCopy = [[bunkerNSO allocWithZone: zone] init];
     [bunkerCopy setUnits:self.units];
     [bunkerCopy setPrice:self.price];
+    [bunkerCopy setAdditionals:self.additionals];
     return bunkerCopy;
 }
 

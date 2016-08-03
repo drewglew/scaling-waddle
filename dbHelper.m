@@ -15,7 +15,7 @@
 
 
 
-/* modified 20160802 */
+/* modified 20160803 */
 
 -(bool)dbCreate :(NSString*) databaseName {
     NSString *docsDir;
@@ -66,7 +66,7 @@
             }
             
             /* number 4: cargo in/out  */
-            sql_statement = "CREATE TABLE cargoio(cargoio_id INTEGER, cargoio_units INTEGER, cargoio_expense DECIMAL(8,2), cargoio_estimated DECIMAL(10,4), cargoio_terms_id INTEGER, cargoio_notice_time INTEGER, cargoio_type_id INTEGER, cargoio_purpose_code TEXT, cargoio_port_code TEXT, cargoio_calc_id INTEGER, FOREIGN KEY(cargoio_port_code) REFERENCES ports(port_code), FOREIGN KEY(cargoio_calc_id) REFERENCES calculations(calc_id), PRIMARY KEY (cargoio_id, cargoio_calc_id))";
+            sql_statement = "CREATE TABLE cargoio(cargoio_id INTEGER, cargoio_units INTEGER, cargoio_expense DECIMAL(8,2), cargoio_estimated DECIMAL(10,4), cargoio_notice_time INTEGER, cargoio_type_id INTEGER, cargoio_purpose_code TEXT, cargoio_port_code TEXT, cargoio_calc_id INTEGER, FOREIGN KEY(cargoio_port_code) REFERENCES ports(port_code), FOREIGN KEY(cargoio_calc_id) REFERENCES calculations(calc_id), PRIMARY KEY (cargoio_id, cargoio_calc_id))";
             if(sqlite3_exec(_DB, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK) {
                 NSLog(@"failed to create table cargoio");
                 sqlite3_close(_DB);
@@ -85,6 +85,28 @@
             } else {
                 NSLog(@"Whoopee successul in creating table consumptions");
             }
+            
+            /* number 5: worldscales  */
+            sql_statement = "CREATE TABLE worldscales(ws_id INTEGER PRIMARY KEY, ws_portcombo TEXT, ws_rate DECIMAL(8, 2))";
+            if(sqlite3_exec(_DB, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK) {
+                NSLog(@"failed to create table worldscales");
+                sqlite3_close(_DB);
+                return false;
+            } else {
+                NSLog(@"Whoopee successul in creating table worldscales");
+            }
+            
+            /* number 5: worldscales index  */
+            sql_statement = "CREATE UNIQUE INDEX idx_portcombo ON worldscales (ws_portcombo);";
+            if(sqlite3_exec(_DB, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK) {
+                NSLog(@"failed to create index idx_portcomboon worldscales");
+                sqlite3_close(_DB);
+                return false;
+            } else {
+                NSLog(@"Whoopee successul in creating index idx_portcombo on worldscales");
+            }
+
+            
             
             
             /* now we populate the database with dummy data */
@@ -250,7 +272,6 @@
             cargo.units = [NSNumber numberWithInt:2000];
             cargo.expense = [NSNumber numberWithDouble:200.00];
             cargo.estimated = [NSNumber numberWithDouble:1000.00];
-            cargo.terms_id = [NSNumber numberWithInt:1];
             cargo.notice_time = [NSNumber numberWithInt:5];
             cargo.type_id = [NSNumber numberWithInt:1];
             cargo.purpose_code = @"L";
@@ -261,7 +282,6 @@
             cargo.units = [NSNumber numberWithInt:2000];
             cargo.expense = [NSNumber numberWithDouble:175.00];
             cargo.estimated = [NSNumber numberWithDouble:500.00];
-            cargo.terms_id = [NSNumber numberWithInt:1];
             cargo.notice_time = [NSNumber numberWithInt:2];
             cargo.type_id = [NSNumber numberWithInt:1];
             cargo.purpose_code = @"D";
@@ -284,16 +304,16 @@
 -(bool) insertCargoPort :(cargoNSO *) cargo {
     
     
-    NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO cargoio (cargoio_id,cargoio_units,cargoio_expense,cargoio_estimated,cargoio_terms_id,cargoio_notice_time,cargoio_type_id,cargoio_purpose_code,cargoio_port_code,cargoio_calc_id) VALUES (%@,%@,%@,%@,%@,%@,%@,'%@','%@',%@)", cargo.id, cargo.units, cargo.expense, cargo.estimated, cargo.terms_id, cargo.notice_time, cargo.type_id, cargo.purpose_code, cargo.port.code, cargo.calc_id];
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO cargoio (cargoio_id,cargoio_units,cargoio_expense,cargoio_estimated,cargoio_notice_time,cargoio_type_id,cargoio_purpose_code,cargoio_port_code,cargoio_calc_id) VALUES (%@,%@,%@,%@,%@,%@,'%@','%@',%@)", cargo.id, cargo.units, cargo.expense, cargo.estimated, cargo.notice_time, cargo.type_id, cargo.purpose_code, cargo.port.code, cargo.calc_id];
     
     sqlite3_stmt *statement;
     const char *insert_statement = [insertSQL UTF8String];
     sqlite3_prepare_v2(_DB, insert_statement, -1, &statement, NULL);
     if (sqlite3_step(statement) != SQLITE_DONE) {
-        NSLog(@"Failed to insert new cargoio record inside vessels table");
+        NSLog(@"Failed to insert new cargoio record inside cargo table");
         return false;
     } else {
-        NSLog(@"inserted new cargoio record inside vessels table!");
+        NSLog(@"inserted new cargoio record inside cargo table!");
     }
     sqlite3_finalize(statement);
     
@@ -463,7 +483,7 @@
         cargoNSO *l_port = [c.cargoios firstObject];
         
         
-        updateSQL = [NSString stringWithFormat:@"UPDATE cargoio set cargoio_units=%@, cargoio_expense=%@, cargoio_estimated=%@, cargoio_terms_id=%@, cargoio_notice_time=%@, cargoio_type_id=%@,cargoio_purpose_code='L', cargoio_port_code='%@' where cargoio_calc_id=%@ and cargoio_id=1", l_port.units, l_port.expense, l_port.estimated, l_port.terms_id, l_port.notice_time, l_port.type_id, l_port.port.code, c.id];
+        updateSQL = [NSString stringWithFormat:@"UPDATE cargoio set cargoio_units=%@, cargoio_expense=%@, cargoio_estimated=%@, cargoio_notice_time=%@, cargoio_type_id=%@,cargoio_purpose_code='L', cargoio_port_code='%@' where cargoio_calc_id=%@ and cargoio_id=1", l_port.units, l_port.expense, l_port.estimated, l_port.notice_time, l_port.type_id, l_port.port.code, c.id];
         
         
         update_statement = [updateSQL UTF8String];
@@ -478,7 +498,7 @@
  
         cargoNSO *d_port = [c.cargoios lastObject];
         
-        updateSQL = [NSString stringWithFormat:@"UPDATE cargoio set cargoio_units=%@, cargoio_expense=%@, cargoio_estimated=%@, cargoio_terms_id=%@, cargoio_notice_time=%@, cargoio_type_id=%@,cargoio_purpose_code='D', cargoio_port_code='%@' where cargoio_calc_id=%@ and cargoio_id=2", d_port.units, d_port.expense, d_port.estimated, d_port.terms_id, d_port.notice_time, d_port.type_id, d_port.port.code, c.id];
+        updateSQL = [NSString stringWithFormat:@"UPDATE cargoio set cargoio_units=%@, cargoio_expense=%@, cargoio_estimated=%@, cargoio_notice_time=%@, cargoio_type_id=%@,cargoio_purpose_code='D', cargoio_port_code='%@' where cargoio_calc_id=%@ and cargoio_id=2", d_port.units, d_port.expense, d_port.estimated, d_port.notice_time, d_port.type_id, d_port.port.code, c.id];
         
         update_statement = [updateSQL UTF8String];
         sqlite3_prepare_v2(_DB, update_statement, -1, &statement, NULL);
@@ -614,7 +634,7 @@
     const char *dbpath = [_databasePath UTF8String];
     
     if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
-        NSString *selectSQL = [NSString stringWithFormat:@"SELECT cargoio_id ,cargoio_units,cargoio_expense, cargoio_estimated, cargoio_terms_id, cargoio_notice_time, cargoio_type_id, cargoio_purpose_code, cargoio_port_code, cargoio_calc_id FROM cargoio WHERE cargoio_calc_id=%@ order by cargoio_id",calc_id];
+        NSString *selectSQL = [NSString stringWithFormat:@"SELECT cargoio_id ,cargoio_units,cargoio_expense, cargoio_estimated, cargoio_notice_time, cargoio_type_id, cargoio_purpose_code, cargoio_port_code, cargoio_calc_id FROM cargoio WHERE cargoio_calc_id=%@ order by cargoio_id",calc_id];
         
         const char *select_statement = [selectSQL UTF8String];
         
@@ -628,11 +648,10 @@
                 cargo.units = [NSNumber numberWithInt:sqlite3_column_int(statement, 1)];
                 cargo.expense = [NSNumber numberWithDouble:sqlite3_column_double(statement, 2)];
                 cargo.estimated = [NSNumber numberWithDouble:sqlite3_column_double(statement, 3)];
-                cargo.terms_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 4)];
-                cargo.notice_time = [NSNumber numberWithInt:sqlite3_column_int(statement, 5)];
-                cargo.type_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 6)];
-                cargo.purpose_code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)] ;
-                cargo.port.code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)] ;
+                cargo.notice_time = [NSNumber numberWithInt:sqlite3_column_int(statement, 4)];
+                cargo.type_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 5)];
+                cargo.purpose_code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 6)] ;
+                cargo.port.code = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)] ;
                 cargo.calc_id = [NSNumber numberWithInt:sqlite3_column_int(statement, 8)];
                 cargo.port = [self getPortByPortCode :cargo.port.code :cargo.port];
                 
@@ -686,6 +705,72 @@
     return v;
     
 }
+
+
+
+/* created 20160803 */
+-(NSNumber*) getWorldScaleRate :(NSString*) portcombo {
+    
+    
+    sqlite3_stmt *statement;
+    const char *dbpath = [_databasePath UTF8String];
+    
+    NSNumber *rate;
+    
+    if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
+        NSString *selectSQL = [NSString stringWithFormat:@"SELECT ws_rate FROM worldscales WHERE ws_portcombo='%@'",portcombo];
+        
+        const char *select_statement = [selectSQL UTF8String];
+        
+        if (sqlite3_prepare_v2(_DB, select_statement, -1, &statement, NULL) == SQLITE_OK)
+        {
+            if (sqlite3_step(statement) == SQLITE_ROW) {
+                rate = [NSNumber numberWithFloat:sqlite3_column_double(statement, 0)];
+            } else {
+                rate = [NSNumber numberWithFloat:0.0f];
+            }
+        }
+        sqlite3_finalize(statement);
+        sqlite3_close(_DB);
+    } else {
+        NSLog(@"Cannot open database");
+    }
+
+    return rate;
+}
+
+/* created 20160803 */
+-(bool) insertWorldScaleRate :(NSString*) portcombo :(NSNumber*) rate {
+   
+    sqlite3_stmt *statement;
+    const char *dbpath = [_databasePath UTF8String];
+    if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
+
+    
+    NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO worldscales VALUES (NULL, '%@',%@)", portcombo, rate];
+    
+    sqlite3_stmt *statement;
+    const char *insert_statement = [insertSQL UTF8String];
+    sqlite3_prepare_v2(_DB, insert_statement, -1, &statement, NULL);
+    if (sqlite3_step(statement) != SQLITE_DONE) {
+        NSLog(@"Failed to insert new  record inside worldscale table");
+        return false;
+    } else {
+        NSLog(@"inserted new record inside worldscales table!");
+    }
+        
+        
+        
+    }
+    sqlite3_finalize(statement);
+    
+    
+    
+    
+    return true;
+}
+
+
 
 
 /* created 20160802 */

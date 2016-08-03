@@ -13,6 +13,8 @@
 
 @synthesize address_commission_percent;
 @synthesize  broker_commission_percent;
+@synthesize address_commission_amt;
+@synthesize broker_commission_amt;
 @synthesize  additonal_expense_amt;
 @synthesize hfo_bunker;
 @synthesize do_bunker;
@@ -33,6 +35,7 @@
 @synthesize gross_day;
 @synthesize total_costs;
 @synthesize total_expenses;
+@synthesize total_units;
 @synthesize net_result;
 @synthesize net_day;
 @synthesize tc_eqv;
@@ -49,13 +52,19 @@
     self.do_bunker = [[bunkerNSO alloc] init];
     self.mgo_bunker = [[bunkerNSO alloc] init];
     self.lsfo_bunker = [[bunkerNSO alloc] init];
+    self.broker_commission_percent = [NSNumber numberWithFloat:0.0f];
+    self.address_commission_percent = [NSNumber numberWithFloat:0.0f];
+    self.broker_commission_amt = [NSNumber numberWithFloat:0.0f];
+    self.address_commission_amt = [NSNumber numberWithFloat:0.0f];
+    
     return self;
 }
 
 
 /* created 20160802 */
 /* calls atobviac webservice and stores routing in property, while focusing on distance and minutes while vessel is sailing */
--(void) getRoute :(portNSO*) ballastPort :(portNSO*) fromPort :(portNSO*) toPort :(calculationNSO*) calculation {
+/* optimize - perhaps we do not need to send ballastPort etc as single parms */
+-(void) setRouteData :(portNSO*) ballastPort :(portNSO*) fromPort :(portNSO*) toPort :(calculationNSO*) calculation {
     
     NSString *url;
     if (ballastPort!=nil) {
@@ -96,7 +105,6 @@
 }
 
 
-
 /* created 20160802 */
 /* purpose is to call the remote webservice and load the reponse into a dictionary object */
 -(void)fetchFromUrl:(NSString *)url withDictionary:(void (^)(NSDictionary* data))dictionary{
@@ -114,6 +122,53 @@
 }
 
 
+/* created 20160803 */
+-(bool) setRateData :(NSNumber*)rate :(bool) useLocalFlatrate :(NSNumber*) flatRate :(NSNumber*) rateType {
+    
+    float unitprice;
+    if (rateType==[NSNumber numberWithInt:0]) {
+        // Per MT
+        unitprice = [rate floatValue];
+    } else {
+        // Worldscale
+        if (useLocalFlatrate) {
+            unitprice = ([rate floatValue]/100) * [flatRate floatValue];
+        } else {
+            // TODO - what to do if this is something else
+        }
+    }
+    if (unitprice>0.0f) {
+        self.gross_freight = [NSNumber numberWithFloat:[self.total_units floatValue] * unitprice];
+    }
+    return true;
+    
+}
+
+/* created 20160803 */
+-(bool) setCommissionAmts {
+    
+    float temp;
+    
+    temp = [self.address_commission_percent floatValue] * [self.gross_freight floatValue] / 100;
+    self.address_commission_amt = [NSNumber numberWithFloat:temp];
+    
+    temp = [self.broker_commission_percent floatValue] * [self.gross_freight floatValue] / 100;
+    self.broker_commission_amt = [NSNumber numberWithFloat:temp];
+    
+    return true;
+}
+
+-(bool) setAtPortMinutes {
+    
+    
+    // TODO
+    
+    
+    
+    return true;
+}
+
+
 
 
 /* created 20160802 */
@@ -122,6 +177,8 @@
     resultNSO *resultCopy = [[resultNSO allocWithZone: zone] init];
     [resultCopy setAddress_commission_percent :self.address_commission_percent];
     [resultCopy setBroker_commission_percent :self.broker_commission_percent];
+    [resultCopy setAddress_commission_amt:self.address_commission_amt];
+    [resultCopy setBroker_commission_amt:self.broker_commission_amt];
     [resultCopy setAdditonal_expense_amt :self.additonal_expense_amt];
     [resultCopy setHfo_bunker :[[self hfo_bunker] copyWithZone:zone]];
     [resultCopy setDo_bunker :[[self do_bunker] copyWithZone:zone]];
@@ -142,6 +199,7 @@
     [resultCopy setGross_day :self.gross_day];
     [resultCopy setTotal_costs :self.total_costs];
     [resultCopy setTotal_expenses :self.total_expenses];
+    [resultCopy setTotal_units :self.total_units];
     [resultCopy setNet_result :self.net_result];
     [resultCopy setNet_day :self.net_day];
     [resultCopy setTc_eqv :self.tc_eqv];

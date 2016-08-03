@@ -32,4 +32,6 @@
 -(bool) insertCargoPort :(cargoNSO *) cargo;
 -(NSMutableArray*) getListing;
 -(bool) prepareld :(calculationNSO *) c;
+-(NSNumber*) getWorldScaleRate :(NSString*) portcombo;
+-(bool) insertWorldScaleRate :(NSString*) portcombo :(NSNumber*) rate;
 @end

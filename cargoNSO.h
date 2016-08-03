@@ -15,7 +15,6 @@
 @property (nonatomic) NSNumber *units;
 @property (nonatomic) NSNumber *expense;
 @property (nonatomic) NSNumber *estimated;
-@property (nonatomic) NSNumber *terms_id;
 @property (nonatomic) NSNumber *notice_time;
 @property (nonatomic) NSNumber *type_id;
 @property (nonatomic) NSString *purpose_code;

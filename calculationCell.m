@@ -17,12 +17,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    UIView *bgColorView = [[UIView alloc] init];
-    //Grey
-    [bgColorView setBackgroundColor:[UIColor colorWithRed:138.0f/255.0f green:144.0f/255.0f blue:153.0f/255.0f alpha:1.0]];
-    [self setSelectedBackgroundView:bgColorView];
-    
-    // Configure the view for the selected state
+
 }
 
 - (void)layoutSubviews {

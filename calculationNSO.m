@@ -75,6 +75,16 @@
     return returnVal;
 }
 
+-(NSString*)getldportcombo {
+    cargoNSO *loadPort = [self.cargoios firstObject];
+    cargoNSO *dischargePort = [self.cargoios lastObject];
+    NSString *returnVal = @"";
+    if (![loadPort.port.name isEqualToString:@"(null)"]) {
+        returnVal = [NSString stringWithFormat:@"%@%@", loadPort.port.code,dischargePort.port.code];
+    }
+    return returnVal;
+}
+
 
 
 

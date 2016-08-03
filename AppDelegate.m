@@ -21,6 +21,8 @@
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:43.0f/255.0f green:51.0f/255.0f blue:70.0f/255.0f alpha:1.0]];
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0]];
     //2B3346
+    
+    
     return YES;
 }
 

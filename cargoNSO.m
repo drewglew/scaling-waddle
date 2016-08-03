@@ -14,7 +14,6 @@
 @synthesize units;
 @synthesize expense;
 @synthesize estimated;
-@synthesize terms_id;
 @synthesize notice_time;
 @synthesize type_id;
 @synthesize purpose_code;
@@ -40,7 +39,6 @@
     [cargoCopy setUnits:self.units];
     [cargoCopy setExpense:self.expense];
     [cargoCopy setEstimated:self.estimated];
-    [cargoCopy setTerms_id:self.terms_id];
     [cargoCopy setNotice_time:self.notice_time];
     [cargoCopy setType_id:self.type_id];
     [cargoCopy setPurpose_code:self.purpose_code];

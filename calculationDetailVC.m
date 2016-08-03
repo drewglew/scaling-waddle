@@ -24,6 +24,10 @@
 @property (strong, nonatomic) IBOutlet UITextField *textBrokerCommission;
 @property (strong, nonatomic) IBOutlet UITextField *textAddressCommission;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segRateType;
+@property (strong, nonatomic) IBOutlet UILabel *labelMainRate;
+@property (strong, nonatomic) IBOutlet UITextField *textMainRate;  // might be unit rate or WS rate
+@property (strong, nonatomic) IBOutlet UISwitch *switchUseLocalFlatRate;
+@property (strong, nonatomic) IBOutlet UITextField *textFlatRate;
 
 
 
@@ -506,16 +510,98 @@ typedef void(^connection)(BOOL);
     
 }
 
-- (IBAction)getDistPressed:(id)sender {
+- (IBAction)calculatePressed:(id)sender {
     
+    if (self.segRateType.selectedSegmentIndex==1) {
+        
+        self.c.rate = [self.db getWorldScaleRate:[self.c getldportcombo]];
+        
+        if (self.c.rate==[NSNumber numberWithFloat:0.0f]) {
+        
+            UIAlertController *alert = [UIAlertController
+                                    alertControllerWithTitle: @"WorldScale Rates"
+                                    message: [NSString stringWithFormat:@"We do not have the worldscale rate for  port combination %@",[self.c getldportcombo]]
+                                    preferredStyle:UIAlertControllerStyleAlert];
+        
+            UIAlertAction *ok = [UIAlertAction actionWithTitle: @"OK" style: UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction *action){
+                                                       UITextField *alertTextField = alert.textFields.firstObject;
+                                                       NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+                                                       f.numberStyle = NSNumberFormatterDecimalStyle;
+                                                       self.c.rate = [f numberFromString:alertTextField.text];
+                                                      
+                                                       if (self.c.rate == [NSNumber numberWithFloat:0.0f] || self.c.rate == nil) {
+                                                           self.labelDistanceOutput.text = @"problem with worldscale rate!";
+                                                       } else {
+                                                           // we update the database and continue
+                                                           self.textMainRate.text = [NSString stringWithFormat:@"%@",self.c.rate];
+                                                           
+                                                           [self.db insertWorldScaleRate:[self.c getldportcombo] :self.c.rate];
+                                                           [self processResultData];
+                                                       }
+                                                   }];
+        
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                       handler: nil];
+        
+        
+            [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            
+                textField.placeholder = @"Enter rate";
+                textField.keyboardType = UIKeyboardTypeDecimalPad;
+            
+            }];
+        
+            [alert addAction:ok];
+            [alert addAction:cancel];
+        
+            [self presentViewController:alert animated:true completion:nil];
+        } else {
+            // we have the rate we just need to verify the rest.
+            
+            self.textMainRate.text = [NSString stringWithFormat:@"%@",self.c.rate];
+            [self processResultData];
+        }
+        
+    } else {
+        
+        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+        f.numberStyle = NSNumberFormatterDecimalStyle;
+        
+        // per MT - TODO validate this
+        self.c.rate = [f numberFromString:self.textMainRate.text];
+        [self processResultData];
+    }
     
+
+}
+
+/* modified 20160803 */
+-(void)processResultData {
     if ([self checkInternet]) {
         cargoNSO *d_port = [self.c.cargoios lastObject];
         cargoNSO *l_port = [self.c.cargoios firstObject];
-        [self.c.result getRoute:self.c.port_ballast_from :l_port.port :d_port.port :self.c];
+        
+        if ([d_port.units floatValue] + [l_port.units floatValue]!=0.0f) {
+             self.labelDistanceOutput.text = @"load/discharge mismatch!";
+            
+        } else {
+            // we set the total units to the single load amount
+            [self.c.result setTotal_units:l_port.units];
+            
+            NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+            f.numberStyle = NSNumberFormatterDecimalStyle;
+            NSNumber *flatRate = [f numberFromString:self.textFlatRate.text];
+            NSNumber *rateType = @(self.segRateType.selectedSegmentIndex);
+
+            [self.c.result setRateData:self.c.rate :self.switchUseLocalFlatRate.selected :flatRate :rateType];
+            [self.c.result setCommissionAmts];
+            
+            [self.c.result setRouteData:self.c.port_ballast_from :l_port.port :d_port.port :self.c];
+            
+        }
         
     }
-   
 }
 
 
@@ -579,6 +665,23 @@ typedef void(^connection)(BOOL);
     f.numberStyle = NSNumberFormatterDecimalStyle;
     self.c.result.address_commission_percent = [f numberFromString:self.textAddressCommission.text];
 }
+
+
+- (IBAction)segmentRateTypeChanged:(id)sender {
+    
+    if (self.segRateType.selectedSegmentIndex == 0) {
+        self.switchUseLocalFlatRate.hidden = true;
+        self.textFlatRate.hidden = true;
+        self.labelMainRate.text = @"Unit Rate:";
+        
+    } else {
+        self.switchUseLocalFlatRate.hidden = false;
+        self.textFlatRate.hidden = false;
+        self.labelMainRate.text = @"WS Rate:";
+        
+    }
+}
+
 
 
 

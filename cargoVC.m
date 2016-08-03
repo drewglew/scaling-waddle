@@ -24,8 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
+
 
 }
 /*
@@ -159,17 +158,22 @@
     
     cell.portText.text = cargo.port.getPortFullName;
     cell.qtyText.text = [NSString stringWithFormat:@"%@",cargo.units];
-    cell.typeText.text = [NSString stringWithFormat:@"%@",cargo.type_id];
+    cell.segType.selectedSegmentIndex = [cargo.type_id intValue];
     cell.estText.text = [NSString stringWithFormat:@"%@",cargo.estimated];
     cell.PEXText.text = [NSString stringWithFormat:@"%@",cargo.expense];
-    cell.termsText.text = [NSString stringWithFormat:@"%@",cargo.terms_id];
     cell.noticeText.text = [NSString stringWithFormat:@"%@",cargo.notice_time];
     cell.ldLabel.text = cargo.purpose_code;
     cell.cargo = cargo;
+   
     return cell;
     
     
 }
+
+
+
+
+
 
 
 - (IBAction)searchPortPressed:(id)sender {

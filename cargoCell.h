@@ -16,6 +16,11 @@
 @property (strong, nonatomic) IBOutlet UITextField *qtyText;
 @property (strong, nonatomic) IBOutlet UITextField *typeText;
 @property (strong, nonatomic) IBOutlet UITextField *termsText;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segType;
+
+
+
+
 @property (strong, nonatomic) IBOutlet UITextField *noticeText;
 @property (strong, nonatomic) IBOutlet UITextField *estText;
 @property (strong, nonatomic) IBOutlet UIButton *openPortButton;

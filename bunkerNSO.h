@@ -11,6 +11,7 @@
 @interface bunkerNSO : NSObject
 @property (nonatomic) NSNumber *units;
 @property (nonatomic) NSNumber *price;
+@property (nonatomic) NSNumber *additionals;
 
 -(id) copyWithZone: (NSZone *) zone;
 -(NSNumber*) getExpenses;

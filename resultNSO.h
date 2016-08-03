@@ -17,6 +17,8 @@
 
 @property (nonatomic) NSNumber *address_commission_percent;
 @property (nonatomic) NSNumber *broker_commission_percent;
+@property (nonatomic) NSNumber *address_commission_amt;
+@property (nonatomic) NSNumber *broker_commission_amt;
 @property (nonatomic) NSNumber *additonal_expense_amt;
 @property (strong, nonatomic) bunkerNSO *hfo_bunker;
 @property (strong, nonatomic) bunkerNSO *do_bunker;
@@ -40,12 +42,15 @@
 @property (nonatomic) NSNumber *net_result;
 @property (nonatomic) NSNumber *net_day;
 @property (nonatomic) NSNumber *tc_eqv;
+@property (nonatomic) NSNumber *total_units;
 @property (nonatomic) NSNumber *total_port_expenses;
 @property (nonatomic) NSDictionary *routing;
 
 
 -(id) copyWithZone: (NSZone *) zone;
--(void) getRoute :(portNSO*) ballastPort :(portNSO*) fromPort :(portNSO*) toPort :(calculationNSO*) calculation;
-
+-(void) setRouteData :(portNSO*) ballastPort :(portNSO*) fromPort :(portNSO*) toPort :(calculationNSO*) calculation;
+-(bool) setRateData :(NSNumber*)rate :(bool) useLocalFlatrate :(NSNumber*) flatRate :(NSNumber*) rateType;
+-(bool) setCommissionAmts;
+-(bool) setAtPortMinutes;
 
 @end
