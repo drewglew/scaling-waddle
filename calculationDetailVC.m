@@ -512,65 +512,87 @@ typedef void(^connection)(BOOL);
 
 - (IBAction)calculatePressed:(id)sender {
     
-    if (self.segRateType.selectedSegmentIndex==1) {
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    self.c.rate = [f numberFromString:self.textMainRate.text];
+    
+    if (self.segRateType.selectedSegmentIndex==1 && self.c.rate!=[NSNumber numberWithFloat:0.0f])  {
         
-        self.c.rate = [self.db getWorldScaleRate:[self.c getldportcombo]];
+        if (self.switchUseLocalFlatRate.selected) {
+            
+            if (self.c.flatrate==[NSNumber numberWithFloat:0.0f]) {
+                
+            } else {
+                
+                NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+                f.numberStyle = NSNumberFormatterDecimalStyle;
+                
+                // per MT - TODO validate this
+                self.c.flatrate = [f numberFromString:self.textFlatRate.text];
+                
+                
+            }
+            
+            
+        } else {
+            
         
-        if (self.c.rate==[NSNumber numberWithFloat:0.0f]) {
+            self.c.flatrate = [self.db getWorldScaleRate:[self.c getldportcombo]];
         
-            UIAlertController *alert = [UIAlertController
+            if (self.c.flatrate==[NSNumber numberWithFloat:0.0f]) {
+        
+                UIAlertController *alert = [UIAlertController
                                     alertControllerWithTitle: @"WorldScale Rates"
                                     message: [NSString stringWithFormat:@"We do not have the worldscale rate for  port combination %@",[self.c getldportcombo]]
                                     preferredStyle:UIAlertControllerStyleAlert];
         
-            UIAlertAction *ok = [UIAlertAction actionWithTitle: @"OK" style: UIAlertActionStyleDefault
+                UIAlertAction *ok = [UIAlertAction actionWithTitle: @"OK" style: UIAlertActionStyleDefault
                                                    handler:^(UIAlertAction *action){
                                                        UITextField *alertTextField = alert.textFields.firstObject;
                                                        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
                                                        f.numberStyle = NSNumberFormatterDecimalStyle;
-                                                       self.c.rate = [f numberFromString:alertTextField.text];
+                                                       self.c.flatrate = [f numberFromString:alertTextField.text];
                                                       
-                                                       if (self.c.rate == [NSNumber numberWithFloat:0.0f] || self.c.rate == nil) {
+                                                       if (self.c.flatrate == [NSNumber numberWithFloat:0.0f] || self.c.flatrate == nil) {
                                                            self.labelDistanceOutput.text = @"problem with worldscale rate!";
                                                        } else {
                                                            // we update the database and continue
-                                                           self.textMainRate.text = [NSString stringWithFormat:@"%@",self.c.rate];
+                                                           self.textFlatRate.text = [NSString stringWithFormat:@"%@",self.c.flatrate];
                                                            
                                                            [self.db insertWorldScaleRate:[self.c getldportcombo] :self.c.rate];
                                                            [self processResultData];
                                                        }
                                                    }];
         
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
                                                        handler: nil];
         
         
-            [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+                [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
             
-                textField.placeholder = @"Enter rate";
-                textField.keyboardType = UIKeyboardTypeDecimalPad;
+                    textField.placeholder = @"Enter rate";
+                    textField.keyboardType = UIKeyboardTypeDecimalPad;
             
-            }];
+                }];
         
-            [alert addAction:ok];
-            [alert addAction:cancel];
+                [alert addAction:ok];
+                [alert addAction:cancel];
         
-            [self presentViewController:alert animated:true completion:nil];
-        } else {
+                [self presentViewController:alert animated:true completion:nil];
+            } else {
             // we have the rate we just need to verify the rest.
             
-            self.textMainRate.text = [NSString stringWithFormat:@"%@",self.c.rate];
-            [self processResultData];
+                self.textFlatRate.text = [NSString stringWithFormat:@"%@",self.c.flatrate];
+                [self processResultData];
+            }
         }
         
+    } else if (self.segRateType.selectedSegmentIndex==2 && self.c.rate!=[NSNumber numberWithFloat:0.0f])  {
+        // Per MT
+        [self processResultData];
     } else {
         
-        NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-        f.numberStyle = NSNumberFormatterDecimalStyle;
-        
-        // per MT - TODO validate this
-        self.c.rate = [f numberFromString:self.textMainRate.text];
-        [self processResultData];
+        self.labelDistanceOutput.text = @"empty rate amount!";
     }
     
 
@@ -595,9 +617,17 @@ typedef void(^connection)(BOOL);
             NSNumber *rateType = @(self.segRateType.selectedSegmentIndex);
 
             [self.c.result setRateData:self.c.rate :self.switchUseLocalFlatRate.selected :flatRate :rateType];
+            
             [self.c.result setCommissionAmts];
             
+            [self.c.result setAtPortMinutes :l_port];
+            [self.c.result setAtPortMinutes :d_port];
+            
             [self.c.result setRouteData:self.c.port_ballast_from :l_port.port :d_port.port :self.c];
+            
+            // TODO - additionals (where should they go??)
+            
+            // now we get the TC_EQV!
             
         }
         

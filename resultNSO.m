@@ -131,11 +131,11 @@
         unitprice = [rate floatValue];
     } else {
         // Worldscale
-        if (useLocalFlatrate) {
-            unitprice = ([rate floatValue]/100) * [flatRate floatValue];
-        } else {
+        //if (useLocalFlatrate) {
+        unitprice = ([rate floatValue]/100) * [flatRate floatValue];
+        //} else {
             // TODO - what to do if this is something else
-        }
+        //}
     }
     if (unitprice>0.0f) {
         self.gross_freight = [NSNumber numberWithFloat:[self.total_units floatValue] * unitprice];
@@ -158,12 +158,30 @@
     return true;
 }
 
--(bool) setAtPortMinutes {
+/* created 20160804 */
+-(bool) setAtPortMinutes :(cargoNSO*) cargo {
     
-    
-    // TODO
-    
-    
+    int estimated_minutes=0;
+
+    if (cargo.estimated>0) {
+            
+        if (cargo.units!= [NSNumber numberWithInt:0]) {
+            if (cargo.type_id == [NSNumber numberWithInt:0]) { // Hours
+                estimated_minutes = [cargo.estimated intValue] * 60;
+            } else if (cargo.type_id == [NSNumber numberWithInt:1]) { // MTS/Hour; Cubicmeters/Hour;Cublic feet/Hour
+                estimated_minutes = [cargo.units intValue]/[cargo.estimated intValue] * 60;
+            } else if (cargo.type_id == [NSNumber numberWithInt:3]) { //Days
+                estimated_minutes = [cargo.estimated intValue] * 1440;
+            } else { // MTS/Day; Cubicmeters/Day; Cublic feet/Day
+                estimated_minutes = ([cargo.units intValue]*1440) / [cargo.estimated intValue];
+            }
+        }
+    }
+    if ([cargo.purpose_code isEqualToString:@"L"]) {
+        self.loading_atport_minutes = [NSNumber numberWithInt:estimated_minutes];
+    } else {
+        self.discharging_atport_minutes = [NSNumber numberWithInt:estimated_minutes];
+    }
     
     return true;
 }

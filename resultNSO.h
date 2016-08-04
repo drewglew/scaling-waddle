@@ -10,6 +10,7 @@
 #import "bunkerNSO.h"
 #import "timeNSO.h"
 #import "portNSO.h"
+#import "cargoNSO.h"
 
 @class calculationNSO;
 
@@ -51,6 +52,6 @@
 -(void) setRouteData :(portNSO*) ballastPort :(portNSO*) fromPort :(portNSO*) toPort :(calculationNSO*) calculation;
 -(bool) setRateData :(NSNumber*)rate :(bool) useLocalFlatrate :(NSNumber*) flatRate :(NSNumber*) rateType;
 -(bool) setCommissionAmts;
--(bool) setAtPortMinutes;
+-(bool) setAtPortMinutes :(cargoNSO*) cargo;
 
 @end

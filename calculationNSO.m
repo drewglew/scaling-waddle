@@ -17,12 +17,14 @@
 @synthesize descr;
 @synthesize statustext;
 @synthesize rate;
+@synthesize flatrate;
 @synthesize tce;
 @synthesize created;
 @synthesize lastmodified;
 @synthesize cargoios;
 @synthesize ld_ports;
 @synthesize result;
+
 
 /* modified 20160802 */
 - (id)init
@@ -53,6 +55,7 @@
     [calcCopy setId:self.id];
     [calcCopy setDescr:self.descr];
     [calcCopy setRate:self.rate];
+    [calcCopy setFlatrate:self.flatrate];
     [calcCopy setTce:self.tce];
     [calcCopy setVessel:[[self vessel] copyWithZone:zone]];
     [calcCopy setPort_ballast_from:[[self port_ballast_from] copyWithZone:zone]];

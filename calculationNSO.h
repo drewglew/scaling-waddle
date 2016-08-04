@@ -20,6 +20,7 @@
 @property (nonatomic) NSString *statustext;
 @property (nonatomic) NSString *ld_ports;
 @property (nonatomic) NSNumber *rate;
+@property (nonatomic) NSNumber *flatrate;
 @property (nonatomic) NSNumber *tce;
 @property (strong, nonatomic) vesselNSO *vessel;
 @property (strong, nonatomic) portNSO *port_ballast_from;
