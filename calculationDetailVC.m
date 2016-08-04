@@ -488,7 +488,7 @@ typedef void(^connection)(BOOL);
     self.textLDPort.text = self.c.ld_ports;
     self.textBallastFromPort.text = self.c.port_ballast_from.name;
     self.calcRefLabel.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.currentpageindex,(unsigned long)[self.opencalcs count]];
-    
+    self.textMainRate.text = [NSString stringWithFormat:@"%@",self.c.rate];
     
     self.textHsfoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.hfo_bunker.price];
     self.textHsgoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.do_bunker.price];
@@ -526,19 +526,15 @@ typedef void(^connection)(BOOL);
                 
                 NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
                 f.numberStyle = NSNumberFormatterDecimalStyle;
-                
                 // per MT - TODO validate this
                 self.c.flatrate = [f numberFromString:self.textFlatRate.text];
-                
-                
             }
             
             
         } else {
             
-        
             self.c.flatrate = [self.db getWorldScaleRate:[self.c getldportcombo]];
-        
+            
             if (self.c.flatrate==[NSNumber numberWithFloat:0.0f]) {
         
                 UIAlertController *alert = [UIAlertController
