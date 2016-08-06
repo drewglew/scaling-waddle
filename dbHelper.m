@@ -13,9 +13,9 @@
 
 @implementation dbHelper
 
+// use its own thread perhaps??
 
-
-/* modified 20160803 */
+/* modified 20160805 */
 
 -(bool)dbCreate :(NSString*) databaseName {
     NSString *docsDir;
@@ -57,8 +57,10 @@
                 return false;
             }
             
-            /* number 3: calculations */
-            sql_statement = "CREATE TABLE calculations(calc_id INTEGER PRIMARY KEY, calc_vessel_nr INTEGER, calc_description TEXT, calc_rate DECIMAL(10, 5), calc_tce DECIMAL(10, 5), calc_port_ballast_from TEXT, calc_created DATETIME, calc_last_modified DATETIME, calc_ld_ports TEXT, calc_hfo_price DECIMAL(10, 2), calc_do_price DECIMAL(10, 2), calc_mgo_price DECIMAL(10, 2), calc_lsfo_price DECIMAL(10, 2), calc_address_commission DECIMAL(10, 2), calc_broker_commission DECIMAL(10, 2),  FOREIGN KEY(calc_vessel_nr) REFERENCES vessels(vessel_nr), FOREIGN KEY(calc_port_ballast_from) REFERENCES ports(port_code) )";
+            sql_statement = "CREATE TABLE calculations(calc_id INTEGER PRIMARY KEY, calc_vessel_nr INTEGER, calc_description TEXT, calc_rate DECIMAL(10, 5), calc_tce DECIMAL(10, 5), calc_port_ballast_from TEXT, calc_created DATETIME, calc_last_modified DATETIME, calc_ld_ports TEXT, calc_hfo_price DECIMAL(10, 2), calc_do_price DECIMAL(10, 2), calc_mgo_price DECIMAL(10, 2), calc_lsfo_price DECIMAL(10, 2), calc_address_commission DECIMAL(10, 2), calc_broker_commission DECIMAL(10, 2), calc_add_idle_days INTEGER, calc_add_ballasted_days INTEGER, calc_add_laden_days INTEGER, calc_add_expenses INTEGER, calc_add_hfo INTEGER, calc_add_do INTEGER, calc_add_mgo INTEGER, calc_add_lsfo INTEGER, calc_voyagestring TEXT, calc_miles_ball DECIMAL(12, 4), calc_miles_laden DECIMAL(12, 4), FOREIGN KEY(calc_vessel_nr) REFERENCES vessels(vessel_nr), FOREIGN KEY(calc_port_ballast_from) REFERENCES ports(port_code) )";
+            
+            
+            
             if(sqlite3_exec(_DB, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK) {
                 NSLog(@"failed to create calculations table");
                 sqlite3_close(_DB);
@@ -204,12 +206,14 @@
 
             portNSO *p = [[portNSO alloc] init];
             p.code = @"LON";
-            p.abc_code = @"GB0004";
+            //p.abc_code = @"GB0004";
+            p.abc_code = @"London";
             p.name = @"London";
             [self insertPortData :p];
             
             p.code = @"HAM";
-            p.abc_code = @"DE0005";
+            //p.abc_code = @"DE0005";
+            p.abc_code = @"Hamburg";
             p.name = @"Hamburg";
             [self insertPortData :p];
             
@@ -434,7 +438,9 @@
         NSString *dateCreated=[dateFormat stringFromDate:c.created];
         
         
-       NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO calculations (calc_id, calc_description, calc_rate, calc_tce, calc_vessel_nr, calc_port_ballast_from, calc_created, calc_last_modified, calc_ld_ports, calc_hfo_price, calc_do_price, calc_mgo_price, calc_lsfo_price, calc_address_commission, calc_broker_commission) VALUES (%@,'%@', %@, %@, %@,'%@','%s', '%s', '%@', %@, %@, %@, %@, %@, %@)", newCalcId, c.descr, c.rate,c.tce,c.vessel.nr,c.port_ballast_from.code, dateCreated.UTF8String, dateCreated.UTF8String,c.ld_ports, c.result.hfo_bunker.price, c.result.do_bunker.price, c.result.mgo_bunker.price, c.result.lsfo_bunker.price, c.result.address_commission_percent, c.result.broker_commission_percent];
+
+        
+       NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO calculations (calc_id, calc_description, calc_rate, calc_tce, calc_vessel_nr, calc_port_ballast_from, calc_created, calc_last_modified, calc_ld_ports, calc_hfo_price, calc_do_price, calc_mgo_price, calc_lsfo_price, calc_address_commission, calc_broker_commission, calc_add_idle_days, calc_add_ballasted_days, calc_add_laden_days, calc_add_expenses, calc_add_hfo, calc_add_do, calc_add_mgo, calc_add_lsfo, calc_voyagestring, calc_miles_ball, calc_miles_laden) VALUES (%@,'%@', %@, %@, %@,'%@','%s', '%s', '%@', %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@,'%@',%@,%@)", newCalcId, c.descr, c.rate,c.tce,c.vessel.nr,c.port_ballast_from.code, dateCreated.UTF8String, dateCreated.UTF8String,c.ld_ports, c.result.hfo_bunker.price, c.result.do_bunker.price, c.result.mgo_bunker.price, c.result.lsfo_bunker.price, c.result.address_commission_percent, c.result.broker_commission_percent, c.add_idle_days, c.add_ballasted_days, c.add_laden_days, c.add_expenses, c.result.hfo_bunker.additionals, c.result.do_bunker.additionals, c.result.mgo_bunker.additionals, c.result.lsfo_bunker.additionals, c.result.voyagestring, c.result.miles_sailing_ballasted, c.result.miles_sailing_laden];
         
         const char *insert_statement = [insertSQL UTF8String];
         sqlite3_prepare_v2(_DB, insert_statement, -1, &statement, NULL);
@@ -467,7 +473,8 @@
         NSDate *lastmodified = [NSDate date];
         NSString *dateLastModified=[dateFormat stringFromDate:lastmodified];
         
-        NSString *updateSQL = [NSString stringWithFormat:@"UPDATE calculations set calc_description = '%@', calc_rate = %@, calc_tce = %@, calc_vessel_nr=%@, calc_port_ballast_from='%@', calc_last_modified = '%s', calc_ld_ports = '%@', calc_hfo_price = %@, calc_do_price = %@, calc_mgo_price = %@, calc_lsfo_price = %@, calc_address_commission = %@, calc_broker_commission = %@ where calc_id=%@", c.descr, c.rate,c.tce,c.vessel.nr,c.port_ballast_from.code, dateLastModified.UTF8String, c.ld_ports, c.result.hfo_bunker.price, c.result.do_bunker.price, c.result.mgo_bunker.price, c.result.lsfo_bunker.price, c.result.address_commission_percent, c.result.broker_commission_percent, c.id ];
+    
+        NSString *updateSQL = [NSString stringWithFormat:@"UPDATE calculations set calc_description = '%@', calc_rate = %@, calc_tce = %@, calc_vessel_nr=%@, calc_port_ballast_from='%@', calc_last_modified = '%s', calc_ld_ports = '%@', calc_hfo_price = %@, calc_do_price = %@, calc_mgo_price = %@, calc_lsfo_price = %@, calc_address_commission = %@, calc_broker_commission = %@, calc_add_idle_days = %@, calc_add_ballasted_days = %@, calc_add_laden_days = %@, calc_add_expenses = %@, calc_add_hfo = %@, calc_add_do = %@, calc_add_mgo = %@, calc_add_lsfo = %@, calc_voyagestring = '%@', calc_miles_ball = %@, calc_miles_laden = %@  where calc_id=%@", c.descr, c.rate,c.tce,c.vessel.nr,c.port_ballast_from.code, dateLastModified.UTF8String, c.ld_ports, c.result.hfo_bunker.price, c.result.do_bunker.price, c.result.mgo_bunker.price, c.result.lsfo_bunker.price, c.result.address_commission_percent, c.result.broker_commission_percent, c.add_idle_days, c.add_ballasted_days, c.add_laden_days, c.add_expenses, c.result.hfo_bunker.additionals, c.result.do_bunker.additionals, c.result.mgo_bunker.additionals, c.result.lsfo_bunker.additionals,  c.result.voyagestring, c.result.miles_sailing_ballasted, c.result.miles_sailing_laden, c.id];
         
         const char *update_statement = [updateSQL UTF8String];
         sqlite3_prepare_v2(_DB, update_statement, -1, &statement, NULL);
@@ -573,7 +580,13 @@
 
         NSString *result = [[listing valueForKey:@"id"] componentsJoinedByString:@","];
         
-        NSString *selectSQL = [NSString stringWithFormat:@"SELECT calc_id, calc_vessel_nr, calc_description, calc_rate, calc_tce, calc_port_ballast_from, calc_created, calc_last_modified, calc_hfo_price, calc_do_price, calc_mgo_price, calc_lsfo_price, calc_address_commission, calc_broker_commission from calculations where calc_id IN (%@) ORDER BY calc_id DESC", result];
+        
+        
+
+        
+        
+        
+        NSString *selectSQL = [NSString stringWithFormat:@"SELECT calc_id, calc_vessel_nr, calc_description, calc_rate, calc_tce, calc_port_ballast_from, calc_created, calc_last_modified, calc_hfo_price, calc_do_price, calc_mgo_price, calc_lsfo_price, calc_address_commission, calc_broker_commission, calc_add_idle_days, calc_add_ballasted_days, calc_add_laden_days, calc_add_expenses, calc_add_hfo, calc_add_do, calc_add_mgo, calc_add_lsfo, calc_voyagestring, calc_miles_ball, calc_miles_laden from calculations where calc_id IN (%@) ORDER BY calc_id DESC", result];
         
         
         const char *select_statement = [selectSQL UTF8String];
@@ -606,6 +619,17 @@
                 c.result.lsfo_bunker.price = [NSNumber numberWithDouble:sqlite3_column_double(statement, 11)];
                 c.result.address_commission_percent = [NSNumber numberWithDouble:sqlite3_column_double(statement, 12)];
                 c.result.broker_commission_percent = [NSNumber numberWithDouble:sqlite3_column_double(statement, 13)];
+                c.add_idle_days = [NSNumber numberWithInt:sqlite3_column_int(statement, 14)];
+                c.add_ballasted_days = [NSNumber numberWithInt:sqlite3_column_int(statement, 15)];
+                c.add_laden_days = [NSNumber numberWithInt:sqlite3_column_int(statement, 16)];
+                c.add_expenses = [NSNumber numberWithInt:sqlite3_column_int(statement, 17)];
+                c.result.hfo_bunker.additionals = [NSNumber numberWithInt:sqlite3_column_int(statement, 18)];
+                c.result.do_bunker.additionals = [NSNumber numberWithInt:sqlite3_column_int(statement, 19)];
+                c.result.mgo_bunker.additionals = [NSNumber numberWithInt:sqlite3_column_int(statement, 20)];
+                c.result.lsfo_bunker.additionals = [NSNumber numberWithInt:sqlite3_column_int(statement, 21)];
+                c.result.voyagestring = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 22)] ;
+                c.result.miles_sailing_ballasted = [NSNumber numberWithDouble:sqlite3_column_double(statement, 23)];
+                c.result.miles_sailing_laden = [NSNumber numberWithDouble:sqlite3_column_double(statement, 24)];
                 
                 c.vessel = [self getVesselByVesselNr :c.vessel.nr :c.vessel];
                 c.port_ballast_from = [self getPortByPortCode :c.port_ballast_from.code :c.port_ballast_from];
@@ -740,6 +764,10 @@
 }
 
 /* created 20160803 */
+
+
+/* TODO issue here */
+
 -(bool) insertWorldScaleRate :(NSString*) portcombo :(NSNumber*) rate {
    
     sqlite3_stmt *statement;

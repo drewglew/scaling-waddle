@@ -13,7 +13,7 @@
 @end
 
 @implementation AppDelegate
-
+@synthesize apikey;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -23,6 +23,13 @@
     //2B3346
     
     
+    /* get configuration settings & manage them */
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults objectForKey:@"api-key"]) {
+        [defaults setValue:@"demo" forKey:@"api-key"];
+    }
+    self.apikey = [defaults valueForKey:@"api-key"];
+
     return YES;
 }
 

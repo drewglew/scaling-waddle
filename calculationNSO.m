@@ -23,7 +23,9 @@
 @synthesize lastmodified;
 @synthesize cargoios;
 @synthesize ld_ports;
+@synthesize bld_codes;
 @synthesize result;
+@synthesize voyagestring;
 
 
 /* modified 20160802 */
@@ -44,6 +46,14 @@
     [self.cargoios addObject:dischargeport];
     self.port_ballast_from = [[portNSO alloc] init];
     self.result = [[resultNSO alloc] init];
+    self.flatrate = [NSNumber numberWithFloat:0.0f];
+    self.tce = [NSNumber numberWithFloat:0.0f];
+    self.rate = [NSNumber numberWithFloat:0.0f];
+    self.add_ballasted_days = [NSNumber numberWithInt:0];
+    self.add_laden_days = [NSNumber numberWithInt:0];
+    self.add_idle_days = [NSNumber numberWithInt:0];
+    self.add_expenses = [NSNumber numberWithInt:0];
+    dischargeport.purpose_code = @"D";
     return self;
 }
 
@@ -61,18 +71,35 @@
     [calcCopy setPort_ballast_from:[[self port_ballast_from] copyWithZone:zone]];
     [calcCopy setCargoios:[[self cargoios] copyWithZone:zone]];
     [calcCopy setLd_ports:self.ld_ports];
+
+    [calcCopy setAdd_idle_days:self.add_idle_days];
+    [calcCopy setAdd_ballasted_days:self.add_ballasted_days];
+    [calcCopy setAdd_laden_days:self.add_laden_days];
+    [calcCopy setAdd_expenses:self.add_expenses];
+    
     [calcCopy setResult:[[self result] copyWithZone:zone]];
     return calcCopy;
 }
 
 
+/* created 20160806 */
+-(NSString*)getbldportcodes {
+    
+    cargoNSO *loadPort = [self.cargoios firstObject];
+    cargoNSO *dischargePort = [self.cargoios lastObject];
+    NSString *returnVal = @"";
+    if (![loadPort.port.name isEqualToString:@""]) {
+        returnVal = [NSString stringWithFormat:@"%@%@%@", self.port_ballast_from.code, loadPort.port.code,dischargePort.port.code];
+    }
+    return returnVal;
+}
 
 -(NSString*)getldportnames {
 
     cargoNSO *loadPort = [self.cargoios firstObject];
     cargoNSO *dischargePort = [self.cargoios lastObject];
     NSString *returnVal = @"";
-    if (![loadPort.port.name isEqualToString:@"(null)"]) {
+    if (![loadPort.port.name isEqualToString:@""]) {
         returnVal = [NSString stringWithFormat:@"%@ - %@", loadPort.port.name,dischargePort.port.name];
     }
     return returnVal;
@@ -82,7 +109,7 @@
     cargoNSO *loadPort = [self.cargoios firstObject];
     cargoNSO *dischargePort = [self.cargoios lastObject];
     NSString *returnVal = @"";
-    if (![loadPort.port.name isEqualToString:@"(null)"]) {
+    if (![loadPort.port.name isEqualToString:@""]) {
         returnVal = [NSString stringWithFormat:@"%@%@", loadPort.port.code,dischargePort.port.code];
     }
     return returnVal;

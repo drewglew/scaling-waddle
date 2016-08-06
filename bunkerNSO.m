@@ -13,12 +13,22 @@
 @synthesize price;
 @synthesize additionals;
 
-
+/* created 20160806 */
+- (id)init
+{
+    self = [super init];
+    if (nil == self) return nil;
+    self.price = [NSNumber numberWithFloat:0.0f];
+    self.units = [NSNumber numberWithFloat:0.0f];
+    self.additionals = [NSNumber numberWithInt:0];
+    return self;
+}
 
 /* created 20160802 */
 -(NSNumber*) getExpenses {
     float expenses;
     expenses = [units floatValue] * [price floatValue];
+
     return [NSNumber numberWithInt:expenses];
 }
 

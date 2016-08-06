@@ -16,9 +16,20 @@
 @synthesize abc_code;
 @synthesize searchstring;
 
+/* created 20160806 */
+- (id)init
+{
+    self = [super init];
+    if (nil == self) return nil;
+    // just initialize readonly tests:
+    self.name = @"";
+    self.code = @"";
+    return self;
+}
+
 
 -(NSString*) getPortFullName {
-    if ([self.code isEqualToString:@"(null)"]) {
+    if ([self.code isEqualToString:@""]) {
         return @"";
     
     } else {

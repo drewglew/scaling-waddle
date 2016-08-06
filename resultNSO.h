@@ -11,6 +11,7 @@
 #import "timeNSO.h"
 #import "portNSO.h"
 #import "cargoNSO.h"
+#import "AppDelegate.h"
 
 @class calculationNSO;
 
@@ -46,12 +47,18 @@
 @property (nonatomic) NSNumber *total_units;
 @property (nonatomic) NSNumber *total_port_expenses;
 @property (nonatomic) NSDictionary *routing;
+@property (nonatomic) NSString *voyagestring;
+
 
 
 -(id) copyWithZone: (NSZone *) zone;
--(void) setRouteData :(portNSO*) ballastPort :(portNSO*) fromPort :(portNSO*) toPort :(calculationNSO*) calculation;
+-(void) setRouteData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status  ;
 -(bool) setRateData :(NSNumber*)rate :(bool) useLocalFlatrate :(NSNumber*) flatRate :(NSNumber*) rateType;
 -(bool) setCommissionAmts;
 -(bool) setAtPortMinutes :(cargoNSO*) cargo;
+-(NSNumber*) getMinutesInPortTotal;
+-(NSNumber*) getTcEqv;
+-(void) setSailingData :(calculationNSO*) calculation;
+
 
 @end

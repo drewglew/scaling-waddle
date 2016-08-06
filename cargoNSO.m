@@ -27,6 +27,13 @@
     if (nil == self) return nil;
     // just initialize readonly tests:
     self.port = [[portNSO alloc] init];
+    
+    self.units = [NSNumber numberWithFloat:0.0f];
+    self.expense = [NSNumber numberWithFloat:0.0f];
+    self.estimated = [NSNumber numberWithFloat:0.0f];
+    self.notice_time = [NSNumber numberWithFloat:0.0f];
+    self.notice_time = [NSNumber numberWithInt:0];
+    
     return self;
 }
 

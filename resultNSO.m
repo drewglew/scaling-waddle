@@ -40,9 +40,10 @@
 @synthesize net_day;
 @synthesize tc_eqv;
 @synthesize total_port_expenses;
+@synthesize voyagestring;
 
 
-
+/* modified 20160805 */
 - (id)init
 {
     self = [super init];
@@ -56,58 +57,123 @@
     self.address_commission_percent = [NSNumber numberWithFloat:0.0f];
     self.broker_commission_amt = [NSNumber numberWithFloat:0.0f];
     self.address_commission_amt = [NSNumber numberWithFloat:0.0f];
-    
+    self.voyagestring = @"";
     return self;
 }
 
 
 /* created 20160802 */
+/* modified 20160806 */
 /* calls atobviac webservice and stores routing in property, while focusing on distance and minutes while vessel is sailing */
 /* optimize - perhaps we do not need to send ballastPort etc as single parms */
--(void) setRouteData :(portNSO*) ballastPort :(portNSO*) fromPort :(portNSO*) toPort :(calculationNSO*) calculation {
+-(void) setRouteData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status {
     
     NSString *url;
-    if (ballastPort!=nil) {
-        url = [NSString stringWithFormat:@"https://api.atobviaconline.com/v1/Voyage?port=%@&port=%@&port=%@&api_key=demo", ballastPort.abc_code, fromPort.abc_code, toPort.abc_code];
-    } else {
-         url = [NSString stringWithFormat:@"https://api.atobviaconline.com/v1/Voyage?port=%@&port=%@&port=%@&api_key=demo", fromPort.abc_code, fromPort.abc_code, toPort.abc_code];
-    }
+    NSString *apikey;
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    apikey = appDelegate.apikey;
+
+    url = [NSString stringWithFormat:@"https://api.atobviaconline.com/v1/%@&api_key=%@", voyagequerystring, apikey];
     
     [self fetchFromUrl:url withDictionary:^(NSDictionary *data) {
         self.routing = data;
-
         self.miles_sailing_ballasted = [NSNumber numberWithFloat:[[[data valueForKeyPath:@"Legs"][0] valueForKey:@"Distance"] floatValue]];
         self.miles_sailing_laden = [NSNumber numberWithFloat:[[[data valueForKeyPath:@"Legs"][1] valueForKey:@"Distance"] floatValue]];
-      
-        self.minutes_sailing_ballasted = [NSNumber numberWithFloat:[self.miles_sailing_ballasted floatValue] / [calculation.vessel.ballast_cons.speed floatValue] * 60.0f];
-        
-        self.minutes_sailing_laden = [NSNumber numberWithFloat:[self.miles_sailing_laden floatValue] / [calculation.vessel.laden_cons.speed floatValue] * 60.0f];
-        
-        float units;
-        
-        units = ([calculation.vessel.ballast_cons.hfo_amt floatValue] * [self.minutes_sailing_ballasted floatValue]) / 1440.0f;
-        units += ([calculation.vessel.laden_cons.hfo_amt floatValue] * [self.minutes_sailing_laden floatValue]) / 1440.0f;
-        self.hfo_bunker.units = [NSNumber numberWithFloat:units];
-        
-        units = ([calculation.vessel.ballast_cons.do_amt floatValue] * [self.minutes_sailing_ballasted floatValue]) / 1440.0f;
-        units += ([calculation.vessel.laden_cons.do_amt floatValue] * [self.minutes_sailing_laden floatValue]) / 1440.0f;
-        self.do_bunker.units = [NSNumber numberWithFloat:units];
-        
-        units = ([calculation.vessel.ballast_cons.mgo_amt floatValue] * [self.minutes_sailing_ballasted floatValue]) / 1440.0f;
-        units += ([calculation.vessel.laden_cons.mgo_amt floatValue] * [self.minutes_sailing_laden floatValue]) / 1440.0f;
-        self.mgo_bunker.units = [NSNumber numberWithFloat:units];
-       
-        units = ([calculation.vessel.ballast_cons.lsfo_amt floatValue] * [self.minutes_sailing_ballasted floatValue]) / 1440.0f;
-        units += ([calculation.vessel.laden_cons.lsfo_amt floatValue] * [self.minutes_sailing_laden floatValue]) / 1440.0f;
-        self.lsfo_bunker.units = [NSNumber numberWithFloat:units];
-        
+        [self performSelectorOnMainThread:@selector(updateLabel:) withObject:status waitUntilDone:YES];
+
     }];
 }
+
+
+- (void) updateLabel :(UILabel*) status
+{
+    status.text  = @"success";
+}
+
+
+/* created 20160806 */
+-(void) setSailingData :(calculationNSO*) calculation {
+    
+    self.minutes_sailing_ballasted = [NSNumber numberWithFloat:[self.miles_sailing_ballasted floatValue] / [calculation.vessel.ballast_cons.speed floatValue] * 60.0f];
+    
+    self.minutes_sailing_laden = [NSNumber numberWithFloat:[self.miles_sailing_laden floatValue] / [calculation.vessel.laden_cons.speed floatValue] * 60.0f];
+    
+    float units;
+    
+    units = ([calculation.vessel.ballast_cons.hfo_amt floatValue] * [self.minutes_sailing_ballasted floatValue]) / 1440.0f;
+    units += ([calculation.vessel.laden_cons.hfo_amt floatValue] * [self.minutes_sailing_laden floatValue]) / 1440.0f;
+    self.hfo_bunker.units = [NSNumber numberWithFloat:units];
+    
+    units = ([calculation.vessel.ballast_cons.do_amt floatValue] * [self.minutes_sailing_ballasted floatValue]) / 1440.0f;
+    units += ([calculation.vessel.laden_cons.do_amt floatValue] * [self.minutes_sailing_laden floatValue]) / 1440.0f;
+    self.do_bunker.units = [NSNumber numberWithFloat:units];
+    
+    units = ([calculation.vessel.ballast_cons.mgo_amt floatValue] * [self.minutes_sailing_ballasted floatValue]) / 1440.0f;
+    units += ([calculation.vessel.laden_cons.mgo_amt floatValue] * [self.minutes_sailing_laden floatValue]) / 1440.0f;
+    self.mgo_bunker.units = [NSNumber numberWithFloat:units];
+    
+    units = ([calculation.vessel.ballast_cons.lsfo_amt floatValue] * [self.minutes_sailing_ballasted floatValue]) / 1440.0f;
+    units += ([calculation.vessel.laden_cons.lsfo_amt floatValue] * [self.minutes_sailing_laden floatValue]) / 1440.0f;
+    self.lsfo_bunker.units = [NSNumber numberWithFloat:units];
+
+    
+    
+}
+
+
+
+
+
+/* created 20160805 */
+-(NSNumber*) getMinutesInPortTotal {
+    float minutes;
+    minutes = [loading_atport_minutes floatValue] + [discharging_atport_minutes floatValue];
+    return [NSNumber numberWithFloat:minutes];
+}
+
+/* created 20160805 */
+-(NSNumber*) getMinutesTotal {
+    float minutes;
+    minutes = [[self getMinutesInPortTotal] floatValue] + [minutes_sailing_laden floatValue]  + [minutes_sailing_ballasted floatValue]  + [additonal_minutes_sailing_idle floatValue]  + [additonal_minutes_sailing_laden floatValue]  + [additonal_minutes_sailing_ballasted floatValue];
+    return [NSNumber numberWithFloat:minutes];
+}
+
+/* created 20160805 */
+-(NSNumber*) getTotalCosts {
+    float costs;
+    costs = [broker_commission_amt floatValue] + [address_commission_amt floatValue]  + [hfo_bunker.getExpenses floatValue]  +  + [do_bunker.getExpenses floatValue]  + [mgo_bunker.getExpenses floatValue]  + [lsfo_bunker.getExpenses floatValue] + [total_expenses floatValue];
+    return [NSNumber numberWithFloat:costs];
+}
+
+
+/* created 20160805 */
+-(NSNumber*) getNetResult {
+    float netresult;
+    netresult = [gross_freight floatValue] - [[self getTotalCosts] floatValue];
+    return [NSNumber numberWithFloat:netresult];
+}
+
+/* created 20160805 */
+-(NSNumber*) getNetPerDay {
+    float netperday;
+    netperday = ([[self getNetResult] floatValue] / [[self getMinutesTotal] floatValue]) * 1440;
+    return [NSNumber numberWithFloat:netperday];
+}
+
+/* created 20160805 */
+-(NSNumber*) getTcEqv {
+    float tceqv;
+    tceqv = ([[self getNetPerDay] floatValue]) * 30.416;
+    return [NSNumber numberWithFloat:tceqv];
+}
+
 
 
 /* created 20160802 */
 /* purpose is to call the remote webservice and load the reponse into a dictionary object */
 -(void)fetchFromUrl:(NSString *)url withDictionary:(void (^)(NSDictionary* data))dictionary{
+    
     NSURLRequest *request = [NSURLRequest  requestWithURL:[NSURL URLWithString:url]];
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
@@ -119,7 +185,20 @@
                                       dictionary(dicData);
                                   }];
     [task resume];
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* created 20160803 */
@@ -159,6 +238,7 @@
 }
 
 /* created 20160804 */
+/* modified 20160805 */
 -(bool) setAtPortMinutes :(cargoNSO*) cargo {
     
     int estimated_minutes=0;
@@ -169,7 +249,7 @@
             if (cargo.type_id == [NSNumber numberWithInt:0]) { // Hours
                 estimated_minutes = [cargo.estimated intValue] * 60;
             } else if (cargo.type_id == [NSNumber numberWithInt:1]) { // MTS/Hour; Cubicmeters/Hour;Cublic feet/Hour
-                estimated_minutes = [cargo.units intValue]/[cargo.estimated intValue] * 60;
+                estimated_minutes = abs([cargo.units intValue])/[cargo.estimated intValue] * 60;
             } else if (cargo.type_id == [NSNumber numberWithInt:3]) { //Days
                 estimated_minutes = [cargo.estimated intValue] * 1440;
             } else { // MTS/Day; Cubicmeters/Day; Cublic feet/Day
@@ -221,6 +301,7 @@
     [resultCopy setNet_result :self.net_result];
     [resultCopy setNet_day :self.net_day];
     [resultCopy setTc_eqv :self.tc_eqv];
+    [resultCopy setVoyagestring:self.voyagestring];
     [resultCopy setTotal_port_expenses :self.total_port_expenses];
     return resultCopy;
 }

@@ -12,7 +12,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (nonatomic) NSString *apikey;
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 
 - (void)saveContext;
