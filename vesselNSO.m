@@ -17,6 +17,7 @@
 @synthesize searchstring;
 @synthesize laden_cons;
 @synthesize ballast_cons;
+@synthesize atport_cons;
 
 - (id)init
 {
@@ -25,6 +26,7 @@
     // just initialize readonly tests:
     self.ballast_cons = [[consumptionNSO alloc] init];
     self.laden_cons = [[consumptionNSO alloc] init];
+    self.atport_cons = [[consumptionNSO alloc] init];
     return self;
 }
 
@@ -53,6 +55,7 @@
     [vesselCopy setRef_nr:self.ref_nr];
     [vesselCopy setLaden_cons:[[self laden_cons] copyWithZone:zone]];
     [vesselCopy setBallast_cons:[[self ballast_cons] copyWithZone:zone]];
+    [vesselCopy setAtport_cons:[[self atport_cons] copyWithZone:zone]];
     return vesselCopy;
 }
 

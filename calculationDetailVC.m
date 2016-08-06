@@ -743,10 +743,13 @@ typedef void(^connection)(BOOL);
     [self.c.result setRateData:self.c.rate :self.switchUseLocalFlatRate.selected :flatRate :rateType];
         
     [self.c.result setCommissionAmts];
-        
+    
+    self.c.result.minutes_notice_time = [NSNumber numberWithInt:0];
     [self.c.result setAtPortMinutes :l_port];
     [self.c.result setAtPortMinutes :d_port];
-        
+    
+    [self.c.result setAtSeaData :self.c];
+    
     [self.c.result setTotal_expenses:[NSNumber numberWithInt:[l_port.expense intValue] + [d_port.expense intValue]]];
     
     

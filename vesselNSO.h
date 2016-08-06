@@ -19,6 +19,7 @@
 @property (nonatomic) NSString *searchstring;
 @property (strong, nonatomic) consumptionNSO *ballast_cons;
 @property (strong, nonatomic) consumptionNSO *laden_cons;
+@property (strong, nonatomic) consumptionNSO *atport_cons;
 
 -(vesselNSO*) getVesselData :(dbHelper*) db :(NSNumber*) vessel_nr;
 -(NSString*) getVesselFullName;

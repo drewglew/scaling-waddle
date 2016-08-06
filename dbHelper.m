@@ -15,7 +15,7 @@
 
 // use its own thread perhaps??
 
-/* modified 20160805 */
+/* modified 20160806 */
 
 -(bool)dbCreate :(NSString*) databaseName {
     NSString *docsDir;
@@ -129,16 +129,24 @@
             v.ballast_cons.do_amt = [NSNumber numberWithFloat:0.0];
             v.ballast_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
             v.ballast_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
+            
+            v.atport_cons.speed = [NSNumber numberWithFloat:0.0];
+            v.atport_cons.hfo_amt = [NSNumber numberWithFloat:5.0];
+            v.atport_cons.do_amt = [NSNumber numberWithFloat:0.0];
+            v.atport_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
+            v.atport_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
+            
         
             [self insertVesselData:v];
+            [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
             [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
             [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
-            
             
             v.nr = [NSNumber numberWithInt:5];
             v.ref_nr = @"555";
             v.name = @"Andys Magic";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
             [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
             [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
@@ -146,6 +154,7 @@
             v.ref_nr = @"ABC";
             v.name = @"Alice";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
             [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
             [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
@@ -154,6 +163,7 @@
             v.ref_nr = @"DEF";
             v.name = @"Bro Developer";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
             [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
             [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
@@ -162,6 +172,7 @@
             v.ref_nr = @"GHI";
             v.name = @"Helle Maersk";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
             [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
             [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
@@ -170,6 +181,7 @@
             v.ref_nr = @"JKL";
             v.name = @"Maersk Simon";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
             [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
             [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
@@ -178,6 +190,7 @@
             v.ref_nr = @"MNO";
             v.name = @"Maersk Henry";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
             [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
             [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
@@ -186,6 +199,7 @@
             v.ref_nr = @"PQR";
             v.name = @"Miguel Maersk";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
             [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
             [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
@@ -193,6 +207,7 @@
             v.ref_nr = @"STU";
             v.name = @"Bro Designer";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
             [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
             [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
 
@@ -200,6 +215,7 @@
             v.ref_nr = @"VWX";
             v.name = @"Sophie";
             [self insertVesselData:v];
+            [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
             [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
             [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
@@ -221,6 +237,15 @@
             v.ballast_cons.do_amt = [NSNumber numberWithFloat:0.0];
             v.ballast_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
             v.ballast_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
+            
+            v.atport_cons.speed = [NSNumber numberWithFloat:0.0];
+            v.atport_cons.hfo_amt = [NSNumber numberWithFloat:5.0];
+            v.atport_cons.do_amt = [NSNumber numberWithFloat:0.0];
+            v.atport_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
+            v.atport_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
+            
+            
+            [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
             [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
             [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
             
@@ -763,6 +788,7 @@
         NSLog(@"Cannot open database");
     }
 
+    v.atport_cons = [self getConsumptionByVesselAndType:v.nr :[NSNumber numberWithInt:0]];
     v.ballast_cons = [self getConsumptionByVesselAndType:v.nr :[NSNumber numberWithInt:1]];
     v.laden_cons = [self getConsumptionByVesselAndType:v.nr :[NSNumber numberWithInt:2]];
     

@@ -41,6 +41,7 @@
 @synthesize tc_eqv;
 @synthesize total_port_expenses;
 @synthesize voyagestring;
+@synthesize minutes_notice_time;
 
 
 /* modified 20160805 */
@@ -92,6 +93,34 @@
     status.text  = @"success";
 }
 
+/* created 20160806 */
+-(void) setAtSeaData :(calculationNSO*) calculation {
+
+    float units;
+    
+    NSLog(@"minutes at port = %@", [self getMinutesInPortTotal]);
+    NSLog(@"bunker at port HFO = %@", calculation.vessel.atport_cons.hfo_amt);
+    
+    
+    units = ([calculation.vessel.atport_cons.hfo_amt floatValue] * [[self getMinutesInPortTotal] floatValue]) / 1440.0f;
+    self.hfo_bunker.units = [NSNumber numberWithFloat:[self.hfo_bunker.units floatValue] + units];
+
+    
+    units = ([calculation.vessel.atport_cons.do_amt floatValue] * [[self getMinutesInPortTotal] floatValue]) / 1440.0f;
+    self.do_bunker.units = [NSNumber numberWithFloat:[self.do_bunker.units floatValue] + units];
+    
+    units = ([calculation.vessel.atport_cons.mgo_amt floatValue] * [[self getMinutesInPortTotal] floatValue]) / 1440.0f;
+    self.mgo_bunker.units = [NSNumber numberWithFloat:[self.mgo_bunker.units floatValue] + units];
+    
+    units = ([calculation.vessel.atport_cons.lsfo_amt floatValue] * [[self getMinutesInPortTotal] floatValue]) / 1440.0f;
+    self.lsfo_bunker.units = [NSNumber numberWithFloat:[self.lsfo_bunker.units floatValue] + units];
+    
+    
+}
+
+
+
+
 
 /* created 20160806 */
 -(void) setSailingData :(calculationNSO*) calculation {
@@ -128,15 +157,17 @@
 
 /* created 20160805 */
 -(NSNumber*) getMinutesInPortTotal {
-    float minutes;
-    minutes = [loading_atport_minutes floatValue] + [discharging_atport_minutes floatValue];
-    return [NSNumber numberWithFloat:minutes];
+    float minutesinporttotal;
+    minutesinporttotal = [loading_atport_minutes floatValue] + [discharging_atport_minutes floatValue];
+    NSLog(@"minutesinporttotal=%f",minutesinporttotal);
+    return [NSNumber numberWithFloat:minutesinporttotal];
 }
 
 /* created 20160805 */
 -(NSNumber*) getMinutesTotal {
     float minutes;
-    minutes = [[self getMinutesInPortTotal] floatValue] + [minutes_sailing_laden floatValue]  + [minutes_sailing_ballasted floatValue]  + [additonal_minutes_sailing_idle floatValue]  + [additonal_minutes_sailing_laden floatValue]  + [additonal_minutes_sailing_ballasted floatValue];
+    minutes = [[self getMinutesInPortTotal] floatValue] + [minutes_sailing_laden floatValue]  + [minutes_sailing_ballasted floatValue]  + [additonal_minutes_sailing_idle floatValue]  + [additonal_minutes_sailing_laden floatValue]  + [additonal_minutes_sailing_ballasted floatValue] + [self.minutes_notice_time floatValue];
+     NSLog(@"minutes=%f",minutes);
     return [NSNumber numberWithFloat:minutes];
 }
 
@@ -144,7 +175,10 @@
 -(NSNumber*) getTotalCosts {
     float costs;
     costs = [broker_commission_amt floatValue] + [address_commission_amt floatValue]  + [hfo_bunker.getExpenses floatValue]  +  + [do_bunker.getExpenses floatValue]  + [mgo_bunker.getExpenses floatValue]  + [lsfo_bunker.getExpenses floatValue] + [total_expenses floatValue] + [additonal_expense_amt floatValue];
+    NSLog(@"costs=%f",costs);
     return [NSNumber numberWithFloat:costs];
+    
+    
 }
 
 
@@ -152,6 +186,7 @@
 -(NSNumber*) getNetResult {
     float netresult;
     netresult = [gross_freight floatValue] - [[self getTotalCosts] floatValue];
+    NSLog(@"netresult=%f",netresult);
     return [NSNumber numberWithFloat:netresult];
 }
 
@@ -159,6 +194,7 @@
 -(NSNumber*) getNetPerDay {
     float netperday;
     netperday = ([[self getNetResult] floatValue] / [[self getMinutesTotal] floatValue]) * 1440;
+    NSLog(@"netperday=%f",netperday);
     self.net_day = [NSNumber numberWithFloat:netperday];
     return  self.net_day;
 }
@@ -168,6 +204,7 @@
     float tceqv;
     tceqv = ([[self getNetPerDay] floatValue]) * 30.416;
     return [self getNetPerDay];
+    
 }
 
 
@@ -265,6 +302,10 @@
         self.discharging_atport_minutes = [NSNumber numberWithInt:estimated_minutes];
     }
     
+    int noticetimemins;
+    noticetimemins = [cargo.notice_time intValue] * 60;
+    self.minutes_notice_time = [NSNumber numberWithInt:[self.minutes_notice_time intValue] + noticetimemins];
+    
     return true;
 }
 
@@ -305,6 +346,7 @@
     [resultCopy setTc_eqv :self.tc_eqv];
     [resultCopy setVoyagestring:self.voyagestring];
     [resultCopy setTotal_port_expenses :self.total_port_expenses];
+    [resultCopy setMinutes_notice_time:self.minutes_notice_time];
     return resultCopy;
 }
 

@@ -39,6 +39,7 @@
 @property (nonatomic) NSNumber *miles_sailing_ballasted;
 @property (nonatomic) NSNumber *gross_freight;
 @property (nonatomic) NSNumber *gross_day;
+@property (nonatomic) NSNumber *minutes_notice_time;
 @property (nonatomic) NSNumber *total_costs;
 @property (nonatomic) NSNumber *total_expenses;
 @property (nonatomic) NSNumber *net_result;
@@ -59,6 +60,7 @@
 -(NSNumber*) getMinutesInPortTotal;
 -(NSNumber*) getTcEqv;
 -(void) setSailingData :(calculationNSO*) calculation;
+-(void) setAtSeaData :(calculationNSO*) calculation;
 
 
 @end
