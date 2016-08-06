@@ -53,6 +53,7 @@
     self.add_laden_days = [NSNumber numberWithInt:0];
     self.add_idle_days = [NSNumber numberWithInt:0];
     self.add_expenses = [NSNumber numberWithInt:0];
+    self.tce = [NSNumber numberWithInt:0];
     dischargeport.purpose_code = @"D";
     return self;
 }

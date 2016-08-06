@@ -25,10 +25,10 @@
 }
 
 /* created 20160802 */
+/* modified 20160806 */
 -(NSNumber*) getExpenses {
     float expenses;
-    expenses = [units floatValue] * [price floatValue];
-
+    expenses = ([units floatValue] + [additionals floatValue]) * [price floatValue];
     return [NSNumber numberWithInt:expenses];
 }
 

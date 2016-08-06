@@ -37,6 +37,7 @@
 @property (strong, nonatomic) IBOutlet UISwitch *switchUseLocalFlatRate;
 @property (strong, nonatomic) IBOutlet UITextField *textFlatRate;
 @property (strong, nonatomic) IBOutlet UIScrollView *calcScrollView;
+@property (strong, nonatomic) IBOutlet UITextField *textTCEPerDay;
 
 
 
@@ -116,7 +117,6 @@ typedef void(^connection)(BOOL);
     [inputAccesoryView setBackgroundColor:[UIColor lightGrayColor]];
     
     self.textAddHsfoAmt.inputAccessoryView = inputAccesoryView;
-    self.textBrokerCommission.inputAccessoryView = inputAccesoryView;
     self.textFlatRate.inputAccessoryView = inputAccesoryView;
     self.textMainRate.inputAccessoryView = inputAccesoryView;
     self.textHsfoPrice.inputAccessoryView = inputAccesoryView;
@@ -131,7 +131,8 @@ typedef void(^connection)(BOOL);
     self.textAddBallastedDays.inputAccessoryView = inputAccesoryView;
     self.textAddLadenDays.inputAccessoryView = inputAccesoryView;
     self.textAddExpenses.inputAccessoryView = inputAccesoryView;
-
+    self.textAddressCommission.inputAccessoryView = inputAccesoryView;
+    self.textBrokerCommission.inputAccessoryView = inputAccesoryView;
 
     [self checkInternet];
 
@@ -144,6 +145,7 @@ typedef void(^connection)(BOOL);
 -(void)doneButtonPressed {
     [self.textAddHsfoAmt resignFirstResponder];
     [self.textBrokerCommission resignFirstResponder];
+    [self.textAddressCommission resignFirstResponder];
     [self.textFlatRate resignFirstResponder];
     [self.textMainRate resignFirstResponder];
     [self.textHsfoPrice resignFirstResponder];
@@ -571,6 +573,9 @@ typedef void(^connection)(BOOL);
         }
     }
     
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle]; 
+    self.textTCEPerDay.text = [formatter stringFromNumber:self.c.result.net_day];
     
     self.c.ld_ports = [self.c getldportnames];
     
@@ -578,6 +583,7 @@ typedef void(^connection)(BOOL);
     self.textBallastFromPort.text = self.c.port_ballast_from.name;
     self.calcRefLabel.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.currentpageindex,(unsigned long)[self.opencalcs count]];
     self.textMainRate.text = [NSString stringWithFormat:@"%@",self.c.rate];
+    self.textFlatRate.text = [NSString stringWithFormat:@"%@",self.c.flatrate];
     
     self.textHsfoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.hfo_bunker.price];
     self.textHsgoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.do_bunker.price];
@@ -611,15 +617,7 @@ typedef void(^connection)(BOOL);
 
 
 - (IBAction)calculatePressed:(id)sender {
-    
-
-    
-     if ([self checkInternet]) {
-         [self calculate];
-     } else {
-         self.labelDistanceOutput.text = @"no internet";
-     }
-
+    [self calculate];
 }
 
 
@@ -643,7 +641,7 @@ typedef void(^connection)(BOOL);
         f.numberStyle = NSNumberFormatterDecimalStyle;
         self.c.rate = [f numberFromString:self.textMainRate.text];
         
-        if (self.segRateType.selectedSegmentIndex==0 && self.c.rate!=[NSNumber numberWithFloat:0.0f])  {
+        if (self.segRateType.selectedSegmentIndex==1 && self.c.rate!=[NSNumber numberWithFloat:0.0f])  {
             
             if (self.switchUseLocalFlatRate.selected) {
                 
@@ -654,7 +652,7 @@ typedef void(^connection)(BOOL);
                     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
                     f.numberStyle = NSNumberFormatterDecimalStyle;
                     // per MT - TODO validate this
-                    self.c.flatrate = [f numberFromString:self.textFlatRate.text];
+                    self.c.rate = [f numberFromString:self.textFlatRate.text];
                 }
                 
                 
@@ -682,7 +680,7 @@ typedef void(^connection)(BOOL);
                                                                        // we update the database and continue
                                                                        self.textFlatRate.text = [NSString stringWithFormat:@"%@",self.c.flatrate];
                                                                        
-                                                                       [self.db insertWorldScaleRate:[self.c getldportcombo] :self.c.rate];
+                                                                       [self.db insertWorldScaleRate:[self.c getldportcombo] :self.c.flatrate];
                                                                        [self updateResultsData :l_port :d_port];
 
                                                                        
@@ -712,7 +710,7 @@ typedef void(^connection)(BOOL);
                 }
             }
             
-        } else if (self.segRateType.selectedSegmentIndex==1 && self.c.rate!=[NSNumber numberWithFloat:0.0f])  {
+        } else if (self.segRateType.selectedSegmentIndex==0 && self.c.rate!=[NSNumber numberWithFloat:0.0f])  {
             // Per MT
             [self updateResultsData :l_port :d_port];
             
@@ -739,6 +737,9 @@ typedef void(^connection)(BOOL);
     NSNumber *flatRate = [f numberFromString:self.textFlatRate.text];
     NSNumber *rateType = @(self.segRateType.selectedSegmentIndex);
     
+    self.c.result.address_commission_percent = [f numberFromString:self.textAddressCommission.text];
+    self.c.result.broker_commission_percent = [f numberFromString:self.textBrokerCommission.text];
+
     [self.c.result setRateData:self.c.rate :self.switchUseLocalFlatRate.selected :flatRate :rateType];
         
     [self.c.result setCommissionAmts];
@@ -747,105 +748,14 @@ typedef void(^connection)(BOOL);
     [self.c.result setAtPortMinutes :d_port];
         
     [self.c.result setTotal_expenses:[NSNumber numberWithInt:[l_port.expense intValue] + [d_port.expense intValue]]];
-        
-    self.labelDistanceOutput.text = [NSString stringWithFormat:@"%@", [self.c.result getTcEqv]];
-
+    
+    
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle]; // this line is important!
+    self.textTCEPerDay.text = [formatter stringFromNumber:[self.c.result getTcEqv]];
+    
     
 }
-
-
-
-
-/* created 20160805 */
-/* modified 20160806 */
-
--(bool) getRateSpecifics {
-
-NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-f.numberStyle = NSNumberFormatterDecimalStyle;
-self.c.rate = [f numberFromString:self.textMainRate.text];
-
-if (self.segRateType.selectedSegmentIndex==0 && self.c.rate!=[NSNumber numberWithFloat:0.0f])  {
-    
-    if (self.switchUseLocalFlatRate.selected) {
-        
-        if (self.c.flatrate==[NSNumber numberWithFloat:0.0f]) {
-            
-        } else {
-            
-            NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-            f.numberStyle = NSNumberFormatterDecimalStyle;
-            // per MT - TODO validate this
-            self.c.flatrate = [f numberFromString:self.textFlatRate.text];
-        }
-        
-        
-    } else {
-        
-        self.c.flatrate = [self.db getWorldScaleRate:[self.c getldportcombo]];
-        
-        if (self.c.flatrate==[NSNumber numberWithFloat:0.0f]) {
-            
-            UIAlertController *alert = [UIAlertController
-                                        alertControllerWithTitle: @"WorldScale Rates"
-                                        message: [NSString stringWithFormat:@"We do not have the worldscale rate for  port combination %@",[self.c getldportcombo]]
-                                        preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *ok = [UIAlertAction actionWithTitle: @"OK" style: UIAlertActionStyleDefault
-                                                       handler:^(UIAlertAction *action){
-                                                           UITextField *alertTextField = alert.textFields.firstObject;
-                                                           NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-                                                           f.numberStyle = NSNumberFormatterDecimalStyle;
-                                                           self.c.flatrate = [f numberFromString:alertTextField.text];
-                                                           
-                                                           if (self.c.flatrate == [NSNumber numberWithFloat:0.0f] || self.c.flatrate == nil) {
-                                                               self.labelDistanceOutput.text = @"problem with worldscale rate!";
-                                                           } else {
-                                                               // we update the database and continue
-                                                               self.textFlatRate.text = [NSString stringWithFormat:@"%@",self.c.flatrate];
-                                                               
-                                                               [self.db insertWorldScaleRate:[self.c getldportcombo] :self.c.rate];
-
-                                                               
-                                                           }
-                                                       }];
-            
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
-                                                           handler: nil];
-            
-            
-            [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-                
-                textField.placeholder = @"Enter rate";
-                textField.keyboardType = UIKeyboardTypeDecimalPad;
-                
-            }];
-            
-            [alert addAction:ok];
-            [alert addAction:cancel];
-            
-            [self presentViewController:alert animated:true completion:nil];
-        } else {
-            // we have the rate we just need to verify the rest.
-            
-            self.textFlatRate.text = [NSString stringWithFormat:@"%@",self.c.flatrate];
-        }
-    }
-    
-} else if (self.segRateType.selectedSegmentIndex==1 && self.c.rate!=[NSNumber numberWithFloat:0.0f])  {
-    // Per MT
-    
-} else {
-    self.labelDistanceOutput.text = @"empty rate amount!";
-    return false;
-}
-    return true;
-}
-
-
-
-
-
 
 
 
@@ -912,7 +822,17 @@ if (self.segRateType.selectedSegmentIndex==0 && self.c.rate!=[NSNumber numberWit
     self.c.result.address_commission_percent = [f numberFromString:self.textAddressCommission.text];
 }
 
-
+- (IBAction)mainRateEditingEnded:(id)sender {
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    self.c.rate = [f numberFromString:self.textMainRate.text];
+    
+}
+- (IBAction)flatRateEditingEnded:(id)sender {
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    self.c.flatrate = [f numberFromString:self.textFlatRate.text];
+}
 
 - (IBAction)addHSFOEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
@@ -935,24 +855,21 @@ if (self.segRateType.selectedSegmentIndex==0 && self.c.rate!=[NSNumber numberWit
     self.c.result.lsfo_bunker.additionals = [f numberFromString:self.textAddLsfoAmt.text];
 }
 - (IBAction)addBallastedEditingEnded:(id)sender {
-    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.add_ballasted_days = [f numberFromString:self.textAddBallastedDays.text];
+    NSInteger minutes = [self.textAddBallastedDays.text integerValue] * 1440;
+    self.c.result.additonal_minutes_sailing_ballasted = [NSNumber numberWithLong:minutes];
 }
 - (IBAction)addLadenDaysEditingEnded:(id)sender {
-    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.add_laden_days = [f numberFromString:self.textAddLadenDays.text];
+    NSInteger  minutes = [self.textAddLadenDays.text integerValue] * 1440;
+    self.c.result.additonal_minutes_sailing_laden = [NSNumber numberWithLong:minutes];
 }
 - (IBAction)addIdleDaysEditingEnded:(id)sender {
-    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.add_idle_days = [f numberFromString:self.textAddIdleDays.text];
+    NSInteger minutes = [self.textAddIdleDays.text integerValue] * 1440;
+    self.c.result.additonal_minutes_sailing_idle = [NSNumber numberWithLong:minutes];
 }
 - (IBAction)addExpensesEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
      f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.add_expenses = [f numberFromString:self.textAddExpenses.text];
+    self.c.result.additonal_expense_amt = [f numberFromString:self.textAddExpenses.text];
 }
 
 

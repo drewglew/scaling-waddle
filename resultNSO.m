@@ -57,6 +57,7 @@
     self.address_commission_percent = [NSNumber numberWithFloat:0.0f];
     self.broker_commission_amt = [NSNumber numberWithFloat:0.0f];
     self.address_commission_amt = [NSNumber numberWithFloat:0.0f];
+    self.net_day =  [NSNumber numberWithFloat:0.0f];
     self.voyagestring = @"";
     return self;
 }
@@ -142,7 +143,7 @@
 /* created 20160805 */
 -(NSNumber*) getTotalCosts {
     float costs;
-    costs = [broker_commission_amt floatValue] + [address_commission_amt floatValue]  + [hfo_bunker.getExpenses floatValue]  +  + [do_bunker.getExpenses floatValue]  + [mgo_bunker.getExpenses floatValue]  + [lsfo_bunker.getExpenses floatValue] + [total_expenses floatValue];
+    costs = [broker_commission_amt floatValue] + [address_commission_amt floatValue]  + [hfo_bunker.getExpenses floatValue]  +  + [do_bunker.getExpenses floatValue]  + [mgo_bunker.getExpenses floatValue]  + [lsfo_bunker.getExpenses floatValue] + [total_expenses floatValue] + [additonal_expense_amt floatValue];
     return [NSNumber numberWithFloat:costs];
 }
 
@@ -158,14 +159,15 @@
 -(NSNumber*) getNetPerDay {
     float netperday;
     netperday = ([[self getNetResult] floatValue] / [[self getMinutesTotal] floatValue]) * 1440;
-    return [NSNumber numberWithFloat:netperday];
+    self.net_day = [NSNumber numberWithFloat:netperday];
+    return  self.net_day;
 }
 
 /* created 20160805 */
 -(NSNumber*) getTcEqv {
     float tceqv;
     tceqv = ([[self getNetPerDay] floatValue]) * 30.416;
-    return [NSNumber numberWithFloat:tceqv];
+    return [self getNetPerDay];
 }
 
 
@@ -205,7 +207,7 @@
 -(bool) setRateData :(NSNumber*)rate :(bool) useLocalFlatrate :(NSNumber*) flatRate :(NSNumber*) rateType {
     
     float unitprice;
-    if (rateType==[NSNumber numberWithInt:0]) {
+    if ([rateType intValue]==0) {
         // Per MT
         unitprice = [rate floatValue];
     } else {
