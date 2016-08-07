@@ -41,7 +41,7 @@
     self.selectedcalcs = [[NSMutableArray alloc] init];
     self.tableView.backgroundColor = [UIColor clearColor];
    // self.parentViewController.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.2 blue:0.5 alpha:0.7];
-    
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 
@@ -52,6 +52,10 @@
     [self.tableView reloadData];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    
+    return UIStatusBarStyleLightContent;
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

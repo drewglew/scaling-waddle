@@ -135,9 +135,8 @@
             v.atport_cons.do_amt = [NSNumber numberWithFloat:0.0];
             v.atport_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
             v.atport_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
-            
-        
             [self insertVesselData:v];
+            
             [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
             [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
             [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions

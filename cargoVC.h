@@ -21,6 +21,7 @@
 @property (nonatomic, weak) id <cargoIODelegate> delegate;
 @property (strong, nonatomic) calculationNSO *c;
 @property (strong, nonatomic) NSMutableArray *ports;
+@property (strong, nonatomic) IBOutlet UIButton *searchPortButton;
 @property (strong, nonatomic) dbHelper *db;
 @property (strong, nonatomic) NSIndexPath* buttonPressedIndexPath;
 @end

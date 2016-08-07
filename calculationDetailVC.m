@@ -38,6 +38,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *textFlatRate;
 @property (strong, nonatomic) IBOutlet UIScrollView *calcScrollView;
 @property (strong, nonatomic) IBOutlet UITextField *textTCEPerDay;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *atobviacActivity;
 
 
 
@@ -54,7 +55,7 @@ typedef void(^connection)(BOOL);
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+     self.atobviacActivity.hidden=true;
     
     UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipe:)];
     swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -84,7 +85,7 @@ typedef void(^connection)(BOOL);
     }
     
     
-    UIColor *buttonTintColour = [UIColor colorWithRed:222.0f/255.0f green:119.0f/255.0f blue:65.0f/255.0f alpha:1.0];
+    UIColor *buttonTintColour = [UIColor colorWithRed:216.0f/255.0f green:51.0f/255.0f blue:15.0f/255.0f alpha:1.0];
     
     UIImage *changecolourimage = [[UIImage imageNamed:@"rightarrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.expandLDButton setImage:changecolourimage forState:UIControlStateNormal];
@@ -167,6 +168,11 @@ typedef void(^connection)(BOOL);
     [super viewDidAppear:animated];
     [self loadData];
     
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    
+    return UIStatusBarStyleLightContent;
 }
 
 
@@ -254,7 +260,7 @@ typedef void(^connection)(BOOL);
     } else {
         self.c = [self.db updateCalculationData :self.c];
     }
-    self.statusLabel.text=@"";
+    self.statusLabel.text= [self.c getNiceLastModifiedDate];
     // we can add perhaps the date here it was saved...
 }
 
@@ -343,8 +349,11 @@ typedef void(^connection)(BOOL);
 
     if ([searchitem isEqualToString:@"vessel"]) {
         self.c.vessel = [self.db getVesselByVesselNr:ref :self.c.vessel];
-        self.textVessel.text = [self.c.vessel getVesselFullName];
         
+        
+        
+        
+        self.textVessel.text = [self.c.vessel getVesselFullName];
     }
     [self.navigationController popViewControllerAnimated:YES];
 
@@ -563,13 +572,20 @@ typedef void(^connection)(BOOL);
     
     
     if (![[self.c.result voyagestring] isEqualToString:voyagestring] && ![d_port.port.code isEqualToString:@""]  && ![l_port.port.code isEqualToString:@""]) {
+        
+        self.atobviacActivity.hidden=false;
+        [self.atobviacActivity startAnimating];
+        
         self.labelDistanceOutput.text = @"requesting distance";
+        
         self.c.result.voyagestring = voyagestring;
         
         if ([self checkInternet]) {
-            [self.c.result setRouteData :voyagestring :self.c :self.labelDistanceOutput];
+            [self.c.result setRouteData :voyagestring :self.c :self.labelDistanceOutput :self.atobviacActivity];
         } else {
-            self.labelDistanceOutput.text = @"no internet";
+            self.labelDistanceOutput.text = @"no internet!";
+            self.atobviacActivity.hidden=true;
+            [self.atobviacActivity stopAnimating];
         }
     }
     
@@ -748,7 +764,7 @@ typedef void(^connection)(BOOL);
     [self.c.result setAtPortMinutes :l_port];
     [self.c.result setAtPortMinutes :d_port];
     
-    [self.c.result setAtSeaData :self.c];
+    [self.c.result setAtPortData :self.c];
     
     [self.c.result setTotal_expenses:[NSNumber numberWithInt:[l_port.expense intValue] + [d_port.expense intValue]]];
     
@@ -756,6 +772,16 @@ typedef void(^connection)(BOOL);
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle]; // this line is important!
     self.textTCEPerDay.text = [formatter stringFromNumber:[self.c.result getTcEqv]];
+    
+    
+    NSLog(@"gross freight:%@",self.c.result.gross_freight);
+    NSLog(@"bunker HFO expesnes:%@",self.c.result.hfo_bunker.getExpenses);
+    NSLog(@"bunker HFO price:%@",self.c.result.hfo_bunker.price);
+    NSLog(@"bunker HFO additonal:%@",self.c.result.hfo_bunker.additionals);
+    NSLog(@"bunker HFO units:%@",self.c.result.hfo_bunker.units);
+    
+    
+    
     
     
 }

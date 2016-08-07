@@ -53,14 +53,14 @@
 
 
 -(id) copyWithZone: (NSZone *) zone;
--(void) setRouteData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status  ;
+-(void) setRouteData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status :(UIActivityIndicatorView*) atobviacActivity ;
 -(bool) setRateData :(NSNumber*)rate :(bool) useLocalFlatrate :(NSNumber*) flatRate :(NSNumber*) rateType;
 -(bool) setCommissionAmts;
 -(bool) setAtPortMinutes :(cargoNSO*) cargo;
 -(NSNumber*) getMinutesInPortTotal;
 -(NSNumber*) getTcEqv;
 -(void) setSailingData :(calculationNSO*) calculation;
--(void) setAtSeaData :(calculationNSO*) calculation;
+-(void) setAtPortData :(calculationNSO*) calculation;
 
 
 @end

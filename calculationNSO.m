@@ -116,6 +116,17 @@
     return returnVal;
 }
 
+/* created 20160807 */
+-(NSString*)getNiceLastModifiedDate {
+    NSDateFormatter *formatter;
+    NSString        *dateString;
+    
+    formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MMM-yyyy HH:mm"];
+    
+    dateString = [formatter stringFromDate:self.lastmodified];
+    return dateString;
+}
 
 
 

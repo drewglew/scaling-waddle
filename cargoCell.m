@@ -51,6 +51,12 @@
  
     self.qtyText.inputAccessoryView = inputAccesoryView;
 
+    UIColor *buttonTintColour = [UIColor colorWithRed:216.0f/255.0f green:51.0f/255.0f blue:15.0f/255.0f alpha:1.0];
+    
+    UIImage *changecolourimage = [[UIImage imageNamed:@"lookup"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    [self.searchPortButton setImage:changecolourimage forState:UIControlStateNormal];
+    self.searchPortButton.tintColor = buttonTintColour;
+    
 }
 
 

@@ -22,7 +22,6 @@
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0]];
     //2B3346
     
-    
     /* get configuration settings & manage them */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults objectForKey:@"api-key"]) {

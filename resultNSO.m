@@ -68,7 +68,7 @@
 /* modified 20160806 */
 /* calls atobviac webservice and stores routing in property, while focusing on distance and minutes while vessel is sailing */
 /* optimize - perhaps we do not need to send ballastPort etc as single parms */
--(void) setRouteData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status {
+-(void) setRouteData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status :(UIActivityIndicatorView*) atobviacActivity {
     
     NSString *url;
     NSString *apikey;
@@ -82,19 +82,27 @@
         self.routing = data;
         self.miles_sailing_ballasted = [NSNumber numberWithFloat:[[[data valueForKeyPath:@"Legs"][0] valueForKey:@"Distance"] floatValue]];
         self.miles_sailing_laden = [NSNumber numberWithFloat:[[[data valueForKeyPath:@"Legs"][1] valueForKey:@"Distance"] floatValue]];
-        [self performSelectorOnMainThread:@selector(updateLabel:) withObject:status waitUntilDone:YES];
+        [self performSelectorOnMainThread:@selector(updateActivity:) withObject:@[atobviacActivity,status] waitUntilDone:YES];
 
     }];
 }
 
-
-- (void) updateLabel :(UILabel*) status
+/* last modified 20160807 */
+- (void) updateActivity:(NSArray*)objectArray
 {
-    status.text  = @"success";
+    
+    UIActivityIndicatorView* atobviacActivity = [objectArray objectAtIndex:0];
+    UILabel* status = [objectArray objectAtIndex:1];
+    
+    [atobviacActivity stopAnimating];
+    atobviacActivity.hidden = true;
+    status.text = @"distance retreived";
+    
+    
 }
 
 /* created 20160806 */
--(void) setAtSeaData :(calculationNSO*) calculation {
+-(void) setAtPortData :(calculationNSO*) calculation {
 
     float units;
     
@@ -105,7 +113,6 @@
     units = ([calculation.vessel.atport_cons.hfo_amt floatValue] * [[self getMinutesInPortTotal] floatValue]) / 1440.0f;
     self.hfo_bunker.units = [NSNumber numberWithFloat:[self.hfo_bunker.units floatValue] + units];
 
-    
     units = ([calculation.vessel.atport_cons.do_amt floatValue] * [[self getMinutesInPortTotal] floatValue]) / 1440.0f;
     self.do_bunker.units = [NSNumber numberWithFloat:[self.do_bunker.units floatValue] + units];
     
@@ -158,7 +165,7 @@
 /* created 20160805 */
 -(NSNumber*) getMinutesInPortTotal {
     float minutesinporttotal;
-    minutesinporttotal = [loading_atport_minutes floatValue] + [discharging_atport_minutes floatValue];
+    minutesinporttotal = [loading_atport_minutes floatValue] + [discharging_atport_minutes floatValue] + [self.minutes_notice_time floatValue];
     NSLog(@"minutesinporttotal=%f",minutesinporttotal);
     return [NSNumber numberWithFloat:minutesinporttotal];
 }
@@ -166,7 +173,7 @@
 /* created 20160805 */
 -(NSNumber*) getMinutesTotal {
     float minutes;
-    minutes = [[self getMinutesInPortTotal] floatValue] + [minutes_sailing_laden floatValue]  + [minutes_sailing_ballasted floatValue]  + [additonal_minutes_sailing_idle floatValue]  + [additonal_minutes_sailing_laden floatValue]  + [additonal_minutes_sailing_ballasted floatValue] + [self.minutes_notice_time floatValue];
+    minutes = [[self getMinutesInPortTotal] floatValue] + [minutes_sailing_laden floatValue]  + [minutes_sailing_ballasted floatValue]  + [additonal_minutes_sailing_idle floatValue]  + [additonal_minutes_sailing_laden floatValue]  + [additonal_minutes_sailing_ballasted floatValue] ;
      NSLog(@"minutes=%f",minutes);
     return [NSNumber numberWithFloat:minutes];
 }

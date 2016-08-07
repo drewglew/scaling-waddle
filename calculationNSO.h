@@ -39,5 +39,6 @@
 -(NSString*)getldportnames;
 -(NSString*)getldportcombo;
 -(NSString*)getbldportcodes;
+-(NSString*)getNiceLastModifiedDate;
 
 @end
