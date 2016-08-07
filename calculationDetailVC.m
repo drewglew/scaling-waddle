@@ -772,14 +772,15 @@ typedef void(^connection)(BOOL);
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle]; // this line is important!
     self.textTCEPerDay.text = [formatter stringFromNumber:[self.c.result getTcEqv]];
+    self.labelDistanceOutput.text = @"";
     
-    
+    /*
     NSLog(@"gross freight:%@",self.c.result.gross_freight);
     NSLog(@"bunker HFO expesnes:%@",self.c.result.hfo_bunker.getExpenses);
     NSLog(@"bunker HFO price:%@",self.c.result.hfo_bunker.price);
     NSLog(@"bunker HFO additonal:%@",self.c.result.hfo_bunker.additionals);
     NSLog(@"bunker HFO units:%@",self.c.result.hfo_bunker.units);
-    
+    */
     
     
     

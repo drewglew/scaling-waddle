@@ -133,10 +133,18 @@
                             </button>
                             <color key="tintColor" red="0.84705882349999995" green="0.20000000000000001" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="05J-cM-AwP">
-                            <connections>
-                                <segue destination="LUy-Pj-iPL" kind="show" identifier="newcalculation" id="Siu-tL-A3G"/>
-                            </connections>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="ZRy-ve-fEg">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8Bg-Km-ldT">
+                                <rect key="frame" x="299" y="9" width="60" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.84705882349999995" green="0.20000000000000001" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="New">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="LUy-Pj-iPL" kind="show" identifier="newcalculation" id="Jq0-Fw-i3a"/>
+                                </connections>
+                            </button>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -532,7 +540,7 @@
                                                                 </connections>
                                                             </segmentedControl>
                                                             <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="mz8-ks-9Y4">
-                                                                <frame key="frameInset" minX="180.5" minY="53" width="78" height="31"/>
+                                                                <frame key="frameInset" minX="180" minY="53" width="77" height="31"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <color key="tintColor" red="0.12941176469999999" green="0.090196078430000007" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <color key="onTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -839,11 +847,12 @@
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LG-SQ-xHO">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LG-SQ-xHO">
+                                        <frame key="frameInset" minX="5" minY="553" width="75" height="25"/>
                                         <color key="backgroundColor" red="0.84705882349999995" green="0.20000000000000001" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="7Ey-7y-WZv"/>
-                                            <constraint firstAttribute="height" constant="30" id="Kbj-yy-ZcE"/>
+                                            <constraint firstAttribute="height" constant="25" id="Kbj-yy-ZcE"/>
                                         </constraints>
                                         <state key="normal" title="Calculate">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -907,15 +916,22 @@
                     </view>
                     <navigationItem key="navigationItem" id="xWb-K3-cQH">
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="tqz-3A-Uhz">
-                                <color key="tintColor" red="0.84705882349999995" green="0.20000000000000001" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="newCalcPressed:" destination="LUy-Pj-iPL" id="Il3-3Y-Ay2"/>
-                                </connections>
+                            <barButtonItem style="plain" id="7HA-6Q-JOA">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BQm-QL-UU6">
+                                    <rect key="frame" x="299" y="9" width="60" height="25"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.84705882349999995" green="0.20000000000000001" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" title="New">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="newCalcPressed:" destination="LUy-Pj-iPL" eventType="touchUpInside" id="KUG-4F-wxk"/>
+                                    </connections>
+                                </button>
                             </barButtonItem>
                             <barButtonItem style="plain" id="9uG-4J-ZKH">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TmT-Jl-G5r">
-                                    <rect key="frame" x="263" y="7" width="60" height="30"/>
+                                    <rect key="frame" x="231" y="9" width="60" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.84705882349999995" green="0.20000000000000001" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <state key="normal" title="Clone">
@@ -931,7 +947,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="QcJ-gh-t5L">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aya-2E-rKX">
-                                    <rect key="frame" x="195" y="7" width="60" height="30"/>
+                                    <rect key="frame" x="163" y="9" width="60" height="25"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.84705882349999995" green="0.20000000000000001" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <state key="normal" title="Keep">
@@ -1345,7 +1361,7 @@
                                         <frame key="frameInset" minY="28" width="373" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="11A-Px-qRX" id="hcP-Ho-4VM">
-                                            <frame key="frameInset" width="373" height="43.5"/>
+                                            <frame key="frameInset" width="373" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCR-xY-YlI">
@@ -1418,7 +1434,7 @@
         <scene sceneID="6dO-2R-VQP">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Ifw-YP-KXk" customClass="calculationNC" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nGa-Sr-2jC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nGa-Sr-2jC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
@@ -1443,7 +1459,7 @@
         <image name="rightarrow" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Siu-tL-A3G"/>
+        <segue reference="Jq0-Fw-i3a"/>
         <segue reference="dvc-5B-ni1"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -96,8 +96,12 @@
     
     [atobviacActivity stopAnimating];
     atobviacActivity.hidden = true;
-    status.text = @"distance retreived";
     
+    if( self.routing==nil) {
+        status.text = @"error no distance";
+    } else {
+        status.text = @"distance retreived";
+    }
     
 }
 
