@@ -14,6 +14,7 @@
 @end
 
 @implementation calculationListVC
+UIImageView *navBarHairlineImageView;
 @synthesize db;
 @synthesize calculations;
 
@@ -42,6 +43,9 @@
     self.tableView.backgroundColor = [UIColor clearColor];
    // self.parentViewController.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.2 blue:0.5 alpha:0.7];
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    
 }
 
 
@@ -51,6 +55,26 @@
     self.listing = [self.db getListing];
     [self.tableView reloadData];
 }
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    navBarHairlineImageView.hidden = YES;
+}
+
+- (UIImageView *)findHairlineImageViewUnder:(UIView *)view {
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
+        return (UIImageView *)view;
+    }
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    return nil;
+}
+
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     

@@ -51,7 +51,7 @@
  
     self.qtyText.inputAccessoryView = inputAccesoryView;
 
-    UIColor *buttonTintColour = [UIColor colorWithRed:216.0f/255.0f green:51.0f/255.0f blue:15.0f/255.0f alpha:1.0];
+    UIColor *buttonTintColour = [UIColor colorWithRed:0.0f/255.0f green:78.0f/255.0f blue:107.0f/255.0f alpha:1.0];
     
     UIImage *changecolourimage = [[UIImage imageNamed:@"lookup"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     [self.searchPortButton setImage:changecolourimage forState:UIControlStateNormal];
@@ -77,10 +77,10 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.viewbackground.layer.cornerRadius = 5.0;;
-    self.viewbackground.layer.masksToBounds = YES;
-    self.viewbackground.layer.borderWidth = 1.0f; //make border 1px thick
-    self.viewbackground.layer.borderColor = [UIColor colorWithRed:43.0f/255.0f green:51.0f/255.0f blue:70.0f/255.0f alpha:1.0].CGColor;
+//    self.viewbackground.layer.cornerRadius = 5.0;;
+//    self.viewbackground.layer.masksToBounds = YES;
+//    self.viewbackground.layer.borderWidth = 1.0f; //make border 1px thick
+//    self.viewbackground.layer.borderColor = [UIColor colorWithRed:43.0f/255.0f green:51.0f/255.0f blue:70.0f/255.0f alpha:1.0].CGColor;
     
 
 }

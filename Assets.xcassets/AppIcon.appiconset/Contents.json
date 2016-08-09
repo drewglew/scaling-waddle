@@ -3,55 +3,55 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "roastchicken_Icon-App-40x40@1x.png",
+      "filename" : "mt_29x29.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "roastchicken_Icon-App-29x29@2x.png",
+      "filename" : "mt_57x57.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "roastchicken_Icon-App-29x29@3x.png",
+      "filename" : "mt_87x87.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "roastchicken_Icon-App-40x40@1x-1.png",
+      "filename" : "mt_40x40.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "roastchicken_Icon-App-76x76@1x.png",
+      "filename" : "mt_80x80.png",
       "scale" : "3x"
     },
     {
       "size" : "57x57",
       "idiom" : "iphone",
-      "filename" : "roastchicken_Icon-App-60x60@3x-2.png",
+      "filename" : "mt_57x57-1.png",
       "scale" : "1x"
     },
     {
       "size" : "57x57",
       "idiom" : "iphone",
-      "filename" : "roastchicken_Icon-App-60x60@3x-3.png",
+      "filename" : "mt_118x118.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "roastchicken_Icon-App-76x76@1x-1.png",
+      "filename" : "mt_120x120-1.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "roastchicken_Icon-App-76x76@2x.png",
+      "filename" : "mt_180x180.png",
       "scale" : "3x"
     }
   ],

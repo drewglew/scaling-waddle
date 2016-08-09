@@ -22,10 +22,10 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.viewbackground.layer.cornerRadius = 5.0;;
-    self.viewbackground.layer.masksToBounds = YES;
-    self.viewbackground.layer.borderWidth = 1.0f; //make border 1px thick
-    self.viewbackground.layer.borderColor = [UIColor colorWithRed:43.0f/255.0f green:51.0f/255.0f blue:70.0f/255.0f alpha:1.0].CGColor;
+//    self.viewbackground.layer.cornerRadius = 5.0;;
+//    self.viewbackground.layer.masksToBounds = YES;
+//    self.viewbackground.layer.borderWidth = 1.0f; //make border 1px thick
+//    self.viewbackground.layer.borderColor = [UIColor colorWithRed:43.0f/255.0f green:51.0f/255.0f blue:70.0f/255.0f alpha:1.0].CGColor;
     
     
 }
