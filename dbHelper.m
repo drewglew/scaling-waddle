@@ -321,6 +321,7 @@
             c.tce = [NSNumber numberWithDouble:100.5];
             c.vessel.nr =  [NSNumber numberWithInt:5];
             c.created =  [NSDate date];
+            c.lastmodified = c.created;
             c.result.hfo_bunker.price = [NSNumber numberWithDouble:100.05];
             c.result.do_bunker.price = [NSNumber numberWithDouble:90.50];
             c.result.mgo_bunker.price = [NSNumber numberWithDouble:120.10];

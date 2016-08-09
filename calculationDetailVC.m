@@ -84,7 +84,7 @@ typedef void(^connection)(BOOL);
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
     
-    
+    /*
     UIColor *buttonTintColour = [UIColor colorWithRed:0.0f/255.0f green:78.0f/255.0f blue:107.0f/255.0f alpha:1.0];
     
     UIImage *changecolourimage = [[UIImage imageNamed:@"rightarrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -98,13 +98,10 @@ typedef void(^connection)(BOOL);
     self.searchVesselButton.tintColor = buttonTintColour;
     [self.searchBallastButton setImage:changecolourimage forState:UIControlStateNormal];
     self.searchBallastButton.tintColor = buttonTintColour;
-    
-    
+    */
     
     UIView *inputAccesoryView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 40)];
-    // It´s good idea a view under the button in order to change the color...more custom option
-    //inputAccesoryView.backgroundColor = [UIColor whiteColor];
-    
+
     
     UIButton *doneButton = [[UIButton alloc] initWithFrame:CGRectMake(([UIScreen mainScreen].bounds.size.width) - 110, 5, 100, 30)];
     // configure the button here... you choose.
@@ -255,6 +252,7 @@ typedef void(^connection)(BOOL);
     NSNumber *existing = self.c.id;
     if (existing == nil) {
         // its a new calc that is not in the db
+        self.c.created =  [NSDate date];
         self.c = [self.db insertCalculationData :self.c];
         [self.db prepareld :self.c];
         
@@ -629,6 +627,18 @@ typedef void(^connection)(BOOL);
     }
     self.statusLabel.text = self.c.statustext;
     
+    if (self.c.flatrate==nil || self.c.flatrate == [NSNumber numberWithFloat:0.0f]) {
+        self.segRateType.selectedSegmentIndex=0;
+        self.labelMainRate.text = @"Unit Rate:";
+        self.switchUseLocalFlatRate.hidden = true;
+        self.textFlatRate.hidden = true;
+    } else {
+        self.segRateType.selectedSegmentIndex=1;
+        self.labelMainRate.text = @"WS Rate:";
+        self.switchUseLocalFlatRate.hidden = false;
+        self.textFlatRate.hidden = false;
+    }
+    
 }
 
 
@@ -771,7 +781,10 @@ typedef void(^connection)(BOOL);
     
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
-    [formatter setNumberStyle:NSNumberFormatterDecimalStyle]; // this line is important!
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle ]; // this line is important!
+    [formatter setMaximumFractionDigits:2];
+    [formatter setMinimumFractionDigits:2];
+    
     self.textTCEPerDay.text = [formatter stringFromNumber:[self.c.result getTcEqv]];
     self.labelDistanceOutput.text = @"";
     
@@ -910,6 +923,7 @@ typedef void(^connection)(BOOL);
 - (IBAction)segmentRateTypeChanged:(id)sender {
     
     if (self.segRateType.selectedSegmentIndex == 0) {
+        self.c.flatrate = [NSNumber numberWithFloat:0.0f];
         self.switchUseLocalFlatRate.hidden = true;
         self.textFlatRate.hidden = true;
         self.labelMainRate.text = @"Unit Rate:";

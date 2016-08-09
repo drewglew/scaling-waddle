@@ -22,26 +22,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="186" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vzW-M8-aTV">
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="167" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vzW-M8-aTV">
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="calculationCell" rowHeight="186" id="vEp-P3-jEO" customClass="calculationCell">
-                                        <frame key="frameInset" minY="28" width="375" height="186"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="calculationCell" rowHeight="167" id="vEp-P3-jEO" customClass="calculationCell">
+                                        <frame key="frameInset" minY="28" width="375" height="167"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vEp-P3-jEO" id="4Cf-ec-Hlx">
-                                            <frame key="frameInset" width="342" height="185"/>
+                                            <frame key="frameInset" width="342" height="166"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="niC-cp-M7f" userLabel="background">
-                                                    <frame key="frameInset" minX="3" minY="8" width="331" height="134"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="niC-cp-M7f" userLabel="background">
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTq-lY-5tB">
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="60" id="CoR-zX-me1"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="20"/>
-                                                            <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last modified" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mee-NU-FiO">
@@ -50,7 +49,7 @@
                                                                 <constraint firstAttribute="width" constant="200" id="N6m-OA-6Ii"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
-                                                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.47563493251800537" green="0.4756467342376709" blue="0.47564041614532471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ports" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0w-0c-H1w">
@@ -58,22 +57,21 @@
                                                                 <constraint firstAttribute="height" constant="22" id="Wwd-Q5-r5q"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
-                                                            <color key="textColor" red="0.12941176469999999" green="0.090196078430000007" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.17375758290290833" green="0.11939883977174759" blue="0.10116394609212875" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Vessel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsO-GU-Vj8">
-                                                            <frame key="frameInset" minX="8" minY="105" width="311" height="22"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vessel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsO-GU-Vj8">
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="22" id="85W-wX-73k"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
-                                                            <color key="textColor" red="0.12941176469999999" green="0.090196078430000007" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.17375758290290833" green="0.11939883977174759" blue="0.10116394609212875" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstItem="U0w-0c-H1w" firstAttribute="top" secondItem="fsO-GU-Vj8" secondAttribute="bottom" constant="15" id="4MR-HN-0nT"/>
+                                                        <constraint firstItem="U0w-0c-H1w" firstAttribute="top" secondItem="fsO-GU-Vj8" secondAttribute="bottom" constant="5" id="4MR-HN-0nT"/>
                                                         <constraint firstItem="fTq-lY-5tB" firstAttribute="leading" secondItem="niC-cp-M7f" secondAttribute="leading" constant="10" id="5VD-q4-mhh"/>
                                                         <constraint firstAttribute="trailing" secondItem="fsO-GU-Vj8" secondAttribute="trailing" constant="10" id="7oa-XW-XDE"/>
                                                         <constraint firstAttribute="bottom" secondItem="U0w-0c-H1w" secondAttribute="bottom" constant="5" id="AbS-8O-yeY"/>
@@ -87,7 +85,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="niC-cp-M7f" firstAttribute="top" secondItem="4Cf-ec-Hlx" secondAttribute="topMargin" id="87x-Up-aWu"/>
                                                 <constraint firstItem="niC-cp-M7f" firstAttribute="leading" secondItem="4Cf-ec-Hlx" secondAttribute="leadingMargin" constant="-5" id="c6s-ai-tjf"/>
@@ -95,7 +93,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="niC-cp-M7f" secondAttribute="trailing" id="w3w-F5-phF"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="descr" destination="fTq-lY-5tB" id="X8v-99-MHx"/>
                                             <outlet property="lastmodifiedlabel" destination="mee-NU-FiO" id="ywe-iX-CRo"/>
@@ -112,7 +110,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="vzW-M8-aTV" secondAttribute="trailing" id="HXx-VZ-zuj"/>
                             <constraint firstItem="r7t-Pm-eXo" firstAttribute="top" secondItem="vzW-M8-aTV" secondAttribute="bottom" constant="2" id="KLq-2k-0SP"/>
@@ -125,26 +123,26 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PpQ-cp-2U5">
                                 <rect key="frame" x="16" y="7" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
-                                <color key="tintColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Select">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="selectCalsPressed:" destination="ra8-wf-rxb" eventType="touchUpInside" id="CFD-34-s52"/>
                                 </connections>
                             </button>
-                            <color key="tintColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="ZRy-ve-fEg">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8Bg-Km-ldT">
                                 <rect key="frame" x="299" y="7" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                                 <state key="normal" title="New">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="LUy-Pj-iPL" kind="show" identifier="newcalculation" id="Jq0-Fw-i3a"/>
@@ -175,7 +173,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNV-rX-ume">
                                 <subviews>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xyP-9k-frG">
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xyP-9k-frG">
                                         <frame key="frameInset" minX="2" minY="35" width="351" height="513"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnw-L4-UgN">
@@ -194,7 +192,7 @@
                                                                 </connections>
                                                             </textField>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="Q53-es-9Ew" firstAttribute="leading" secondItem="4UO-eM-ipd" secondAttribute="leading" constant="10" id="4Un-wh-JYf"/>
                                                             <constraint firstAttribute="trailing" secondItem="Q53-es-9Ew" secondAttribute="trailing" constant="10" id="IQ8-mJ-Rpe"/>
@@ -209,16 +207,16 @@
                                                                     <constraint firstAttribute="height" constant="30" id="a4p-m7-Viu"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nc-cv-cuV" userLabel="VesselSelector">
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="width" constant="30" id="8ye-Ue-8Bo"/>
+                                                                    <constraint firstAttribute="width" constant="27" id="8ye-Ue-8Bo"/>
                                                                     <constraint firstAttribute="height" constant="30" id="PGw-GC-e2b"/>
                                                                 </constraints>
-                                                                <color key="tintColor" red="0.87058823529999996" green="0.46666666670000001" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="tintColor" red="0.9024537205696106" green="0.54527461528778076" blue="0.32075485587120056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <state key="normal" image="lookup"/>
                                                                 <connections>
                                                                     <action selector="vesselSelectorPressed:" destination="LUy-Pj-iPL" eventType="touchUpInside" id="G67-Rk-eqo"/>
@@ -230,16 +228,16 @@
                                                                     <constraint firstAttribute="height" constant="14" id="JJR-jf-8zU"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HSGO$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2D-LF-oRf">
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="14" id="fVI-pL-8IC"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LSGO$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ff-xe-Ccg">
@@ -247,7 +245,7 @@
                                                                     <constraint firstAttribute="height" constant="14" id="pif-3s-P2P"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LSFO$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B9r-kw-LLp">
@@ -255,14 +253,13 @@
                                                                     <constraint firstAttribute="height" constant="14" id="e31-Fl-TDL"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cY4-Cg-fqy" userLabel="HSFO Price Text">
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="3Vr-yD-jAR"/>
                                                                 </constraints>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                                                 <connections>
@@ -274,7 +271,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="zxr-KT-0RV"/>
                                                                 </constraints>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                                                 <connections>
@@ -297,7 +293,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="0gW-Eb-t2n"/>
                                                                 </constraints>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                                                 <connections>
@@ -316,7 +311,7 @@
                                                                 </connections>
                                                             </textField>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="mf4-FN-lwS" firstAttribute="top" secondItem="B9r-kw-LLp" secondAttribute="bottom" constant="5" id="0wt-7o-xjS"/>
                                                             <constraint firstItem="mf4-FN-lwS" firstAttribute="width" secondItem="cY4-Cg-fqy" secondAttribute="width" id="3kC-qk-OYp"/>
@@ -362,7 +357,7 @@
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address Commission %" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTn-fl-C9l">
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.00" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1dC-EE-w12">
@@ -379,7 +374,7 @@
                                                             </textField>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Broker Commission %" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wck-78-NXN">
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.00" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ehl-KW-RWZ">
@@ -395,7 +390,7 @@
                                                                 </connections>
                                                             </textField>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="tTn-fl-C9l" firstAttribute="leading" secondItem="Wck-78-NXN" secondAttribute="trailing" constant="10" id="4Wj-au-uKt"/>
                                                             <constraint firstItem="tTn-fl-C9l" firstAttribute="top" secondItem="4KH-IF-FnF" secondAttribute="top" constant="10" id="4ZE-d7-nCz"/>
@@ -420,14 +415,14 @@
                                                                     <constraint firstAttribute="height" constant="30" id="KR6-0t-E3f"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Open cargo detail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DXp-Oa-XPo">
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="QeU-ym-g8p"/>
                                                                 </constraints>
-                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                             </textField>
@@ -435,7 +430,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="tbN-Xg-Co9"/>
                                                                 </constraints>
-                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                                 <connections>
@@ -443,10 +438,10 @@
                                                                 </connections>
                                                             </textField>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ctx-yb-Kpp" userLabel="ExpandLD">
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="WbF-qv-Pog"/>
-                                                                    <constraint firstAttribute="width" constant="30" id="aes-q4-sEg"/>
+                                                                    <constraint firstAttribute="width" constant="27" id="aes-q4-sEg"/>
                                                                 </constraints>
                                                                 <state key="normal" image="rightarrow"/>
                                                                 <connections>
@@ -455,12 +450,12 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSC-2z-Y8R" userLabel="ExpandBallast">
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="UdG-Ij-UHf"/>
-                                                                    <constraint firstAttribute="width" constant="30" id="pFV-O7-uGq"/>
+                                                                    <constraint firstAttribute="width" constant="27" id="pFV-O7-uGq"/>
                                                                 </constraints>
-                                                                <color key="tintColor" red="0.87058823529999996" green="0.46666666670000001" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="tintColor" red="0.9024537205696106" green="0.54527461528778076" blue="0.32075485587120056" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <state key="normal" image="lookup"/>
                                                                 <connections>
                                                                     <action selector="vesselSelectorPressed:" destination="LUy-Pj-iPL" eventType="touchUpInside" id="bOd-OQ-Tw6"/>
@@ -472,11 +467,11 @@
                                                                     <constraint firstAttribute="height" constant="30" id="iqo-iW-570"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="DXp-Oa-XPo" firstAttribute="leading" secondItem="kh9-g6-5c8" secondAttribute="trailing" constant="10" id="1qg-92-TEm"/>
                                                             <constraint firstAttribute="bottom" secondItem="DXp-Oa-XPo" secondAttribute="bottom" constant="25" id="1wQ-Lg-zFN"/>
@@ -503,7 +498,7 @@
                                                                     <constraint firstAttribute="height" constant="30" id="7a4-8k-wdy"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N9A-3m-85g">
@@ -534,7 +529,7 @@
                                                                     <segment title="Per MT"/>
                                                                     <segment title="WorldScale"/>
                                                                 </segments>
-                                                                <color key="tintColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="tintColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <metadata>
                                                                     <string key="libraryAssetSourceID">Xcode.InterfaceBuilderKit.CocoaTouchIntegration.ObjectLibraryAssetProvider:IBUISegmentedControl</string>
                                                                 </metadata>
@@ -544,13 +539,13 @@
                                                             </segmentedControl>
                                                             <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="mz8-ks-9Y4">
                                                                 <frame key="frameInset" minX="181" minY="53" width="77" height="31"/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                <color key="tintColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <color key="onTintColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <color key="thumbTintColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="tintColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="onTintColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="thumbTintColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </switch>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="1Q9-AQ-Xwz" secondAttribute="trailing" constant="10" id="97v-1R-jid"/>
                                                             <constraint firstAttribute="trailing" secondItem="aCP-Mr-JGi" secondAttribute="trailing" constant="10" id="E0K-Qj-MjL"/>
@@ -578,7 +573,7 @@
                                                                     <constraint firstAttribute="height" constant="25" id="ySu-Lv-kNp"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="18"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HSFO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LbN-py-6BC" userLabel="AddHSFOLabel">
@@ -586,7 +581,7 @@
                                                                     <constraint firstAttribute="height" constant="14" id="eF3-ch-W3c"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HSGO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMy-ME-s29" userLabel="AddHSGOLabel">
@@ -594,7 +589,7 @@
                                                                     <constraint firstAttribute="height" constant="14" id="DSQ-V5-Wcb"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LSGO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qi1-k5-XWn" userLabel="AddLSGOLabel">
@@ -602,7 +597,7 @@
                                                                     <constraint firstAttribute="height" constant="14" id="oDo-QN-K0e"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LSFO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jT8-Z7-hiY" userLabel="AddLSFOLabel">
@@ -610,14 +605,14 @@
                                                                     <constraint firstAttribute="height" constant="14" id="x4w-D4-4Fw"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wih-ji-t2B" userLabel="AddHSFOTextField">
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="NdN-zx-NkU"/>
                                                                 </constraints>
-                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <connections>
@@ -629,7 +624,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="FLY-uv-OWi"/>
                                                                 </constraints>
-                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <connections>
@@ -641,7 +636,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="INc-NY-cXz"/>
                                                                 </constraints>
-                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <connections>
@@ -653,7 +648,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="Hs1-wY-0sR"/>
                                                                 </constraints>
-                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <connections>
@@ -661,43 +656,43 @@
                                                                     <action selector="dismissKB:" destination="LUy-Pj-iPL" eventType="editingDidEndOnExit" id="Rtu-Zg-O5M"/>
                                                                 </connections>
                                                             </textField>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ballasted Days:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLr-3a-SAc" userLabel="AddBallastedDaysLabel">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ballasted Days:" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLr-3a-SAc" userLabel="AddBallastedDaysLabel">
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="3sg-iY-sHk"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded Days:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSi-4D-KDA" userLabel="AddLoadedDaysLabel">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded Days:" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSi-4D-KDA" userLabel="AddLoadedDaysLabel">
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="EVS-Lz-bX8"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Idle Days:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddw-be-mUa" userLabel="AddIdleDaysLabel">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Idle Days:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddw-be-mUa" userLabel="AddIdleDaysLabel">
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="LWL-s3-2j4"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expenses:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJ6-5g-Syw" userLabel="AddExpensesDaysLabel">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expenses:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJ6-5g-Syw" userLabel="AddExpensesDaysLabel">
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="4Jy-Vp-xfo"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hJV-mf-rY2" userLabel="AddBallastedDaysTextField">
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="6wd-Gh-PwK"/>
                                                                 </constraints>
-                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <connections>
@@ -709,7 +704,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="TYp-Wf-yQO"/>
                                                                 </constraints>
-                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <connections>
@@ -721,7 +716,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="n0u-0i-mNc"/>
                                                                 </constraints>
-                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <connections>
@@ -733,7 +728,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="D5s-9A-Gcz"/>
                                                                 </constraints>
-                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                                 <connections>
@@ -742,7 +737,7 @@
                                                                 </connections>
                                                             </textField>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="GQk-6s-lmr" firstAttribute="leading" secondItem="fSi-4D-KDA" secondAttribute="trailing" constant="10" id="3GT-hO-ce7"/>
                                                             <constraint firstItem="cLr-3a-SAc" firstAttribute="width" secondItem="Wih-ji-t2B" secondAttribute="width" id="3cg-Qa-QHK"/>
@@ -799,7 +794,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="IUj-Hc-u34" firstAttribute="leading" secondItem="fnw-L4-UgN" secondAttribute="leading" id="2pa-ll-hxE"/>
                                                     <constraint firstItem="kh9-g6-5c8" firstAttribute="width" secondItem="C2D-LF-oRf" secondAttribute="width" id="5qW-ce-xBk"/>
@@ -824,7 +819,7 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="fnw-L4-UgN" secondAttribute="bottom" constant="-480" id="hbC-Sq-7bD"/>
                                             <constraint firstItem="fnw-L4-UgN" firstAttribute="leading" secondItem="xyP-9k-frG" secondAttribute="leading" id="mzp-If-I55"/>
@@ -838,7 +833,7 @@
                                             <constraint firstAttribute="width" constant="200" id="DIW-S8-pge"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
-                                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.47563493251800537" green="0.4756467342376709" blue="0.47564041614532471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#ref" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTC-mT-nay">
@@ -847,18 +842,18 @@
                                             <constraint firstAttribute="width" constant="42" id="W6Q-yH-7w0"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
-                                        <color key="textColor" red="0.0" green="0.30588235294117649" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LG-SQ-xHO">
-                                        <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="7Ey-7y-WZv"/>
                                             <constraint firstAttribute="height" constant="30" id="Kbj-yy-ZcE"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                                         <state key="normal" title="Calculate">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="calculatePressed:" destination="LUy-Pj-iPL" eventType="touchUpInside" id="FQE-tY-CRk"/>
@@ -869,32 +864,32 @@
                                             <constraint firstAttribute="width" secondItem="mhn-CW-t1D" secondAttribute="height" multiplier="1:1" id="7AX-yd-rQU"/>
                                         </constraints>
                                     </activityIndicatorView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hQC-22-I28">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="hQC-22-I28">
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="2GF-ZW-yFA"/>
-                                            <constraint firstAttribute="width" constant="100" id="iwz-6b-oAD"/>
+                                            <constraint firstAttribute="height" constant="35" id="2GF-ZW-yFA"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="30"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jV6-yl-ft8" userLabel="Label TCE Output">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="ohZ-w5-6nj"/>
-                                            <constraint firstAttribute="width" constant="75" id="pUD-bJ-IKQ"/>
+                                            <constraint firstAttribute="width" constant="60" id="pUD-bJ-IKQ"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="10"/>
-                                        <color key="textColor" red="0.16862745100000001" green="0.20000000000000001" blue="0.27450980390000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="8"/>
+                                        <color key="textColor" red="0.22172227501869202" green="0.26312655210494995" blue="0.34538030624389648" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="bm9-xo-TuJ" firstAttribute="top" secondItem="zNV-rX-ume" secondAttribute="top" constant="5" id="1kL-yI-q3q"/>
-                                    <constraint firstItem="bm9-xo-TuJ" firstAttribute="leading" secondItem="zNV-rX-ume" secondAttribute="leading" constant="5" id="5hx-pe-fTP"/>
+                                    <constraint firstItem="bm9-xo-TuJ" firstAttribute="top" secondItem="zNV-rX-ume" secondAttribute="top" constant="10" id="1kL-yI-q3q"/>
+                                    <constraint firstItem="bm9-xo-TuJ" firstAttribute="leading" secondItem="zNV-rX-ume" secondAttribute="leading" constant="10" id="5hx-pe-fTP"/>
                                     <constraint firstAttribute="trailing" secondItem="hQC-22-I28" secondAttribute="trailing" constant="5" id="6yU-HA-77C"/>
                                     <constraint firstAttribute="bottom" secondItem="mhn-CW-t1D" secondAttribute="bottom" constant="5" id="8Zz-Sq-HQc"/>
-                                    <constraint firstAttribute="trailing" secondItem="sTC-mT-nay" secondAttribute="trailing" constant="5" id="9kb-72-bTR"/>
-                                    <constraint firstItem="sTC-mT-nay" firstAttribute="top" secondItem="zNV-rX-ume" secondAttribute="top" constant="5" id="Akl-MT-meE"/>
+                                    <constraint firstAttribute="trailing" secondItem="sTC-mT-nay" secondAttribute="trailing" constant="10" id="9kb-72-bTR"/>
+                                    <constraint firstItem="sTC-mT-nay" firstAttribute="top" secondItem="zNV-rX-ume" secondAttribute="top" constant="10" id="Akl-MT-meE"/>
                                     <constraint firstItem="mhn-CW-t1D" firstAttribute="top" secondItem="xyP-9k-frG" secondAttribute="bottom" constant="5" id="LFa-JW-hhc"/>
                                     <constraint firstItem="xyP-9k-frG" firstAttribute="leading" secondItem="zNV-rX-ume" secondAttribute="leading" constant="2" id="QKH-k6-DcN"/>
                                     <constraint firstAttribute="bottom" secondItem="hQC-22-I28" secondAttribute="bottom" constant="5" id="Tev-Zo-f7V"/>
@@ -905,11 +900,12 @@
                                     <constraint firstItem="jV6-yl-ft8" firstAttribute="leading" secondItem="mhn-CW-t1D" secondAttribute="trailing" constant="8" id="luK-DV-Dyg"/>
                                     <constraint firstAttribute="trailing" secondItem="xyP-9k-frG" secondAttribute="trailing" constant="2" id="mvW-rJ-6vl"/>
                                     <constraint firstItem="mhn-CW-t1D" firstAttribute="leading" secondItem="7LG-SQ-xHO" secondAttribute="trailing" constant="5" id="oY7-ti-8kS"/>
-                                    <constraint firstItem="xyP-9k-frG" firstAttribute="top" secondItem="zNV-rX-ume" secondAttribute="top" constant="35" id="xSB-Vc-t7X"/>
+                                    <constraint firstItem="hQC-22-I28" firstAttribute="leading" secondItem="jV6-yl-ft8" secondAttribute="trailing" constant="2" id="rdV-YK-RGs"/>
+                                    <constraint firstItem="xyP-9k-frG" firstAttribute="top" secondItem="zNV-rX-ume" secondAttribute="top" constant="40" id="xSB-Vc-t7X"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="vHW-Sk-KjV" firstAttribute="top" secondItem="zNV-rX-ume" secondAttribute="bottom" constant="10" id="3N1-Z7-VgD"/>
                             <constraint firstItem="zNV-rX-ume" firstAttribute="leading" secondItem="Q0t-Yt-Q7z" secondAttribute="leading" constant="10" id="D9T-ek-CXe"/>
@@ -923,10 +919,10 @@
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BQm-QL-UU6">
                                     <rect key="frame" x="299" y="7" width="60" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                                     <state key="normal" title="New">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="newCalcPressed:" destination="LUy-Pj-iPL" eventType="touchUpInside" id="KUG-4F-wxk"/>
@@ -937,10 +933,10 @@
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TmT-Jl-G5r">
                                     <rect key="frame" x="231" y="7" width="60" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                                     <state key="normal" title="Clone">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="cloneCalcPressed:" destination="LUy-Pj-iPL" eventType="touchUpInside" id="B4w-fS-PYR"/>
@@ -954,10 +950,10 @@
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aya-2E-rKX">
                                     <rect key="frame" x="163" y="7" width="60" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                                     <state key="normal" title="Keep">
-                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
                                     <connections>
                                         <action selector="keepCalculation:" destination="LUy-Pj-iPL" eventType="touchUpInside" id="k14-vV-7rO"/>
@@ -1028,7 +1024,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="239" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9qR-Oa-akM">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cargoport" rowHeight="239" id="tbP-Jf-px4" customClass="cargoCell">
                                         <frame key="frameInset" minY="28" width="375" height="239"/>
@@ -1045,14 +1041,14 @@
                                                                 <constraint firstAttribute="height" constant="30" id="JZJ-2G-2Zh"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                            <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search for Port" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sIS-uG-buj" userLabel="Port TextField">
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="AHw-0T-PLq"/>
                                                             </constraints>
-                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                             <connections>
@@ -1063,7 +1059,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="4bE-4W-1IV"/>
                                                             </constraints>
-                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                                             <connections>
@@ -1075,7 +1071,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="RhI-ng-iem"/>
                                                             </constraints>
-                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                                             <connections>
@@ -1087,7 +1083,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="QnW-kh-6lm"/>
                                                             </constraints>
-                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                                             <connections>
@@ -1101,7 +1097,7 @@
                                                                 <constraint firstAttribute="height" constant="30" id="fNy-uf-OXw"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                            <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h2x-J5-adx">
@@ -1110,7 +1106,7 @@
                                                                 <constraint firstAttribute="height" constant="25" id="kr7-T1-Bni"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                            <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQ3-7V-kOL">
@@ -1119,7 +1115,7 @@
                                                                 <constraint firstAttribute="width" constant="40" id="k8E-af-jBp"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                            <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notice:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C7M-VM-v0n">
@@ -1128,23 +1124,23 @@
                                                                 <constraint firstAttribute="height" constant="30" id="R6u-wk-flc"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                            <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ARo-KO-Chp">
-                                                            <color key="backgroundColor" red="1" green="0.45882352941176469" blue="0.027450980392156862" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="backgroundColor" red="1" green="0.53975176811218262" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="36" id="BX3-VZ-aAS"/>
                                                                 <constraint firstAttribute="width" constant="36" id="EYI-Xs-xPr"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="black" pointSize="38"/>
-                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BRf-T4-Sxh" userLabel="PortList">
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="6Ef-JR-48x"/>
-                                                                <constraint firstAttribute="width" constant="30" id="zP5-Qp-SEL"/>
+                                                                <constraint firstAttribute="width" id="zP5-Qp-SEL"/>
                                                             </constraints>
                                                             <state key="normal" image="lookup"/>
                                                             <connections>
@@ -1156,7 +1152,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="d5d-6v-zw0"/>
                                                             </constraints>
-                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                                             <connections>
@@ -1170,7 +1166,7 @@
                                                                 <constraint firstAttribute="height" constant="30" id="pcZ-I2-dnN"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="11"/>
-                                                            <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rwf-KT-3xo">
@@ -1183,13 +1179,13 @@
                                                                 <segment title="Days"/>
                                                                 <segment title="MTS/Days"/>
                                                             </segments>
-                                                            <color key="tintColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="tintColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <connections>
                                                                 <action selector="segTypeValueChanged:" destination="tbP-Jf-px4" eventType="valueChanged" id="54l-b9-yCb"/>
                                                             </connections>
                                                         </segmentedControl>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="SuS-IV-KdL" firstAttribute="bottom" secondItem="itY-2a-IBy" secondAttribute="bottom" multiplier="0.95" id="06v-Ex-jPD"/>
                                                         <constraint firstAttribute="trailing" secondItem="mgd-MR-rve" secondAttribute="trailing" constant="15" id="1iT-Zi-dep"/>
@@ -1235,7 +1231,7 @@
                                                     </constraints>
                                                 </view>
                                             </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstItem="itY-2a-IBy" firstAttribute="leading" secondItem="WSX-8I-9fd" secondAttribute="leading" constant="5" id="1ca-LX-rJN"/>
                                                 <constraint firstAttribute="trailing" secondItem="itY-2a-IBy" secondAttribute="trailing" constant="5" id="Myi-a9-VlA"/>
@@ -1243,7 +1239,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="itY-2a-IBy" secondAttribute="bottom" constant="5" id="z3n-v3-Pbk"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="PEXText" destination="mgd-MR-rve" id="pIW-Wm-HCx"/>
                                             <outlet property="estText" destination="SuS-IV-KdL" id="pAY-O3-fDR"/>
@@ -1264,7 +1260,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9qR-Oa-akM" firstAttribute="top" secondItem="8AV-FK-eAb" secondAttribute="bottom" id="5Rt-d5-euD"/>
                             <constraint firstItem="9qR-Oa-akM" firstAttribute="leading" secondItem="GHZ-uC-efV" secondAttribute="leading" id="Qqm-My-fGl"/>
@@ -1297,7 +1293,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Wsr-Zc-IxB">
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hg4-iz-YdO">
-                                                <color key="backgroundColor" red="0.66428765300000003" green="0.85163755100000005" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="0.71684348583221436" green="0.8812369704246521" blue="0.98497730493545532" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Fq-Ty-CvV">
                                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1306,7 +1302,7 @@
                                                 <color key="backgroundColor" red="0.29803921570000003" green="0.85490196080000003" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLH-Zn-10v">
-                                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" red="1" green="0.1491314172744751" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RtN-j4-fWI">
                                                 <color key="backgroundColor" red="0.20000000000000001" green="1" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1326,7 +1322,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="XD9-KQ-ODt" firstAttribute="top" secondItem="jbj-CU-oh4" secondAttribute="bottom" constant="50" id="H7g-kV-5VS"/>
                             <constraint firstItem="jbj-CU-oh4" firstAttribute="leading" secondItem="77f-Sz-5Ib" secondAttribute="leadingMargin" id="LvM-te-yxK"/>
@@ -1361,7 +1357,7 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H22-5O-k7e">
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchCell" id="11A-Px-qRX" customClass="searchCell">
                                         <frame key="frameInset" minY="28" width="373" height="44"/>
@@ -1375,12 +1371,10 @@
                                                         <constraint firstAttribute="width" constant="30" id="Bc3-b5-bAv"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X08-wW-EOq">
                                                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
-                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1406,7 +1400,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.35182833671569824" green="0.78121757507324219" blue="0.8511655330657959" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="CJM-dY-dXe" firstAttribute="leading" secondItem="Xb9-aM-COA" secondAttribute="leading" id="VjO-h8-xMz"/>
                             <constraint firstItem="CJM-dY-dXe" firstAttribute="top" secondItem="DKw-sx-KRt" secondAttribute="bottom" id="iOM-tb-gr5"/>
@@ -1440,11 +1434,11 @@
         <scene sceneID="6dO-2R-VQP">
             <objects>
                 <navigationController title="Calculations" automaticallyAdjustsScrollViewInsets="NO" id="Ifw-YP-KXk" customClass="calculationNC" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nGa-Sr-2jC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nGa-Sr-2jC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.0" green="0.37994307279586792" blue="0.49557852745056152" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
                         </textAttributes>
                     </navigationBar>
@@ -1462,8 +1456,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="lookup" width="64" height="64"/>
-        <image name="rightarrow" width="64" height="64"/>
+        <image name="lookup" width="639" height="700"/>
+        <image name="rightarrow" width="639" height="700"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Jq0-Fw-i3a"/>
