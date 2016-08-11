@@ -17,14 +17,12 @@
 		3A2744E41D412D1000CB23BD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A2744D41D412D1000CB23BD /* Main.storyboard */; };
 		3A2744E51D412D1000CB23BD /* portNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744D61D412D1000CB23BD /* portNSO.m */; };
 		3A2744E61D412D1000CB23BD /* vesselNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744D81D412D1000CB23BD /* vesselNSO.m */; };
-		3A2744E71D412D1000CB23BD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744DA1D412D1000CB23BD /* ViewController.m */; };
 		3A2744EC1D412D6C00CB23BD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3A2744EB1D412D6C00CB23BD /* Default-568h@2x.png */; };
 		3A2744F21D412E7200CB23BD /* dbHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744F11D412E7200CB23BD /* dbHelper.m */; };
 		3A2744F51D41300A00CB23BD /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A2744F41D41300A00CB23BD /* Info.plist */; };
 		3A2744F81D4130AD00CB23BD /* calculationDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744F71D4130AD00CB23BD /* calculationDetailVC.m */; };
 		3A2744FB1D41318D00CB23BD /* calculationNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744FA1D41318D00CB23BD /* calculationNC.m */; };
 		3A37183D1D49BDF9003446C4 /* searchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A37183C1D49BDF9003446C4 /* searchCell.m */; };
-		3A37737A1D4CA22D000917E7 /* AdditionalsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3773791D4CA22D000917E7 /* AdditionalsVC.m */; };
 		3A37CFA71D50EA49005D101E /* bunkerNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A37CFA61D50EA49005D101E /* bunkerNSO.m */; };
 		3A37CFAA1D50EA5B005D101E /* consumptionNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A37CFA91D50EA5B005D101E /* consumptionNSO.m */; };
 		3A37CFAD1D50EA70005D101E /* resultNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A37CFAC1D50EA70005D101E /* resultNSO.m */; };
@@ -57,8 +55,6 @@
 		3A2744D61D412D1000CB23BD /* portNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = portNSO.m; sourceTree = "<group>"; };
 		3A2744D71D412D1000CB23BD /* vesselNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vesselNSO.h; sourceTree = "<group>"; };
 		3A2744D81D412D1000CB23BD /* vesselNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vesselNSO.m; sourceTree = "<group>"; };
-		3A2744D91D412D1000CB23BD /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3A2744DA1D412D1000CB23BD /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3A2744EB1D412D6C00CB23BD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3A2744F01D412E7200CB23BD /* dbHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dbHelper.h; sourceTree = "<group>"; };
 		3A2744F11D412E7200CB23BD /* dbHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dbHelper.m; sourceTree = "<group>"; };
@@ -69,8 +65,6 @@
 		3A2744FA1D41318D00CB23BD /* calculationNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = calculationNC.m; sourceTree = "<group>"; };
 		3A37183B1D49BDF9003446C4 /* searchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = searchCell.h; sourceTree = "<group>"; };
 		3A37183C1D49BDF9003446C4 /* searchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchCell.m; sourceTree = "<group>"; };
-		3A3773781D4CA22D000917E7 /* AdditionalsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdditionalsVC.h; sourceTree = "<group>"; };
-		3A3773791D4CA22D000917E7 /* AdditionalsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdditionalsVC.m; sourceTree = "<group>"; };
 		3A37CFA51D50EA49005D101E /* bunkerNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bunkerNSO.h; sourceTree = "<group>"; };
 		3A37CFA61D50EA49005D101E /* bunkerNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bunkerNSO.m; sourceTree = "<group>"; };
 		3A37CFA81D50EA5B005D101E /* consumptionNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = consumptionNSO.h; sourceTree = "<group>"; };
@@ -153,8 +147,6 @@
 				3A2744FA1D41318D00CB23BD /* calculationNC.m */,
 				3A2744D21D412D1000CB23BD /* LaunchScreen.storyboard */,
 				3A2744D31D412D1000CB23BD /* main.m */,
-				3A2744D91D412D1000CB23BD /* ViewController.h */,
-				3A2744DA1D412D1000CB23BD /* ViewController.m */,
 				3A2744C81D412D1000CB23BD /* Assets.xcassets */,
 				3A2744F41D41300A00CB23BD /* Info.plist */,
 				3ABC9F8C1D454A5B00328249 /* 3rdParty */,
@@ -187,8 +179,6 @@
 				3A520E221D416D7800D7DEC6 /* searchVC.m */,
 				3A2744F61D4130AD00CB23BD /* calculationDetailVC.h */,
 				3A2744F71D4130AD00CB23BD /* calculationDetailVC.m */,
-				3A3773781D4CA22D000917E7 /* AdditionalsVC.h */,
-				3A3773791D4CA22D000917E7 /* AdditionalsVC.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -306,8 +296,6 @@
 				3A2744FB1D41318D00CB23BD /* calculationNC.m in Sources */,
 				3ABC9F9F1D47B63800328249 /* listingItemNSO.m in Sources */,
 				3A4ED01F1D49BEE300609696 /* cargoCell.m in Sources */,
-				3A37737A1D4CA22D000917E7 /* AdditionalsVC.m in Sources */,
-				3A2744E71D412D1000CB23BD /* ViewController.m in Sources */,
 				3A2744E61D412D1000CB23BD /* vesselNSO.m in Sources */,
 				3ABC9F8F1D454A6700328249 /* Reachability.m in Sources */,
 				3A4ED0231D49C3C200609696 /* calculationCell.m in Sources */,
