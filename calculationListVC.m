@@ -45,7 +45,7 @@ UIImageView *navBarHairlineImageView;
     [self setNeedsStatusBarAppearanceUpdate];
     
     navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
-    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 
