@@ -17,6 +17,18 @@
 
 /* modified 20160806 */
 
+
+
+-(void) deleteDB :(NSString*) databaseName {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath =  [documentsDirectory stringByAppendingPathComponent:databaseName];
+    
+    if([[NSFileManager defaultManager] fileExistsAtPath:filePath]){
+        [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+    }
+}
+
 -(bool)dbCreate :(NSString*) databaseName {
     NSString *docsDir;
     NSArray *dirPaths;
@@ -26,7 +38,7 @@
     docsDir = dirPaths[0];
     
     /* clean up old db */
-    // [self deleteDB:@"tramosol"];
+    //[self deleteDB:@"tankchartcalc.db"];
     
     
     _databasePath = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:databaseName]];
@@ -310,10 +322,7 @@
             p.abc_code = @"FR0110";
             p.name = @"La Pallice";
             [self insertPortData :p];
-            
-            
-            
-            
+ 
             calculationNSO *c = [[calculationNSO alloc] init];
             
             c.descr = @"Sample Calculation with dummy data";
@@ -503,9 +512,6 @@
         [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
         NSString *dateCreated=[dateFormat stringFromDate:c.created];
         
-        
-
-        
        NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO calculations (calc_id, calc_description, calc_rate, calc_flatrate, calc_tce, calc_vessel_nr, calc_port_ballast_from, calc_created, calc_last_modified, calc_ld_ports, calc_hfo_price, calc_do_price, calc_mgo_price, calc_lsfo_price, calc_address_commission, calc_broker_commission, calc_add_idle_days, calc_add_ballasted_days, calc_add_laden_days, calc_add_expenses, calc_add_hfo, calc_add_do, calc_add_mgo, calc_add_lsfo, calc_voyagestring, calc_miles_ball, calc_miles_laden) VALUES (%@,'%@', %@, %@, %@, %@,'%@','%s', '%s', '%@', %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@,'%@',%@,%@)", newCalcId, c.descr, c.rate,c.flatrate, c.result.net_day,c.vessel.nr,c.port_ballast_from.code, dateCreated.UTF8String, dateCreated.UTF8String,c.ld_ports, c.result.hfo_bunker.price, c.result.do_bunker.price, c.result.mgo_bunker.price, c.result.lsfo_bunker.price, c.result.address_commission_percent, c.result.broker_commission_percent, c.add_idle_days, c.add_ballasted_days, c.add_laden_days, c.add_expenses, c.result.hfo_bunker.additionals, c.result.do_bunker.additionals, c.result.mgo_bunker.additionals, c.result.lsfo_bunker.additionals, c.result.voyagestring, c.result.miles_sailing_ballasted, c.result.miles_sailing_laden];
         
         const char *insert_statement = [insertSQL UTF8String];
@@ -674,7 +680,6 @@
                 [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                 c.created = [dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 7)]];
                 c.lastmodified = [dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 8)]];
-                
                 c.result.hfo_bunker.price = [NSNumber numberWithDouble:sqlite3_column_double(statement, 9)];
                 c.result.do_bunker.price = [NSNumber numberWithDouble:sqlite3_column_double(statement, 10)];
                 c.result.mgo_bunker.price = [NSNumber numberWithDouble:sqlite3_column_double(statement, 11)];
@@ -715,8 +720,6 @@
 /* created 20160725 */
 -(NSMutableArray*) getCargoes :(NSNumber*) calc_id {
     NSMutableArray *cargoes = [[NSMutableArray alloc] init];
-    
-    //sql_statement = "CREATE TABLE cargoio(cargoio_id INTEGER PRIMARY KEY, cargoio_units INTEGER, cargoio_expense DECIMAL(8,2), cargoio_estimated DECIMAL(10,4), cargoio_terms_id INTEGER, cargoio_notice_time INTEGER, cargoio_type_id INTEGER, cargoio_purpose_code TEXT, cargoio_port_code TEXT, cargoio_calc_id INTEGER, FOREIGN KEY(cargoio_port_code) REFERENCES ports(port_code), FOREIGN KEY(cargoio_calc_id) REFERENCES calculations(calc_id))";
     
     sqlite3_stmt *statement;
     const char *dbpath = [_databasePath UTF8String];
@@ -835,11 +838,10 @@
 
 -(bool) insertWorldScaleRate :(NSString*) portcombo :(NSNumber*) rate {
    
-    sqlite3_stmt *statement;
+    
     const char *dbpath = [_databasePath UTF8String];
     if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
 
-    
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO worldscales VALUES (NULL, '%@',%@)", portcombo, rate];
     
     sqlite3_stmt *statement;
@@ -852,10 +854,10 @@
         NSLog(@"inserted new record inside worldscales table!");
     }
         
-        
+     sqlite3_finalize(statement);
         
     }
-    sqlite3_finalize(statement);
+    
     
     
     

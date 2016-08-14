@@ -37,11 +37,6 @@
     }
 }
 
--(portNSO*) getPortData :(dbHelper*) db :(NSString*) port_code {
-    
-    [db getPortByPortCode:port_code :self];
-    return self;
-}
 
 
 /* created 20160722 */
@@ -53,6 +48,58 @@
     [portCopy setAbc_code:self.abc_code];
     return portCopy;
 }
+
+/* created 20160813 */
+-(void) setPort :(NSString*) p_code :(NSString*) p_abc_code :(NSString*) p_name {
+    self.code = p_code;
+    self.abc_code = p_abc_code;
+    self.name = p_name;
+}
+
+-(void) insertPort {
+    NSString *query = [NSString stringWithFormat:@"INSERT INTO ports (port_code,port_abc_code,port_name) VALUES ('%@','%@','%@')", self.code, self.abc_code, self.name];
+    dbManager *sharedDBManager = [dbManager shareDBManager];
+    [sharedDBManager executeQuery:query];
+}
+
+
+/* created 20160722 */
+/* modified 20160813 */
+-(void) setPortByPortCode :(NSString*) port_code {
+    
+    dbManager *sharedDBManager = [dbManager shareDBManager];
+    NSString *query = [NSString stringWithFormat:@"SELECT port_code,port_abc_code,port_name FROM ports WHERE port_code='%@'",port_code];
+    NSMutableArray *ports = [[NSMutableArray alloc] initWithArray: [sharedDBManager loadDataFromDB:query]];
+    self.code = [[ports objectAtIndex:0] objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"port_code"]];
+    self.abc_code = [[ports objectAtIndex:0] objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"abc_code"]];
+    self.name = [[ports objectAtIndex:0] objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"port_name"]];
+    self.searchstring = [self getPortFullName];
+
+}
+
+/* created 20160722 */
+-(NSMutableArray*) getPorts {
+    dbManager *sharedDBManager = [dbManager shareDBManager];
+    
+    NSString *query = @"SELECT port_code, port_abc_code, port_name from ports ORDER BY port_name DESC";
+    NSMutableArray *ports = [[NSMutableArray alloc] initWithArray: [sharedDBManager loadDataFromDB:query]];
+    
+    NSMutableArray *portlist = [[NSMutableArray alloc] init];
+   
+    for (id obj in ports) {
+        portNSO *p = [[portNSO alloc] init];
+        p.code = [obj objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"port_code"]];
+        p.abc_code = [obj objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"port_abc_code"]];
+        p.name = [obj objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"port_name"]];
+        p.searchstring = p.getPortFullName;
+        [portlist addObject:p];
+    }
+    
+    return portlist;
+}
+
+
+
 
 
 

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "dbManager.h"
 
 @interface consumptionNSO : NSObject
 @property (nonatomic) NSNumber *zone_id;
@@ -17,6 +18,7 @@
 @property (nonatomic) NSNumber *mgo_amt;
 @property (nonatomic) NSNumber *lsfo_amt;
 
-
+-(bool) insertConsumptionData :(NSNumber*) vessel_nr :(NSNumber*) cons_type;
+-(void) setConsumptionByVesselAndType :(NSNumber*) vessel_nr :(NSNumber*) cons_type;
 -(id) copyWithZone: (NSZone *) zone;
 @end

@@ -19,7 +19,7 @@
                         <viewControllerLayoutGuide type="bottom" id="r7t-Pm-eXo"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="x3O-l1-zzO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="186" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vzW-M8-aTV">
@@ -27,21 +27,13 @@
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="calculationCell" rowHeight="186" id="vEp-P3-jEO" customClass="calculationCell">
-<<<<<<< HEAD
-                                        <frame key="frameInset" minY="28" width="414" height="186"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vEp-P3-jEO" id="4Cf-ec-Hlx">
-                                            <frame key="frameInset" width="381" height="185.5"/>
-=======
                                         <frame key="frameInset" minY="28" width="375" height="186"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vEp-P3-jEO" id="4Cf-ec-Hlx">
                                             <frame key="frameInset" width="342" height="185"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="niC-cp-M7f" userLabel="background">
-                                                    <frame key="frameInset" minX="3" minY="8" width="331" height="134"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="niC-cp-M7f" userLabel="background">
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTq-lY-5tB">
                                                             <constraints>
@@ -68,8 +60,7 @@
                                                             <color key="textColor" red="0.12941176469999999" green="0.090196078430000007" blue="0.078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Vessel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsO-GU-Vj8">
-                                                            <frame key="frameInset" minX="8" minY="105" width="311" height="22"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vessel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsO-GU-Vj8">
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="22" id="85W-wX-73k"/>
                                                             </constraints>
@@ -80,7 +71,7 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="U0w-0c-H1w" firstAttribute="top" secondItem="fsO-GU-Vj8" secondAttribute="bottom" constant="15" id="4MR-HN-0nT"/>
+                                                        <constraint firstItem="U0w-0c-H1w" firstAttribute="top" secondItem="fsO-GU-Vj8" secondAttribute="bottom" constant="5" id="4MR-HN-0nT"/>
                                                         <constraint firstItem="fTq-lY-5tB" firstAttribute="leading" secondItem="niC-cp-M7f" secondAttribute="leading" constant="10" id="5VD-q4-mhh"/>
                                                         <constraint firstAttribute="trailing" secondItem="fsO-GU-Vj8" secondAttribute="trailing" constant="10" id="7oa-XW-XDE"/>
                                                         <constraint firstAttribute="bottom" secondItem="U0w-0c-H1w" secondAttribute="bottom" constant="2" id="AbS-8O-yeY"/>
@@ -119,11 +110,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-<<<<<<< HEAD
                         <color key="backgroundColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
-=======
-                        <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="vzW-M8-aTV" secondAttribute="trailing" id="HXx-VZ-zuj"/>
                             <constraint firstItem="r7t-Pm-eXo" firstAttribute="top" secondItem="vzW-M8-aTV" secondAttribute="bottom" constant="2" id="KLq-2k-0SP"/>
@@ -136,11 +123,7 @@
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PpQ-cp-2U5">
                                 <rect key="frame" x="20" y="7" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-<<<<<<< HEAD
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-=======
-                                <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                                 <color key="tintColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Select">
@@ -150,21 +133,13 @@
                                     <action selector="selectCalsPressed:" destination="ra8-wf-rxb" eventType="touchUpInside" id="CFD-34-s52"/>
                                 </connections>
                             </button>
-<<<<<<< HEAD
                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-=======
-                            <color key="tintColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="ZRy-ve-fEg">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8Bg-Km-ldT">
                                 <rect key="frame" x="334" y="7" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-<<<<<<< HEAD
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-=======
-                                <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                                 <state key="normal" title="New">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -193,17 +168,13 @@
                         <viewControllerLayoutGuide type="bottom" id="vHW-Sk-KjV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Q0t-Yt-Q7z">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zNV-rX-ume">
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xyP-9k-frG">
-<<<<<<< HEAD
-                                        <frame key="frameInset" minX="2" minY="35" width="390" height="582"/>
-=======
                                         <frame key="frameInset" minX="2" minY="35" width="351" height="513"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnw-L4-UgN">
                                                 <subviews>
@@ -289,7 +260,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="3Vr-yD-jAR"/>
                                                                 </constraints>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                                                 <connections>
@@ -301,7 +271,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="zxr-KT-0RV"/>
                                                                 </constraints>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                                                 <connections>
@@ -324,7 +293,6 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="0gW-Eb-t2n"/>
                                                                 </constraints>
-                                                                <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                                                 <connections>
@@ -570,11 +538,7 @@
                                                                 </connections>
                                                             </segmentedControl>
                                                             <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="mz8-ks-9Y4">
-<<<<<<< HEAD
-                                                                <frame key="frameInset" minX="200" minY="53" width="87" height="31"/>
-=======
                                                                 <frame key="frameInset" minX="181" minY="53" width="77" height="31"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <color key="tintColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <color key="onTintColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -692,7 +656,7 @@
                                                                     <action selector="dismissKB:" destination="LUy-Pj-iPL" eventType="editingDidEndOnExit" id="Rtu-Zg-O5M"/>
                                                                 </connections>
                                                             </textField>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ballasted Days:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLr-3a-SAc" userLabel="AddBallastedDaysLabel">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ballasted Days:" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLr-3a-SAc" userLabel="AddBallastedDaysLabel">
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="3sg-iY-sHk"/>
                                                                 </constraints>
@@ -700,7 +664,7 @@
                                                                 <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded Days:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSi-4D-KDA" userLabel="AddLoadedDaysLabel">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded Days:" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSi-4D-KDA" userLabel="AddLoadedDaysLabel">
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="EVS-Lz-bX8"/>
                                                                 </constraints>
@@ -708,7 +672,7 @@
                                                                 <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Idle Days:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddw-be-mUa" userLabel="AddIdleDaysLabel">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Idle Days:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddw-be-mUa" userLabel="AddIdleDaysLabel">
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="LWL-s3-2j4"/>
                                                                 </constraints>
@@ -716,7 +680,7 @@
                                                                 <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expenses:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJ6-5g-Syw" userLabel="AddExpensesDaysLabel">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expenses:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJ6-5g-Syw" userLabel="AddExpensesDaysLabel">
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="4Jy-Vp-xfo"/>
                                                                 </constraints>
@@ -903,10 +867,6 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hQC-22-I28">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="2GF-ZW-yFA"/>
-<<<<<<< HEAD
-=======
-                                            <constraint firstAttribute="width" constant="100" id="iwz-6b-oAD"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="24"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -938,21 +898,13 @@
                                     <constraint firstAttribute="bottom" secondItem="xyP-9k-frG" secondAttribute="bottom" constant="40" id="iuv-dP-Kes"/>
                                     <constraint firstItem="jV6-yl-ft8" firstAttribute="leading" secondItem="mhn-CW-t1D" secondAttribute="trailing" constant="2" id="luK-DV-Dyg"/>
                                     <constraint firstAttribute="trailing" secondItem="xyP-9k-frG" secondAttribute="trailing" constant="2" id="mvW-rJ-6vl"/>
-<<<<<<< HEAD
                                     <constraint firstItem="mhn-CW-t1D" firstAttribute="leading" secondItem="7LG-SQ-xHO" secondAttribute="trailing" constant="2" id="oY7-ti-8kS"/>
                                     <constraint firstItem="hQC-22-I28" firstAttribute="leading" secondItem="jV6-yl-ft8" secondAttribute="trailing" constant="2" id="qIi-ng-jKH"/>
-=======
-                                    <constraint firstItem="mhn-CW-t1D" firstAttribute="leading" secondItem="7LG-SQ-xHO" secondAttribute="trailing" constant="5" id="oY7-ti-8kS"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                                     <constraint firstItem="xyP-9k-frG" firstAttribute="top" secondItem="zNV-rX-ume" secondAttribute="top" constant="35" id="xSB-Vc-t7X"/>
                                 </constraints>
                             </view>
                         </subviews>
-<<<<<<< HEAD
                         <color key="backgroundColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
-=======
-                        <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                         <constraints>
                             <constraint firstItem="vHW-Sk-KjV" firstAttribute="top" secondItem="zNV-rX-ume" secondAttribute="bottom" constant="10" id="3N1-Z7-VgD"/>
                             <constraint firstItem="zNV-rX-ume" firstAttribute="leading" secondItem="Q0t-Yt-Q7z" secondAttribute="leading" constant="10" id="D9T-ek-CXe"/>
@@ -966,11 +918,7 @@
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BQm-QL-UU6">
                                     <rect key="frame" x="334" y="7" width="60" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-<<<<<<< HEAD
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-=======
-                                    <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                                     <state key="normal" title="New">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -984,11 +932,7 @@
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TmT-Jl-G5r">
                                     <rect key="frame" x="266" y="7" width="60" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-<<<<<<< HEAD
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-=======
-                                    <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                                     <state key="normal" title="Clone">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1005,11 +949,7 @@
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aya-2E-rKX">
                                     <rect key="frame" x="198" y="7" width="60" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-<<<<<<< HEAD
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-=======
-                                    <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                                     <state key="normal" title="Keep">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1079,17 +1019,17 @@
                         <viewControllerLayoutGuide type="bottom" id="S5j-jk-odC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="GHZ-uC-efV">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="239" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9qR-Oa-akM">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cargoport" rowHeight="239" id="tbP-Jf-px4" customClass="cargoCell">
-                                        <frame key="frameInset" minY="28" width="414" height="239"/>
+                                        <frame key="frameInset" minY="28" width="375" height="239"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tbP-Jf-px4" id="WSX-8I-9fd">
-                                            <frame key="frameInset" width="414" height="238.5"/>
+                                            <frame key="frameInset" width="375" height="238"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="itY-2a-IBy">
@@ -1319,11 +1259,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-<<<<<<< HEAD
                         <color key="backgroundColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
-=======
-                        <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                         <constraints>
                             <constraint firstItem="9qR-Oa-akM" firstAttribute="top" secondItem="8AV-FK-eAb" secondAttribute="bottom" id="5Rt-d5-euD"/>
                             <constraint firstItem="9qR-Oa-akM" firstAttribute="leading" secondItem="GHZ-uC-efV" secondAttribute="leading" id="Qqm-My-fGl"/>
@@ -1339,68 +1275,6 @@
             </objects>
             <point key="canvasLocation" x="2300" y="440.32983508245883"/>
         </scene>
-<<<<<<< HEAD
-=======
-        <!--Additionals-->
-        <scene sceneID="1Qg-sf-NI4">
-            <objects>
-                <viewController title="Additionals" id="UUk-rr-dB9" customClass="AdditionalsVC" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="nlB-k3-qsq"/>
-                        <viewControllerLayoutGuide type="bottom" id="XD9-KQ-ODt"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="77f-Sz-5Ib">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbj-CU-oh4">
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Wsr-Zc-IxB">
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hg4-iz-YdO">
-                                                <color key="backgroundColor" red="0.66428765300000003" green="0.85163755100000005" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Fq-Ty-CvV">
-                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dMg-Yg-jYe">
-                                                <color key="backgroundColor" red="0.29803921570000003" green="0.85490196080000003" blue="0.3921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sLH-Zn-10v">
-                                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RtN-j4-fWI">
-                                                <color key="backgroundColor" red="0.20000000000000001" green="1" blue="0.80392156859999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </view>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1000" id="ysz-Mj-bsE"/>
-                                        </constraints>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="Wsr-Zc-IxB" firstAttribute="top" secondItem="jbj-CU-oh4" secondAttribute="top" id="8fR-Ps-Et8"/>
-                                    <constraint firstAttribute="trailing" secondItem="Wsr-Zc-IxB" secondAttribute="trailing" id="Ftb-ga-Wp6"/>
-                                    <constraint firstItem="Wsr-Zc-IxB" firstAttribute="width" secondItem="jbj-CU-oh4" secondAttribute="width" id="YM9-4Q-0EL"/>
-                                    <constraint firstItem="Wsr-Zc-IxB" firstAttribute="leading" secondItem="jbj-CU-oh4" secondAttribute="leading" id="go9-gJ-b6D"/>
-                                    <constraint firstAttribute="bottom" secondItem="Wsr-Zc-IxB" secondAttribute="bottom" id="qi6-3X-gsx"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="XD9-KQ-ODt" firstAttribute="top" secondItem="jbj-CU-oh4" secondAttribute="bottom" constant="50" id="H7g-kV-5VS"/>
-                            <constraint firstItem="jbj-CU-oh4" firstAttribute="leading" secondItem="77f-Sz-5Ib" secondAttribute="leadingMargin" id="LvM-te-yxK"/>
-                            <constraint firstItem="jbj-CU-oh4" firstAttribute="top" secondItem="nlB-k3-qsq" secondAttribute="bottom" id="bnZ-Ea-ZBV"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="jbj-CU-oh4" secondAttribute="trailing" id="rQf-i3-wey"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="E6V-kf-kt3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2253.5999999999999" y="-433.13343328335833"/>
-        </scene>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
         <!--SearchVC-->
         <scene sceneID="aRC-OL-Eqd">
             <objects>
@@ -1410,7 +1284,7 @@
                         <viewControllerLayoutGuide type="bottom" id="FER-6Y-Jgx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Xb9-aM-COA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="CJM-dY-dXe">
@@ -1427,10 +1301,10 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchCell" id="11A-Px-qRX" customClass="searchCell">
-                                        <frame key="frameInset" minY="28" width="404" height="44"/>
+                                        <frame key="frameInset" minY="28" width="373" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="11A-Px-qRX" id="hcP-Ho-4VM">
-                                            <frame key="frameInset" width="404" height="43.5"/>
+                                            <frame key="frameInset" width="373" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCR-xY-YlI">
@@ -1469,11 +1343,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-<<<<<<< HEAD
                         <color key="backgroundColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
-=======
-                        <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                         <constraints>
                             <constraint firstItem="CJM-dY-dXe" firstAttribute="leading" secondItem="Xb9-aM-COA" secondAttribute="leading" id="VjO-h8-xMz"/>
                             <constraint firstItem="CJM-dY-dXe" firstAttribute="top" secondItem="DKw-sx-KRt" secondAttribute="bottom" id="iOM-tb-gr5"/>
@@ -1507,15 +1377,11 @@
         <scene sceneID="6dO-2R-VQP">
             <objects>
                 <navigationController title="Calculations" automaticallyAdjustsScrollViewInsets="NO" id="Ifw-YP-KXk" customClass="calculationNC" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nGa-Sr-2jC">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nGa-Sr-2jC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
-<<<<<<< HEAD
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-=======
-                            <color key="textColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
                             <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
                         </textAttributes>
                     </navigationBar>

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "dbManager.h"
 #import "consumptionNSO.h"
 
 @class dbHelper;
@@ -21,8 +22,11 @@
 @property (strong, nonatomic) consumptionNSO *laden_cons;
 @property (strong, nonatomic) consumptionNSO *atport_cons;
 
--(vesselNSO*) getVesselData :(dbHelper*) db :(NSNumber*) vessel_nr;
+//-(vesselNSO*) getVesselData :(dbHelper*) db :(NSNumber*) vessel_nr;
 -(NSString*) getVesselFullName;
 -(id) copyWithZone: (NSZone *) zone;
-
+-(void) setVessel :(NSNumber*) v_nr :(NSString*) v_ref_nr :(NSString*) v_name;
+-(void) setVesselByVesselNr :(NSNumber*) vessel_nr;
+-(bool) insertVesselData;
+-(NSMutableArray*) getVessels;
 @end

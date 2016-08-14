@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "portNSO.h"
+#import "dbManager.h"
 
 @interface cargoNSO : NSObject
 

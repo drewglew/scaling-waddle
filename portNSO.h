@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class dbHelper;
+#import "dbManager.h"
 
 @interface portNSO : NSObject
 
@@ -20,5 +19,8 @@
 
 -(NSString*) getPortFullName;
 -(id) copyWithZone: (NSZone *) zone;
--(portNSO*) getPortData :(dbHelper*) db :(NSString*) port_code;
+-(NSMutableArray*) getPorts;
+-(void) setPortByPortCode :(NSString*) port_code;
+-(void) insertPort;
+-(void) setPort :(NSString*) p_code :(NSString*) p_abc_code :(NSString*) p_name;
 @end

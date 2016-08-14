@@ -85,10 +85,6 @@ typedef void(^connection)(BOOL);
     }
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
-<<<<<<< HEAD
-=======
-    
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
     UIColor *buttonTintColour = [UIColor colorWithRed:0.0f/255.0f green:78.0f/255.0f blue:107.0f/255.0f alpha:1.0];
     
     UIImage *changecolourimage = [[UIImage imageNamed:@"rightarrow"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -114,12 +110,14 @@ typedef void(^connection)(BOOL);
     // configure the button here... you choose.
     [doneButton setTitle:@"Done" forState:UIControlStateNormal];
     [doneButton addTarget:self action:@selector(doneButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    [doneButton setBackgroundColor:[UIColor darkGrayColor]];
+    [doneButton setBackgroundColor:[UIColor colorWithRed:76.0f/255.0f green:188.0f/255.0f blue:208.0f/255.0f alpha:1.0]];
+    
+    
     doneButton.layer.cornerRadius = 5.0;;
     doneButton.layer.masksToBounds = YES;
     
     [inputAccesoryView addSubview:doneButton];
-    [inputAccesoryView setBackgroundColor:[UIColor lightGrayColor]];
+    [inputAccesoryView setBackgroundColor:[UIColor colorWithRed:0.0f/255.0f green:78.0f/255.0f blue:107.0f/255.0f alpha:1.0]];
     
     self.textAddHsfoAmt.inputAccessoryView = inputAccesoryView;
     self.textFlatRate.inputAccessoryView = inputAccesoryView;
@@ -259,6 +257,7 @@ typedef void(^connection)(BOOL);
     NSNumber *existing = self.c.id;
     if (existing == nil) {
         // its a new calc that is not in the db
+        self.c.created =  [NSDate date];
         self.c = [self.db insertCalculationData :self.c];
         [self.db prepareld :self.c];
         
@@ -634,8 +633,6 @@ typedef void(^connection)(BOOL);
         self.c.statustext = dateLastModified;
     }
     self.statusLabel.text = self.c.statustext;
-    
-<<<<<<< HEAD
     if (self.c.flatrate==nil || [self.c.flatrate isEqual:@0]) {
         self.segRateType.selectedSegmentIndex=0;
         self.labelMainRate.text = @"Unit Rate:";
@@ -648,9 +645,6 @@ typedef void(^connection)(BOOL);
         self.textFlatRate.hidden = false;
     }
 
-    
-=======
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
 }
 
 
@@ -794,11 +788,9 @@ typedef void(^connection)(BOOL);
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle]; // this line is important!
-<<<<<<< HEAD
+
     [formatter setMaximumFractionDigits:2];
     [formatter setMinimumFractionDigits:2];
-=======
->>>>>>> parent of 1f78a23... Minor bugs resolved (visual items mostly)  - created date issue fixed.  also maintaining segment rate detail now working
     self.textTCEPerDay.text = [formatter stringFromNumber:[self.c.result getTcEqv]];
     self.labelDistanceOutput.text = @"";
     
@@ -937,6 +929,7 @@ typedef void(^connection)(BOOL);
 - (IBAction)segmentRateTypeChanged:(id)sender {
     
     if (self.segRateType.selectedSegmentIndex == 0) {
+        self.c.flatrate = [NSNumber numberWithFloat:0.0f];
         self.switchUseLocalFlatRate.hidden = true;
         self.textFlatRate.hidden = true;
         self.labelMainRate.text = @"Unit Rate:";

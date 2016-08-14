@@ -26,8 +26,7 @@ UIImageView *navBarHairlineImageView;
 -(void)initDB {
     /* most times the database is already existing */
     self.db = [[dbHelper alloc] init];
-    [self.db dbCreate :@"mobilemt.db"];
-  //  self.calculations = [self.db getCalculations];
+    [self.db dbCreate :@"tankchartcalc.db"];
 }
 
 
@@ -36,12 +35,32 @@ UIImageView *navBarHairlineImageView;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    //[self.db dbCreate :@""];
+    //dbManager *sharedDBManager = [dbManager shareDBManager];
+    //[sharedDBManager dbInit:@"tankchartcalc.db"];
     
     [self initDB];
+    
+#if TARGET_IPHONE_SIMULATOR
+    // where are you?
+    NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
+#endif
+ /*
+    portNSO *p = [[portNSO alloc] init];
+    [p setPort:@"LON" :@"GB0067" :@"London"];
+    [p insertPort];
+    NSMutableArray *testP = [[NSMutableArray alloc] init];
+    testP = [p getPorts];
+    
+    vesselNSO *v = [[vesselNSO alloc] init];
+    [v setVessel:[NSNumber numberWithInt:10] :@"010" :@"Alice"];
+    [v insertVesselData];
+    NSMutableArray *testV = [[NSMutableArray alloc] init];
+    testV = [v getVessels];
+*/
+  
     self.selectedcalcs = [[NSMutableArray alloc] init];
     self.tableView.backgroundColor = [UIColor clearColor];
-   // self.parentViewController.view.backgroundColor = [UIColor colorWithRed:0.0 green:0.2 blue:0.5 alpha:0.7];
+
     [self setNeedsStatusBarAppearanceUpdate];
     
     navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
@@ -51,7 +70,10 @@ UIImageView *navBarHairlineImageView;
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //self.calculations = [self.db getCalculations];
+    
+    
+    
+    
     self.listing = [self.db getListing];
     [self.tableView reloadData];
 }

@@ -11,6 +11,7 @@
 #import "portNSO.h"
 #import "cargoNSO.h"
 #import "resultNSO.h"
+#import "listingItemNSO.h"
 
 
 @interface calculationNSO : NSObject
@@ -40,5 +41,11 @@
 -(NSString*)getldportcombo;
 -(NSString*)getbldportcodes;
 -(NSString*)getNiceLastModifiedDate;
+-(bool) deleteCalculation :(NSNumber *) calc_id;
+-(NSMutableArray*) getCalculations :(NSMutableArray*) listing;
+-(NSMutableArray*) getListing;
+-(void) updateCalculationData;
+
+
 
 @end

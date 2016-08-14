@@ -13,7 +13,7 @@
 #import "calculationNC.h"
 #import "calculationDetailVC.h"
 #import "dbHelper.h"
-
+#import "dbManager.h"
 
 
 @interface calculationListVC : UIViewController
