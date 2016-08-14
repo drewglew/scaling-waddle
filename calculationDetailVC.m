@@ -579,13 +579,14 @@ typedef void(^connection)(BOOL);
         
         self.atobviacActivity.hidden=false;
         [self.atobviacActivity startAnimating];
+        self.calculateButton.enabled = false;
         
         self.labelDistanceOutput.text = @"requesting distance";
         
         self.c.result.voyagestring = voyagestring;
         
         if ([self checkInternet]) {
-            [self.c.result setRouteData :voyagestring :self.c :self.labelDistanceOutput :self.atobviacActivity];
+            [self.c.result setRouteData :voyagestring :self.c :self.labelDistanceOutput :self.atobviacActivity :self.calculateButton];
         } else {
             self.labelDistanceOutput.text = @"no internet!";
             self.atobviacActivity.hidden=true;

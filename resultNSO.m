@@ -65,10 +65,10 @@
 
 
 /* created 20160802 */
-/* modified 20160806 */
+/* modified 20160814 */
 /* calls atobviac webservice and stores routing in property, while focusing on distance and minutes while vessel is sailing */
 /* optimize - perhaps we do not need to send ballastPort etc as single parms */
--(void) setRouteData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status :(UIActivityIndicatorView*) atobviacActivity {
+-(void) setRouteData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status :(UIActivityIndicatorView*) atobviacActivity :(UIButton*) calculateButton {
     
     NSString *url;
     NSString *apikey;
@@ -82,7 +82,7 @@
         self.routing = data;
         self.miles_sailing_ballasted = [NSNumber numberWithFloat:[[[data valueForKeyPath:@"Legs"][0] valueForKey:@"Distance"] floatValue]];
         self.miles_sailing_laden = [NSNumber numberWithFloat:[[[data valueForKeyPath:@"Legs"][1] valueForKey:@"Distance"] floatValue]];
-        [self performSelectorOnMainThread:@selector(updateActivity:) withObject:@[atobviacActivity,status] waitUntilDone:YES];
+        [self performSelectorOnMainThread:@selector(updateActivity:) withObject:@[atobviacActivity,status,calculateButton] waitUntilDone:YES];
 
     }];
 }
@@ -93,9 +93,12 @@
     
     UIActivityIndicatorView* atobviacActivity = [objectArray objectAtIndex:0];
     UILabel* status = [objectArray objectAtIndex:1];
+    UIButton* calcButton = [objectArray objectAtIndex:2];
+
     
     [atobviacActivity stopAnimating];
     atobviacActivity.hidden = true;
+    calcButton.enabled = true;
     
     if( self.routing==nil) {
         status.text = @"error no distance";

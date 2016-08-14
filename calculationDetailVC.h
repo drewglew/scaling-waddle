@@ -31,6 +31,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *searchBallastButton;
 @property (strong, nonatomic) IBOutlet UIButton *expandLDButton;
 @property (strong, nonatomic) IBOutlet UIButton *expandAdditionalsButton;
+@property (strong, nonatomic) IBOutlet UIButton *calculateButton;
 
 
 @end

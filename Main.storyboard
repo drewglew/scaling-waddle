@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11163.2" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Ifw-YP-KXk">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11163.2" systemVersion="16A239m" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Ifw-YP-KXk">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11133"/>
@@ -22,6 +22,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="xoT-vU-yeX">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="h5z-xQ-66W"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ra8-wf-rxb" id="jte-dU-tFf"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="186" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vzW-M8-aTV">
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -115,13 +124,16 @@
                             <constraint firstAttribute="trailing" secondItem="vzW-M8-aTV" secondAttribute="trailing" id="HXx-VZ-zuj"/>
                             <constraint firstItem="r7t-Pm-eXo" firstAttribute="top" secondItem="vzW-M8-aTV" secondAttribute="bottom" constant="2" id="KLq-2k-0SP"/>
                             <constraint firstItem="vzW-M8-aTV" firstAttribute="leading" secondItem="x3O-l1-zzO" secondAttribute="leading" id="Ueg-1t-HNj"/>
-                            <constraint firstItem="vzW-M8-aTV" firstAttribute="top" secondItem="iG7-Le-xR8" secondAttribute="bottom" id="XrP-D1-DfU"/>
+                            <constraint firstAttribute="trailing" secondItem="xoT-vU-yeX" secondAttribute="trailing" id="X3h-xR-XsC"/>
+                            <constraint firstItem="xoT-vU-yeX" firstAttribute="leading" secondItem="x3O-l1-zzO" secondAttribute="leading" id="a5z-Mc-7bS"/>
+                            <constraint firstItem="xoT-vU-yeX" firstAttribute="top" secondItem="iG7-Le-xR8" secondAttribute="bottom" id="f2G-1S-2YQ"/>
+                            <constraint firstItem="vzW-M8-aTV" firstAttribute="top" secondItem="xoT-vU-yeX" secondAttribute="bottom" id="trb-1V-2VE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nvM-OV-X38">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="tBi-AJ-Bfa">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PpQ-cp-2U5">
-                                <rect key="frame" x="20" y="7" width="60" height="30"/>
+                                <rect key="frame" x="16" y="7" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
@@ -137,7 +149,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="ZRy-ve-fEg">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8Bg-Km-ldT">
-                                <rect key="frame" x="334" y="7" width="60" height="30"/>
+                                <rect key="frame" x="299" y="7" width="60" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
@@ -151,11 +163,22 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchDisplayController" destination="A2y-Dz-VB8" id="mvM-O2-PFe"/>
+                        <outlet property="searchbar" destination="xoT-vU-yeX" id="xxG-eo-VRo"/>
                         <outlet property="tableView" destination="vzW-M8-aTV" id="npY-GH-GmM"/>
                         <segue destination="LUy-Pj-iPL" kind="show" identifier="calculationwitharray" id="mgS-VM-7Rp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="myT-RW-e3W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="A2y-Dz-VB8">
+                    <connections>
+                        <outlet property="delegate" destination="ra8-wf-rxb" id="KkG-mI-rRT"/>
+                        <outlet property="searchBar" destination="xoT-vU-yeX" id="mLz-Vf-mzs"/>
+                        <outlet property="searchContentsController" destination="ra8-wf-rxb" id="8w3-S4-rhq"/>
+                        <outlet property="searchResultsDataSource" destination="ra8-wf-rxb" id="MbC-qx-4sh"/>
+                        <outlet property="searchResultsDelegate" destination="ra8-wf-rxb" id="O1Y-c4-zWo"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="-192.80000000000001" y="150.67466266866569"/>
         </scene>
@@ -845,7 +868,7 @@
                                         <color key="textColor" red="0.0" green="0.30588235294117649" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LG-SQ-xHO">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LG-SQ-xHO">
                                         <color key="backgroundColor" red="0.29803921570000003" green="0.73725490199999999" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="7Ey-7y-WZv"/>
@@ -916,7 +939,7 @@
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="7HA-6Q-JOA">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BQm-QL-UU6">
-                                    <rect key="frame" x="334" y="7" width="60" height="30"/>
+                                    <rect key="frame" x="299" y="7" width="60" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
@@ -930,7 +953,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="9uG-4J-ZKH">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TmT-Jl-G5r">
-                                    <rect key="frame" x="266" y="7" width="60" height="30"/>
+                                    <rect key="frame" x="231" y="7" width="60" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
@@ -947,7 +970,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="QcJ-gh-t5L">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aya-2E-rKX">
-                                    <rect key="frame" x="198" y="7" width="60" height="30"/>
+                                    <rect key="frame" x="163" y="7" width="60" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
@@ -966,6 +989,7 @@
                         <outlet property="calcBackgroundView" destination="zNV-rX-ume" id="fSz-iZ-Plp"/>
                         <outlet property="calcRefLabel" destination="sTC-mT-nay" id="YIB-OH-GQK"/>
                         <outlet property="calcScrollView" destination="xyP-9k-frG" id="NMB-0l-it1"/>
+                        <outlet property="calculateButton" destination="7LG-SQ-xHO" id="wYa-O1-pHp"/>
                         <outlet property="expandLDButton" destination="ctx-yb-Kpp" id="Uvg-g7-8fH"/>
                         <outlet property="labelDistanceOutput" destination="jV6-yl-ft8" id="WUg-41-Zqy"/>
                         <outlet property="labelMainRate" destination="f8r-NH-BeI" id="VmQ-ap-wPR"/>

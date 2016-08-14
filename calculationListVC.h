@@ -16,13 +16,23 @@
 #import "dbManager.h"
 
 
-@interface calculationListVC : UIViewController
+@interface calculationListVC : UIViewController<UITableViewDelegate, UITableViewDataSource> {
+    BOOL isSearching;
+    NSMutableArray *filteredContentList;
+}
+
+
 @property (strong, nonatomic) dbHelper *db;
 @property (strong, nonatomic) NSMutableArray *calculations;
 @property (strong, nonatomic) NSMutableArray *selectedcalcs;
 @property (strong, nonatomic) NSMutableArray *listing;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (assign) int displayState;
+@property (strong, nonatomic) IBOutlet UISearchBar *searchbar;
+
+@property (strong, nonatomic) NSMutableArray *filteredContentList;
+
+
 
 
 

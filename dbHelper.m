@@ -626,7 +626,7 @@
                 [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                 l.lastmodified = [dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)]];
                 l.ld_ports = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)] ;
-               
+                l.searchstring = [NSString stringWithFormat:@"%@%@%@",l.full_name_vessel,l.descr,l.ld_ports];
                 [listing addObject:l];
             }
         }

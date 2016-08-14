@@ -16,5 +16,5 @@
 @property (nonatomic) NSNumber *vessel_nr;
 @property (nonatomic) NSString *ld_ports;
 @property (nonatomic) NSDate  *lastmodified;
-
+@property (nonatomic) NSString *searchstring;
 @end

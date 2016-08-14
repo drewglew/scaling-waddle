@@ -9,7 +9,7 @@
 #import "calculationListVC.h"
 
 
-@interface calculationListVC () <calcDetailDelegate>
+@interface calculationListVC () <calcDetailDelegate, UISearchResultsUpdating>
 
 @end
 
@@ -17,9 +17,8 @@
 UIImageView *navBarHairlineImageView;
 @synthesize db;
 @synthesize calculations;
-
-//@synthesize tableView;
-
+@synthesize filteredContentList;
+@synthesize listing;
 
 
 /* created 20150909 */
@@ -39,6 +38,7 @@ UIImageView *navBarHairlineImageView;
     //[sharedDBManager dbInit:@"tankchartcalc.db"];
     
     [self initDB];
+     self.filteredContentList = [[NSMutableArray alloc] init];
     
 #if TARGET_IPHONE_SIMULATOR
     // where are you?
@@ -70,7 +70,7 @@ UIImageView *navBarHairlineImageView;
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+    isSearching = NO;
     
     
     
@@ -108,23 +108,38 @@ UIImageView *navBarHairlineImageView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.listing count];
+    if (isSearching) {
+        
+        tableView.rowHeight = self.tableView.rowHeight;
+        return [self.filteredContentList count];
+    }
+    else {
+        return [self.listing count];
+    }
+    
 }
 
 
 
 /* last modified 20160204 */
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (calculationCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"calculationCell";
     
-    calculationCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    calculationCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
     
     if (cell == nil) {
         cell = [[calculationCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    listingItemNSO *l = [self.listing objectAtIndex:indexPath.row];
+    listingItemNSO *l;
+    if (isSearching) {
+        l = [self.filteredContentList objectAtIndex:indexPath.row];
+    }
+    else {
+        l = [self.listing objectAtIndex:indexPath.row];
+    }
     
     cell.descr.text = l.descr;
     cell.vesselfullname.text = l.full_name_vessel;
@@ -138,19 +153,11 @@ UIImageView *navBarHairlineImageView;
     
     return cell;
     
-   
+    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    //Here the dataSource array is of dictionary objects
-   // match *m = [self.matches objectAtIndex:indexPath.row];
-    
-   // if (([m.Player1Number intValue]  == self.staticPlayer1Number && [m.Player2Number intValue] == self.staticPlayer2Number)) {
-        // nothing to do here
-   //     return NO;
-    //} else {
-        return YES;
-    //}
+    return YES;
 }
 
 
@@ -171,7 +178,12 @@ UIImageView *navBarHairlineImageView;
             
             for (NSIndexPath *path in rowsSelected) {
                 NSUInteger index = [path indexAtPosition:[path length] - 1];
-                [self.selectedcalcs addObject:[self.listing objectAtIndex:index]];
+                
+                 if (isSearching) {
+                     [self.selectedcalcs addObject:[self.filteredContentList objectAtIndex:index]];
+                 } else {
+                     [self.selectedcalcs addObject:[self.listing objectAtIndex:index]];
+                 }
             }
             [self performSegueWithIdentifier:@"calculationwitharray" sender:sender];
             
@@ -191,21 +203,62 @@ UIImageView *navBarHairlineImageView;
     
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-       
+        
         [self.listing removeObjectAtIndex:indexPath.row];
         [self.db deleteCalculation: l.id];
-        [tableView reloadData]; // tell table to refresh now
+        [self.tableView reloadData]; // tell table to refresh now
     }
 }
 
 
-
-
-
-
-
 - (void)addItemViewController:(calculationListVC *)controller keepDisplayState :(int)displayState {
     self.displayState = displayState;
+}
+
+- (void)searchTableList {
+    NSString *searchData = self.searchbar.text;
+    
+    
+    for (listingItemNSO *l in self.listing) {
+        
+        NSRange range = [l.searchstring rangeOfString:searchData];
+        if (range.location != NSNotFound) {
+            [self.filteredContentList addObject:l];
+        }
+        
+    }
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    isSearching = YES;
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    NSLog(@"Text change - %d",isSearching);
+    
+    [self.filteredContentList removeAllObjects];
+    
+    if([searchText length] != 0) {
+        isSearching = YES;
+        [self searchTableList];
+    }
+    else {
+        isSearching = NO;
+    }
+    
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    NSLog(@"Cancel clicked");
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    NSLog(@"Search Clicked");
+    [self searchTableList];
+}
+
+
+-(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
 }
 
 
@@ -249,7 +302,6 @@ UIImageView *navBarHairlineImageView;
     } else if([segue.identifier isEqualToString:@"calculationwitharray"]){
         calculationDetailVC *controller = (calculationDetailVC *)segue.destinationViewController;
         controller.delegate = self;
-        // controller.cloneid = [NSNumber numberWithInt:-1];
         controller.db = self.db;
         controller.opencalcs = [self.db getCalculations :self.selectedcalcs];
         controller.c = [controller.opencalcs firstObject];

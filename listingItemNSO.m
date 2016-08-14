@@ -16,5 +16,6 @@
 @synthesize vessel_nr;
 @synthesize ld_ports;
 @synthesize lastmodified;
+@synthesize searchstring;
 
 @end
