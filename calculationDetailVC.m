@@ -11,7 +11,8 @@
 #import "Reachability.h"
 #import "cargoVC.h"
 
-@interface calculationDetailVC () <searchDelegate, calcDetailDelegate, cargoIODelegate>
+@interface calculationDetailVC () <searchDelegate, UITextFieldDelegate, calcDetailDelegate, cargoIODelegate>
+
 @property (weak, nonatomic) IBOutlet UITextField *textDesc;
 @property (weak, nonatomic) IBOutlet UITextField *textVessel;
 @property (weak, nonatomic) IBOutlet UITextField *textLDPort;
@@ -36,7 +37,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *textAddExpenses;
 @property (strong, nonatomic) IBOutlet UISwitch *switchUseLocalFlatRate;
 @property (strong, nonatomic) IBOutlet UITextField *textFlatRate;
-@property (strong, nonatomic) IBOutlet UIScrollView *calcScrollView;
+@property (strong, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *calcScrollView;
 @property (strong, nonatomic) IBOutlet UITextField *textTCEPerDay;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *atobviacActivity;
 
@@ -47,7 +48,7 @@ typedef void(^connection)(BOOL);
 @end
 
 @implementation calculationDetailVC
-
+UITextField *activeField;
 
 @synthesize delegate;
 @synthesize opencalcs;
@@ -136,13 +137,16 @@ typedef void(^connection)(BOOL);
     self.textAddExpenses.inputAccessoryView = inputAccesoryView;
     self.textAddressCommission.inputAccessoryView = inputAccesoryView;
     self.textBrokerCommission.inputAccessoryView = inputAccesoryView;
-
-
+    
+  //  [self registerForKeyboardNotifications];
     [self checkInternet];
-
-
- 
 }
+
+
+
+
+
+
 
 
 -(void)doneButtonPressed {
@@ -827,103 +831,249 @@ typedef void(^connection)(BOOL);
 
 }
 
-- (IBAction)descrEditingEnded:(id)sender {
-    self.c.descr = self.textDesc.text;
+
+
+
+- (IBAction)descEditingStarted:(id)sender {
+    UITextField *txtDesc = ((UITextField *)sender);
+    activeField = txtDesc;
+    
     
 }
 
+- (IBAction)descrEditingEnded:(id)sender {
+    self.c.descr = self.textDesc.text;
+    activeField = nil;
+
+}
+
+/* modified 20160815 */
 - (IBAction)hsfoPriceEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.result.hfo_bunker.price = [f numberFromString:self.textHsfoPrice.text];
     
+    if (self.textHsfoPrice.text && self.textHsfoPrice.text.length>0 ) {
+        self.c.result.hfo_bunker.price = [f numberFromString:self.textHsfoPrice.text];
+    } else {
+        self.c.result.hfo_bunker.price = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textHsfoPrice.text = [NSString stringWithFormat:@"%@", self.c.result.hfo_bunker.price];
 }
 
-
+/* modified 20160815 */
 - (IBAction)doPriceEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.result.do_bunker.price = [f numberFromString:self.textHsgoPrice.text];
+    
+    if (self.textHsgoPrice.text && self.textHsgoPrice.text.length>0 ) {
+        self.c.result.do_bunker.price = [f numberFromString:self.textHsgoPrice.text];
+    } else {
+        self.c.result.do_bunker.price = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textHsgoPrice.text = [NSString stringWithFormat:@"%@", self.c.result.do_bunker.price];
 }
 
+/* modified 20160815 */
 - (IBAction)mgoPriceEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.result.mgo_bunker.price = [f numberFromString:self.textLsgoPrice.text];
+    
+    if (self.textLsgoPrice.text && self.textLsgoPrice.text.length>0 ) {
+        self.c.result.mgo_bunker.price = [f numberFromString:self.textLsgoPrice.text];
+    } else {
+        self.c.result.mgo_bunker.price = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textLsgoPrice.text = [NSString stringWithFormat:@"%@", self.c.result.mgo_bunker.price];
 }
 
+/* modified 20160815 */
 - (IBAction)lsfoPriceEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.result.lsfo_bunker.price = [f numberFromString:self.textLsfoPrice.text];
+    
+    if (self.textLsfoPrice.text && self.textLsfoPrice.text.length>0 ) {
+        self.c.result.lsfo_bunker.price = [f numberFromString:self.textLsfoPrice.text];
+    } else {
+        self.c.result.lsfo_bunker.price = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textLsfoPrice.text = [NSString stringWithFormat:@"%@", self.c.result.lsfo_bunker.price];
 }
 
-
+/* modified 20160815 */
 - (IBAction)commissionEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.result.broker_commission_percent = [f numberFromString:self.textBrokerCommission.text];
     
+    if (self.textBrokerCommission.text && self.textBrokerCommission.text.length>0 ) {
+        self.c.result.broker_commission_percent = [f numberFromString:self.textBrokerCommission.text];
+    } else {
+        self.c.result.broker_commission_percent = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textBrokerCommission.text = [NSString stringWithFormat:@"%@",  self.c.result.broker_commission_percent];
 }
 
-
+/* modified 20160815 */
 - (IBAction)addressCommissionEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.result.address_commission_percent = [f numberFromString:self.textAddressCommission.text];
+    
+    if (self.textAddressCommission.text && self.textAddressCommission.text.length>0 ) {
+        self.c.result.address_commission_percent = [f numberFromString:self.textAddressCommission.text];
+    } else {
+        self.c.result.address_commission_percent = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textAddressCommission.text = [NSString stringWithFormat:@"%@",  self.c.result.address_commission_percent];
 }
 
+/* modified 20160815 */
 - (IBAction)mainRateEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.rate = [f numberFromString:self.textMainRate.text];
     
+    if (self.textMainRate.text && self.textMainRate.text.length>0 ) {
+        self.c.rate = [f numberFromString:self.textMainRate.text];
+    } else {
+        self.c.rate = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textMainRate.text = [NSString stringWithFormat:@"%@", self.c.rate];
 }
+
+/* modified 20160815 */
 - (IBAction)flatRateEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.flatrate = [f numberFromString:self.textFlatRate.text];
+    
+    if (self.textFlatRate.text && self.textFlatRate.text.length>0 ) {
+        self.c.flatrate = [f numberFromString:self.textFlatRate.text];
+    } else {
+        self.c.flatrate = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textFlatRate.text = [NSString stringWithFormat:@"%@", self.c.flatrate];
 }
 
+/* modified 20160815 */
 - (IBAction)addHSFOEditingEnded:(id)sender {
+
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.result.hfo_bunker.additionals = [f numberFromString:self.textAddHsfoAmt.text];
+    
+    if (self.textAddHsfoAmt.text && self.textAddHsfoAmt.text.length>0 ) {
+        self.c.result.hfo_bunker.additionals = [f numberFromString:self.textAddHsfoAmt.text];
+    } else {
+        self.c.result.hfo_bunker.additionals = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textAddHsfoAmt.text = [NSString stringWithFormat:@"%@", self.c.result.hfo_bunker.additionals];
+    activeField = nil;
 }
+- (IBAction)addHSFOEditingStarted:(id)sender {
+
+}
+
+/* modified 20160815 */
 - (IBAction)addHSGOEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.result.do_bunker.additionals = [f numberFromString:self.textAddHsgoAmt.text];
+    
+    if (self.textAddHsfoAmt.text && self.textAddHsfoAmt.text.length>0 ) {
+        self.c.result.do_bunker.additionals = [f numberFromString:self.textAddHsfoAmt.text];
+    } else {
+        self.c.result.do_bunker.additionals = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textAddHsfoAmt.text = [NSString stringWithFormat:@"%@", self.c.result.do_bunker.additionals];
 }
+
+/* modified 20160815 */
 - (IBAction)addLSGOEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.result.mgo_bunker.additionals = [f numberFromString:self.textAddLsgoAmt.text];
+    
+    if (self.textAddLsgoAmt.text && self.textAddLsgoAmt.text.length>0 ) {
+        self.c.result.mgo_bunker.additionals = [f numberFromString:self.textAddLsgoAmt.text];
+    } else {
+        self.c.result.mgo_bunker.additionals = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textAddLsgoAmt.text = [NSString stringWithFormat:@"%@", self.c.result.mgo_bunker.additionals];
 }
+
+/* modified 20160815 */
 - (IBAction)addLSFOEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.result.lsfo_bunker.additionals = [f numberFromString:self.textAddLsfoAmt.text];
+    
+    if (self.textAddLsfoAmt.text && self.textAddLsfoAmt.text.length>0 ) {
+        self.c.result.lsfo_bunker.additionals = [f numberFromString:self.textAddLsgoAmt.text];
+    } else {
+        self.c.result.lsfo_bunker.additionals = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textAddLsfoAmt.text = [NSString stringWithFormat:@"%@", self.c.result.lsfo_bunker.additionals];
 }
+
+/* modified 20160815 */
 - (IBAction)addBallastedEditingEnded:(id)sender {
-    NSInteger minutes = [self.textAddBallastedDays.text integerValue] * 1440;
-    self.c.result.additonal_minutes_sailing_ballasted = [NSNumber numberWithLong:minutes];
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    
+    if (self.textAddBallastedDays.text && self.textAddBallastedDays.text.length>0 ) {
+        NSInteger minutes = [self.textAddBallastedDays.text integerValue] * 1440;
+        self.c.result.additonal_minutes_sailing_ballasted = [NSNumber numberWithLong:minutes];
+    } else {
+        self.c.result.additonal_minutes_sailing_ballasted = 0;
+    }
+    self.textAddBallastedDays.text = [NSString stringWithFormat:@"%@", self.c.result.additonal_minutes_sailing_ballasted];
 }
+
+/* modified 20160815 */
 - (IBAction)addLadenDaysEditingEnded:(id)sender {
-    NSInteger  minutes = [self.textAddLadenDays.text integerValue] * 1440;
-    self.c.result.additonal_minutes_sailing_laden = [NSNumber numberWithLong:minutes];
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    
+    if (self.textAddLadenDays.text && self.textAddLadenDays.text.length>0 ) {
+        NSInteger minutes = [self.textAddLadenDays.text integerValue] * 1440;
+        self.c.result.additonal_minutes_sailing_laden = [NSNumber numberWithLong:minutes];
+    } else {
+        self.c.result.additonal_minutes_sailing_laden = 0;
+    }
+    self.textAddLadenDays.text = [NSString stringWithFormat:@"%@", self.c.result.additonal_minutes_sailing_laden];
 }
+
+/* modified 20160815 */
 - (IBAction)addIdleDaysEditingEnded:(id)sender {
-    NSInteger minutes = [self.textAddIdleDays.text integerValue] * 1440;
-    self.c.result.additonal_minutes_sailing_idle = [NSNumber numberWithLong:minutes];
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    
+    if (self.textAddIdleDays.text && self.textAddIdleDays.text.length>0 ) {
+        NSInteger minutes = [self.textAddIdleDays.text integerValue] * 1440;
+        self.c.result.additonal_minutes_sailing_idle = [NSNumber numberWithLong:minutes];
+    } else {
+        self.c.result.additonal_minutes_sailing_idle = 0;
+    }
+    self.textAddIdleDays.text = [NSString stringWithFormat:@"%@", self.c.result.additonal_minutes_sailing_idle];
 }
+
+/* modified 20160815 */
 - (IBAction)addExpensesEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
-     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.c.result.additonal_expense_amt = [f numberFromString:self.textAddExpenses.text];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    
+    if (self.textAddExpenses.text && self.textAddExpenses.text.length>0 ) {
+        self.c.result.additonal_expense_amt = [f numberFromString:self.textAddExpenses.text];
+    } else {
+        self.c.result.additonal_expense_amt = [NSNumber numberWithFloat:0.0f];
+    }
+    self.textAddExpenses.text = [NSString stringWithFormat:@"%@", self.c.result.additonal_expense_amt];
+
 }
 
 
+
+- (IBAction)textFieldDidBeginEdit:(id) sender {
+    
+
+    UITextField *txtFld = ((UITextField *)sender);
+     NSLog(@"%@",txtFld.text);
+    [txtFld selectAll:self];
+
+}
 
 
 

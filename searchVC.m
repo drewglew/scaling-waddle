@@ -175,6 +175,13 @@
     isSearching = YES;
 }
 
+- (void)searchBarTextDidEndEditing:(UISearchBar *)theSearchBar {
+    NSLog(@"searchBarTextDidEndEditing");
+    isSearching = NO;
+}
+
+
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     NSLog(@"Text change - %d",isSearching);
     

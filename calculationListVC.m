@@ -75,7 +75,11 @@ UIImageView *navBarHairlineImageView;
     
     
     self.listing = [self.db getListing];
+    
+    
     [self.tableView reloadData];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -109,7 +113,6 @@ UIImageView *navBarHairlineImageView;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (isSearching) {
-        
         tableView.rowHeight = self.tableView.rowHeight;
         return [self.filteredContentList count];
     }
@@ -134,7 +137,7 @@ UIImageView *navBarHairlineImageView;
         cell = [[calculationCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     listingItemNSO *l;
-    if (isSearching) {
+    if (isSearching && self.filteredContentList.count!=0) {
         l = [self.filteredContentList objectAtIndex:indexPath.row];
     }
     else {
@@ -233,6 +236,11 @@ UIImageView *navBarHairlineImageView;
     isSearching = YES;
 }
 
+- (void)searchBarTextDidEndEditing:(UISearchBar *)theSearchBar {
+    NSLog(@"searchBarTextDidEndEditing");
+    isSearching = NO;
+}
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     NSLog(@"Text change - %d",isSearching);
     
@@ -280,6 +288,8 @@ UIImageView *navBarHairlineImageView;
     // Pass the selected object to the new view controller.
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
+    
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     
     if([segue.identifier isEqualToString:@"calculation"]){
         calculationDetailVC *controller = (calculationDetailVC *)segue.destinationViewController;

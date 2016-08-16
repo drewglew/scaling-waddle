@@ -33,6 +33,8 @@
 		3A4ED0261D49C53300609696 /* cargoNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4ED0251D49C53300609696 /* cargoNSO.m */; };
 		3A4ED02A1D4A821900609696 /* dbManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A4ED0291D4A821900609696 /* dbManager.m */; };
 		3A520E231D416D7800D7DEC6 /* searchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A520E221D416D7800D7DEC6 /* searchVC.m */; };
+		3A5B8FA61D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B8FA51D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.m */; };
+		3A5B8FA91D62CF8400FE7BC9 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B8FA81D62CF8400FE7BC9 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
 		3ABC9F8F1D454A6700328249 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC9F8E1D454A6700328249 /* Reachability.m */; };
 		3ABC9F921D466E5000328249 /* cargoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC9F911D466E5000328249 /* cargoVC.m */; };
 		3ABC9F9F1D47B63800328249 /* listingItemNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC9F9E1D47B63800328249 /* listingItemNSO.m */; };
@@ -84,6 +86,10 @@
 		3A4ED0291D4A821900609696 /* dbManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dbManager.m; sourceTree = "<group>"; };
 		3A520E211D416D7800D7DEC6 /* searchVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = searchVC.h; sourceTree = "<group>"; };
 		3A520E221D416D7800D7DEC6 /* searchVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchVC.m; sourceTree = "<group>"; };
+		3A5B8FA41D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		3A5B8FA51D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		3A5B8FA71D62CF8400FE7BC9 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		3A5B8FA81D62CF8400FE7BC9 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
 		3ABC9F8D1D454A6700328249 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		3ABC9F8E1D454A6700328249 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		3ABC9F901D466E5000328249 /* cargoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cargoVC.h; sourceTree = "<group>"; };
@@ -213,6 +219,10 @@
 				3A37CFAC1D50EA70005D101E /* resultNSO.m */,
 				3A37CFAE1D50F03F005D101E /* timeNSO.h */,
 				3A37CFAF1D50F03F005D101E /* timeNSO.m */,
+				3A5B8FA71D62CF8400FE7BC9 /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				3A5B8FA81D62CF8400FE7BC9 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+				3A5B8FA41D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.h */,
+				3A5B8FA51D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.m */,
 			);
 			name = NSObjects;
 			sourceTree = "<group>";
@@ -306,6 +316,7 @@
 				3A4ED02A1D4A821900609696 /* dbManager.m in Sources */,
 				3A2744E51D412D1000CB23BD /* portNSO.m in Sources */,
 				3A37CFA71D50EA49005D101E /* bunkerNSO.m in Sources */,
+				3A5B8FA91D62CF8400FE7BC9 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				3A2744DF1D412D1000CB23BD /* calculationNSO.m in Sources */,
 				3A2744DE1D412D1000CB23BD /* calculationListVC.m in Sources */,
 				3A4ED0261D49C53300609696 /* cargoNSO.m in Sources */,
@@ -314,6 +325,7 @@
 				3ABC9F921D466E5000328249 /* cargoVC.m in Sources */,
 				3A2744F81D4130AD00CB23BD /* calculationDetailVC.m in Sources */,
 				3A37CFAA1D50EA5B005D101E /* consumptionNSO.m in Sources */,
+				3A5B8FA61D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				3A37183D1D49BDF9003446C4 /* searchCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

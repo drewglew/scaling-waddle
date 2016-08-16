@@ -81,34 +81,62 @@
 
 }
 
-
+/* modified 20160815 */
 - (IBAction)qtyEditingEnded:(id)sender {
+    
+    
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.cargo.units = [f numberFromString:self.qtyText.text];
+    
+    if (self.qtyText.text && self.qtyText.text.length>0 ) {
+        self.cargo.units = [f numberFromString:self.qtyText.text];
+    } else {
+        self.cargo.units = [NSNumber numberWithInt:0];
+    }
+    self.qtyText.text = [NSString stringWithFormat:@"%@", self.cargo.units];
 }
 
-
+/* modified 20160815 */
 - (IBAction)estEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.cargo.estimated = [f numberFromString:self.estText.text];
+    
+    if (self.estText.text && self.estText.text.length>0 ) {
+        self.cargo.estimated = [f numberFromString:self.estText.text];
+    } else {
+        self.cargo.estimated = [NSNumber numberWithInt:0];
+    }
+    self.estText.text = [NSString stringWithFormat:@"%@", self.cargo.units];
 }
+
+/* modified 20160815 */
 - (IBAction)pexEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.cargo.expense = [f numberFromString:self.PEXText.text];
     
+    if (self.PEXText.text && self.PEXText.text.length>0 ) {
+        self.cargo.expense = [f numberFromString:self.PEXText.text];
+    } else {
+        self.cargo.expense = [NSNumber numberWithInt:0];
+    }
+    self.estText.text = [NSString stringWithFormat:@"%@", self.cargo.expense];
 }
 
 - (IBAction)segTypeValueChanged:(id)sender {
     self.cargo.type_id = @(self.segType.selectedSegmentIndex);
 }
 
+/* modified 20160815 */
 - (IBAction)noticeEditingEnded:(id)sender {
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
-    self.cargo.notice_time = [f numberFromString:self.noticeText.text];
+    
+    if (self.noticeText.text && self.noticeText.text.length>0 ) {
+        self.cargo.notice_time = [f numberFromString:self.noticeText.text];
+    } else {
+        self.cargo.notice_time = [NSNumber numberWithInt:0];
+    }
+    self.noticeText.text = [NSString stringWithFormat:@"%@", self.cargo.notice_time];
 }
 
 - (IBAction)portEditingEnded:(id)sender {
