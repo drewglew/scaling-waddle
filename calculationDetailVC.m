@@ -6,6 +6,9 @@
 //  Copyright © 2016 andrew glew. All rights reserved.
 //
 
+
+//TODO - cargo placeholders and new button on calc detail need to clear fuel prices, rates and commissions
+
 #import "calculationDetailVC.h"
 #import "dbHelper.h"
 #import "Reachability.h"
@@ -40,6 +43,7 @@
 @property (strong, nonatomic) IBOutlet TPKeyboardAvoidingScrollView *calcScrollView;
 @property (strong, nonatomic) IBOutlet UITextField *textTCEPerDay;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *atobviacActivity;
+@property (strong, nonatomic) IBOutlet UIImageView *mapImageView;
 
 
 
@@ -137,8 +141,7 @@ UITextField *activeField;
     self.textAddExpenses.inputAccessoryView = inputAccesoryView;
     self.textAddressCommission.inputAccessoryView = inputAccesoryView;
     self.textBrokerCommission.inputAccessoryView = inputAccesoryView;
-    
-  //  [self registerForKeyboardNotifications];
+
     [self checkInternet];
 }
 
@@ -233,6 +236,7 @@ UITextField *activeField;
     calculationNSO *newcalc = [[calculationNSO alloc] init];
     newcalc.descr = @"";
     newcalc.statustext = @"new unsaved";
+ 
     
     //[self.opencalcs addObject:newcalc];
     [self.opencalcs insertObject:newcalc atIndex:self.currentpageindex];
@@ -609,28 +613,77 @@ UITextField *activeField;
     self.textLDPort.text = self.c.ld_ports;
     self.textBallastFromPort.text = self.c.port_ballast_from.name;
     self.calcRefLabel.text = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)self.currentpageindex,(unsigned long)[self.opencalcs count]];
-    self.textMainRate.text = [NSString stringWithFormat:@"%@",self.c.rate];
-    self.textFlatRate.text = [NSString stringWithFormat:@"%@",self.c.flatrate];
+    if ([self.c.rate floatValue]>0.0f) {
+        self.textMainRate.text = [NSString stringWithFormat:@"%@",self.c.rate];
+    } else {
+        self.textMainRate.text = nil;
+    }
     
-    self.textHsfoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.hfo_bunker.price];
-    self.textHsgoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.do_bunker.price];
-    self.textLsgoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.mgo_bunker.price];
-    self.textLsfoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.lsfo_bunker.price];
+    if ([self.c.flatrate floatValue]>0.0f) {
+        self.textFlatRate.text = [NSString stringWithFormat:@"%@",self.c.flatrate];
+    } else {
+        self.textFlatRate.text = nil;
+    }
+    if ([self.c.result.hfo_bunker.price floatValue]>0.0f) {
+        self.textHsfoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.hfo_bunker.price];
+    } else {
+        self.textHsfoPrice.text = nil;
+    }
+    if ([self.c.result.do_bunker.price floatValue]>0.0f) {
+         self.textHsgoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.do_bunker.price];
+    } else {
+        self.textHsgoPrice.text = nil;
+    }
+    if ([self.c.result.mgo_bunker.price floatValue]>0.0f) {
+        self.textLsgoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.mgo_bunker.price];
+    } else {
+        self.textLsgoPrice.text = nil;
+    }
     
+    if ([self.c.result.lsfo_bunker.price floatValue]>0.0f) {
+        self.textLsfoPrice.text = [NSString stringWithFormat:@"%@",self.c.result.lsfo_bunker.price];
+    } else {
+        self.textLsfoPrice.text = nil;
+    }
     
     self.textAddHsfoAmt.text = [NSString stringWithFormat:@"%@",self.c.result.hfo_bunker.additionals];
     self.textAddHsgoAmt.text = [NSString stringWithFormat:@"%@",self.c.result.do_bunker.additionals];
     self.textAddLsgoAmt.text = [NSString stringWithFormat:@"%@",self.c.result.mgo_bunker.additionals];
     self.textAddLsfoAmt.text = [NSString stringWithFormat:@"%@",self.c.result.lsfo_bunker.additionals];
     
-    self.textAddIdleDays.text = [NSString stringWithFormat:@"%@",self.c.add_idle_days];
-    self.textAddBallastedDays.text = [NSString stringWithFormat:@"%@",self.c.add_ballasted_days];
-    self.textAddLadenDays.text = [NSString stringWithFormat:@"%@",self.c.add_laden_days];
-    self.textAddExpenses.text = [NSString stringWithFormat:@"%@",self.c.add_expenses];
+    if ([self.c.add_idle_days intValue]>0) {
+        self.textAddIdleDays.text = [NSString stringWithFormat:@"%@",self.c.add_idle_days];
+    } else {
+        self.textAddIdleDays.text = nil;
+    }
+    if ([self.c.add_ballasted_days intValue]>0) {
+        self.textAddBallastedDays.text = [NSString stringWithFormat:@"%@",self.c.add_ballasted_days];
+    } else {
+        self.textAddBallastedDays.text = nil;
+    }
+    if ([self.c.add_laden_days intValue]>0) {
+        self.textAddLadenDays.text = [NSString stringWithFormat:@"%@",self.c.add_laden_days];
+    } else {
+        self.textAddLadenDays.text = nil;
+    }
     
-    self.textAddressCommission.text = [NSString stringWithFormat:@"%@",self.c.result.address_commission_percent];
-    self.textBrokerCommission.text = [NSString stringWithFormat:@"%@",self.c.result.broker_commission_percent];
+    if ([self.c.add_expenses floatValue]>0.0f) {
+        self.textAddExpenses.text = [NSString stringWithFormat:@"%@",self.c.add_expenses];
+    } else {
+        self.textAddExpenses.text = nil;
+    }
     
+    if ([self.c.result.address_commission_percent floatValue]>0.0f) {
+        self.textAddressCommission.text = [NSString stringWithFormat:@"%@",self.c.result.address_commission_percent];
+    } else {
+        self.textAddressCommission.text = nil;
+    }
+    
+    if ([self.c.result.broker_commission_percent floatValue]>0.0f) {
+        self.textBrokerCommission.text = [NSString stringWithFormat:@"%@",self.c.result.broker_commission_percent];
+    } else {
+        self.textBrokerCommission.text = nil;
+    }
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"dd-MMM-yy HH:mm"];
     NSString *dateLastModified=[dateFormat stringFromDate:self.c.lastmodified];
@@ -649,6 +702,13 @@ UITextField *activeField;
         self.switchUseLocalFlatRate.hidden = false;
         self.textFlatRate.hidden = false;
     }
+    
+    if (self.c.result.mapImage==nil) {
+        [self.mapImageView setImage:[UIImage imageNamed:@""]];
+    } else {
+        [self.mapImageView setImage:self.c.result.mapImage];
+    }
+    
 
 }
 
@@ -1093,6 +1153,43 @@ UITextField *activeField;
     }
 }
 
+/* created 20160816 */
+/* todo - optimize the calls by using its own imagestring like voyagestring; also pan and zoom would be nice! */
+- (IBAction)getMap:(id)sender {
+    
+    cargoNSO *d_port = [self.c.cargoios lastObject];
+    cargoNSO *l_port = [self.c.cargoios firstObject];
+    
+    NSString *voyagestring;
+    NSString *apikey;
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    apikey = appDelegate.apikey;
+    
+    
+    if (self.c.port_ballast_from !=nil) {
+        voyagestring = [NSString stringWithFormat:@"Image?port=%@&port=%@&port=%@", self.c.port_ballast_from.abc_code, l_port.port.abc_code, d_port.port.abc_code];
+    } else {
+        voyagestring = [NSString stringWithFormat:@"Image?port=%@&port=%@&port=%@", l_port.port.abc_code, l_port.port.abc_code, d_port.port.abc_code];
+    }
+    
+    self.atobviacActivity.hidden=false;
+    [self.atobviacActivity startAnimating];
+    self.calculateButton.enabled = false;
+        
+    self.labelDistanceOutput.text = @"requesting map";
+        
+    self.c.result.voyagestring = voyagestring;
+        
+    if ([self checkInternet]) {
+        [self.c.result setMapData :voyagestring :self.c :self.labelDistanceOutput :self.atobviacActivity :self.calculateButton :self.mapImageView];
+    } else {
+        self.labelDistanceOutput.text = @"no internet!";
+        self.atobviacActivity.hidden=true;
+        [self.atobviacActivity stopAnimating];
+    }
+    
+}
 
 
 

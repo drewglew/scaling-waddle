@@ -42,6 +42,7 @@
 @synthesize total_port_expenses;
 @synthesize voyagestring;
 @synthesize minutes_notice_time;
+@synthesize mapImage;
 
 
 /* modified 20160805 */
@@ -82,10 +83,57 @@
         self.routing = data;
         self.miles_sailing_ballasted = [NSNumber numberWithFloat:[[[data valueForKeyPath:@"Legs"][0] valueForKey:@"Distance"] floatValue]];
         self.miles_sailing_laden = [NSNumber numberWithFloat:[[[data valueForKeyPath:@"Legs"][1] valueForKey:@"Distance"] floatValue]];
-        [self performSelectorOnMainThread:@selector(updateActivity:) withObject:@[atobviacActivity,status,calculateButton] waitUntilDone:YES];
+        NSNumber *isRouteData = [NSNumber numberWithInt:0];
+        [self performSelectorOnMainThread:@selector(updateActivity:) withObject:@[atobviacActivity,status,calculateButton,isRouteData] waitUntilDone:YES];
 
     }];
 }
+
+/* created 20160802 */
+/* purpose is to call the remote webservice and load the reponse into a dictionary object */
+-(void)fetchFromUrl:(NSString *)url withDictionary:(void (^)(NSDictionary* data))dictionary{
+    
+    NSURLRequest *request = [NSURLRequest  requestWithURL:[NSURL URLWithString:url]];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:data
+                                                                                              options:0
+                                                                                                error:NULL];
+                                      dictionary(dicData);
+                                  }];
+    [task resume];
+}
+
+
+
+/* created 20160816 */
+/* modified 20160816 */
+/* calls atobviac webservice and stores image in property */
+-(void) setMapData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status :(UIActivityIndicatorView*) atobviacActivity :(UIButton*) calculateButton :(UIImageView*) map {
+    
+    NSURL *url;
+    NSString *apikey;
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    apikey = appDelegate.apikey;
+    url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.atobviaconline.com/v1/%@&api_key=%@", voyagequerystring, apikey]];
+    NSURLSessionDownloadTask *downloadMapTask = [[NSURLSession sharedSession]
+                                                   downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                                       // 3
+                                                       self.mapImage = [UIImage imageWithData:
+                                                                                   [NSData dataWithContentsOfURL:location]];
+                                                       
+                                                       dispatch_sync(dispatch_get_main_queue(), ^{
+                                                           [map setImage:self.mapImage];
+                                                       });
+                                                       NSNumber *isRouteData = [NSNumber numberWithInt:0];
+                                                       [self performSelectorOnMainThread:@selector(updateActivity:) withObject:@[atobviacActivity,status,calculateButton,isRouteData] waitUntilDone:YES];
+
+                                                   }];
+    [downloadMapTask resume];
+}
+
 
 /* last modified 20160807 */
 - (void) updateActivity:(NSArray*)objectArray
@@ -94,16 +142,21 @@
     UIActivityIndicatorView* atobviacActivity = [objectArray objectAtIndex:0];
     UILabel* status = [objectArray objectAtIndex:1];
     UIButton* calcButton = [objectArray objectAtIndex:2];
-
+    NSNumber *isRouteData = [objectArray objectAtIndex:3];
     
     [atobviacActivity stopAnimating];
     atobviacActivity.hidden = true;
     calcButton.enabled = true;
     
-    if( self.routing==nil) {
+    
+    if( self.routing==nil && isRouteData==[NSNumber numberWithInt:1]) {
         status.text = @"error no distance";
     } else {
-        status.text = @"distance retreived";
+        if (isRouteData==[NSNumber numberWithInt:0]) {
+            status.text = @"drawn map";
+        } else {
+            status.text = @"distance retreived";
+        }
     }
     
 }
@@ -223,24 +276,6 @@
 
 
 
-/* created 20160802 */
-/* purpose is to call the remote webservice and load the reponse into a dictionary object */
--(void)fetchFromUrl:(NSString *)url withDictionary:(void (^)(NSDictionary* data))dictionary{
-    
-    NSURLRequest *request = [NSURLRequest  requestWithURL:[NSURL URLWithString:url]];
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                            completionHandler:
-                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                      NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:data
-                                                                                              options:0
-                                                                                                error:NULL];
-                                      dictionary(dicData);
-                                  }];
-    [task resume];
-    
-    
-}
 
 
 
@@ -361,6 +396,7 @@
     [resultCopy setVoyagestring:self.voyagestring];
     [resultCopy setTotal_port_expenses :self.total_port_expenses];
     [resultCopy setMinutes_notice_time:self.minutes_notice_time];
+    [resultCopy setMapImage:self.mapImage];
     return resultCopy;
 }
 
