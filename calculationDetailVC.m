@@ -14,7 +14,7 @@
 #import "Reachability.h"
 #import "cargoVC.h"
 
-@interface calculationDetailVC () <searchDelegate, UITextFieldDelegate, calcDetailDelegate, cargoIODelegate>
+@interface calculationDetailVC () <searchDelegate, UITextFieldDelegate, calcDetailDelegate, cargoIODelegate,UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *textDesc;
 @property (weak, nonatomic) IBOutlet UITextField *textVessel;
@@ -44,6 +44,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *textTCEPerDay;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *atobviacActivity;
 @property (strong, nonatomic) IBOutlet UIImageView *mapImageView;
+@property (strong, nonatomic) IBOutlet UIScrollView *mapScrollView;
 
 
 
@@ -142,12 +143,21 @@ UITextField *activeField;
     self.textAddressCommission.inputAccessoryView = inputAccesoryView;
     self.textBrokerCommission.inputAccessoryView = inputAccesoryView;
 
+    
+    self.mapScrollView.minimumZoomScale=0.1f;
+    self.mapScrollView.maximumZoomScale=5.0f;
+    self.mapScrollView.contentSize=CGSizeMake(4096, 3072);
+    self.mapScrollView.delegate=self;
+    
     [self checkInternet];
 }
 
 
 
-
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.mapScrollView.zoomScale=0.1f;
+}
 
 
 
@@ -1168,9 +1178,9 @@ UITextField *activeField;
     
     
     if (self.c.port_ballast_from !=nil) {
-        voyagestring = [NSString stringWithFormat:@"Image?port=%@&port=%@&port=%@", self.c.port_ballast_from.abc_code, l_port.port.abc_code, d_port.port.abc_code];
+        voyagestring = [NSString stringWithFormat:@"Image?port=%@&port=%@&port=%@&width=4096&height=3072&showSecaZones=false&antipiracy=true&envnavreg=true", self.c.port_ballast_from.abc_code, l_port.port.abc_code, d_port.port.abc_code];
     } else {
-        voyagestring = [NSString stringWithFormat:@"Image?port=%@&port=%@&port=%@", l_port.port.abc_code, l_port.port.abc_code, d_port.port.abc_code];
+        voyagestring = [NSString stringWithFormat:@"Image?port=%@&port=%@&port=%@&width=4096&height=3072&showSecaZones=false&antipiracy=true&envnavreg=true", l_port.port.abc_code, l_port.port.abc_code, d_port.port.abc_code];
     }
     
     self.atobviacActivity.hidden=false;
@@ -1191,6 +1201,10 @@ UITextField *activeField;
     
 }
 
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.mapImageView;
+}
 
 
 

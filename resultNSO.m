@@ -120,7 +120,6 @@
     url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.atobviaconline.com/v1/%@&api_key=%@", voyagequerystring, apikey]];
     NSURLSessionDownloadTask *downloadMapTask = [[NSURLSession sharedSession]
                                                    downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-                                                       // 3
                                                        self.mapImage = [UIImage imageWithData:
                                                                                    [NSData dataWithContentsOfURL:location]];
                                                        
@@ -135,7 +134,7 @@
 }
 
 
-/* last modified 20160807 */
+/* last modified 20160816 */
 - (void) updateActivity:(NSArray*)objectArray
 {
     
