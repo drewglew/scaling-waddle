@@ -158,7 +158,9 @@ UITextField *activeField;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     self.mapScrollView.zoomScale=0.1f;
+    
 }
 
 
@@ -694,7 +696,9 @@ UITextField *activeField;
     }
     
     if (self.c.result.mapImage==nil) {
-        [self.mapImageView setImage:[UIImage imageNamed:@""]];
+        //self.mapImageView.contentMode = UIViewContentModeScaleAspectFit;
+         self.mapScrollView.zoomScale=1.0f;
+        [self.mapImageView setImage:[UIImage imageNamed:@"world"]];
     } else {
         [self.mapImageView setImage:self.c.result.mapImage];
     }
@@ -1205,7 +1209,9 @@ UITextField *activeField;
     
     
     if ([self checkInternet]) {
+        self.mapImageView.image = [UIImage imageNamed:@""];
         [self.c.result setMapData :voyagestring :self.c :self.labelDistanceOutput :self.atobviacActivity :self.calculateButton :self.mapImageView :self.mapDetailButton];
+         self.mapScrollView.zoomScale=0.1f;
     } else {
         self.labelDistanceOutput.text = @"no internet!";
         self.atobviacActivity.hidden=true;

@@ -20,6 +20,6 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *mapScrollView;
 @property (strong, nonatomic) IBOutlet UITableView *routingTableView;
 @property (strong, nonatomic) NSMutableArray *listing;
-
+@property (nonatomic) NSNumber *total_distance;
 
 @end

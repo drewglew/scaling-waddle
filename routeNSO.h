@@ -11,4 +11,7 @@
 @interface routeNSO : NSObject
 @property (nonatomic) NSNumber *distanceFromStart;
 @property (nonatomic) NSString *nameofport;
+@property (nonatomic) NSString *codeofport;
+@property (nonatomic) NSString *purposeofport;
+
 @end

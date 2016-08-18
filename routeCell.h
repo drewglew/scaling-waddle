@@ -11,5 +11,6 @@
 @interface routeCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *portnameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *DistanceLabel;
+@property (strong, nonatomic) IBOutlet UILabel *indicatorLabel;
 
 @end

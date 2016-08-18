@@ -11,4 +11,6 @@
 @implementation routeNSO
 @synthesize distanceFromStart;
 @synthesize nameofport;
+@synthesize codeofport;
+@synthesize purposeofport;
 @end
