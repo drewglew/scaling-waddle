@@ -66,7 +66,7 @@
 
 
 /* created 20160802 */
-/* modified 20160814 */
+/* modified 20160818 */
 /* calls atobviac webservice and stores routing in property, while focusing on distance and minutes while vessel is sailing */
 /* optimize - perhaps we do not need to send ballastPort etc as single parms */
 -(void) setRouteData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status :(UIActivityIndicatorView*) atobviacActivity :(UIButton*) calculateButton {
@@ -85,7 +85,6 @@
         self.miles_sailing_laden = [NSNumber numberWithFloat:[[[data valueForKeyPath:@"Legs"][1] valueForKey:@"Distance"] floatValue]];
         NSNumber *isRouteData = [NSNumber numberWithInt:0];
         [self performSelectorOnMainThread:@selector(updateActivity:) withObject:@[atobviacActivity,status,calculateButton,isRouteData] waitUntilDone:YES];
-
     }];
 }
 
@@ -109,9 +108,9 @@
 
 
 /* created 20160816 */
-/* modified 20160816 */
+/* modified 20160818 */
 /* calls atobviac webservice and stores image in property */
--(void) setMapData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status :(UIActivityIndicatorView*) atobviacActivity :(UIButton*) calculateButton :(UIImageView*) map {
+-(void) setMapData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status :(UIActivityIndicatorView*) atobviacActivity :(UIButton*) calculateButton :(UIImageView*) map :(UIButton*) mapDetailButton {
     
     NSURL *url;
     NSString *apikey;
@@ -125,16 +124,21 @@
                                                        
                                                        dispatch_sync(dispatch_get_main_queue(), ^{
                                                            [map setImage:self.mapImage];
+                                                           
+                                                           [self setRouteData :self.voyagestring :calculation :status :atobviacActivity :calculateButton];
+                                                           
                                                        });
-                                                       NSNumber *isRouteData = [NSNumber numberWithInt:0];
-                                                       [self performSelectorOnMainThread:@selector(updateActivity:) withObject:@[atobviacActivity,status,calculateButton,isRouteData] waitUntilDone:YES];
-
+                                                       NSNumber *isRouteData = [NSNumber numberWithInt:1];
+                                                       [self performSelectorOnMainThread:@selector(updateActivity:) withObject:@[atobviacActivity,status,calculateButton,isRouteData,mapDetailButton] waitUntilDone:YES];
+                                                       
+                                                       
+                                                       
                                                    }];
     [downloadMapTask resume];
 }
 
 
-/* last modified 20160816 */
+/* last modified 20160818 */
 - (void) updateActivity:(NSArray*)objectArray
 {
     
@@ -148,10 +152,12 @@
     calcButton.enabled = true;
     
     
-    if( self.routing==nil && isRouteData==[NSNumber numberWithInt:1]) {
+    if(self.routing==nil && isRouteData==[NSNumber numberWithInt:0]) {
         status.text = @"error no distance";
     } else {
-        if (isRouteData==[NSNumber numberWithInt:0]) {
+        if (isRouteData==[NSNumber numberWithInt:1]) {
+            UIButton* mapDetaiButton = [objectArray objectAtIndex:4];
+            mapDetaiButton.hidden = false;
             status.text = @"drawn map";
         } else {
             status.text = @"distance retreived";

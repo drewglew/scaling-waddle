@@ -13,8 +13,9 @@
 #import "dbHelper.h"
 #import "Reachability.h"
 #import "cargoVC.h"
+#import "routedetailVC.h"
 
-@interface calculationDetailVC () <searchDelegate, UITextFieldDelegate, calcDetailDelegate, cargoIODelegate,UIScrollViewDelegate>
+@interface calculationDetailVC () <searchDelegate, UITextFieldDelegate, calcDetailDelegate, cargoIODelegate, routedetailDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *textDesc;
 @property (weak, nonatomic) IBOutlet UITextField *textVessel;
@@ -45,6 +46,7 @@
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *atobviacActivity;
 @property (strong, nonatomic) IBOutlet UIImageView *mapImageView;
 @property (strong, nonatomic) IBOutlet UIScrollView *mapScrollView;
+@property (strong, nonatomic) IBOutlet UIButton *mapDetailButton;
 
 
 
@@ -287,6 +289,7 @@ UITextField *activeField;
 }
 
 
+/* modified 20160818 */
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
@@ -357,7 +360,16 @@ UITextField *activeField;
         controller.c.descr = @"clone";
         controller.db = self.db;
         
+    }else if([segue.identifier isEqualToString:@"route"]) {
+        
+        //[self loadMap];
+        
+        routedetailVC *controller = (routedetailVC *)segue.destinationViewController;
+        controller.delegate = self;
+        controller.mapImage = self.c.result.mapImage;
+        controller.routing = self.c.result.routing;
     }
+
     
     
     
@@ -569,48 +581,16 @@ UITextField *activeField;
     
   }
 
-/* modified 20160806 */
+/* modified 20160818 */
 -(void) loadData {
     self.c = [self.opencalcs objectAtIndex:self.currentpageindex-1];
     
     self.textDesc.text = self.c.descr;
     self.textVessel.text = [self.c.vessel getVesselFullName];
     
-    cargoNSO *d_port = [self.c.cargoios lastObject];
-    cargoNSO *l_port = [self.c.cargoios firstObject];
-    
-    NSString *voyagestring;
-    NSString *apikey;
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    apikey = appDelegate.apikey;
     
     
-    if (self.c.port_ballast_from !=nil) {
-        voyagestring = [NSString stringWithFormat:@"Voyage?port=%@&port=%@&port=%@", self.c.port_ballast_from.abc_code, l_port.port.abc_code, d_port.port.abc_code];
-    } else {
-        voyagestring = [NSString stringWithFormat:@"Voyage?port=%@&port=%@&port=%@", l_port.port.abc_code, l_port.port.abc_code, d_port.port.abc_code];
-    }
-    
-    
-    if (![[self.c.result voyagestring] isEqualToString:voyagestring] && ![d_port.port.code isEqualToString:@""]  && ![l_port.port.code isEqualToString:@""]) {
-        
-        self.atobviacActivity.hidden=false;
-        [self.atobviacActivity startAnimating];
-        self.calculateButton.enabled = false;
-        
-        self.labelDistanceOutput.text = @"requesting distance";
-        
-        self.c.result.voyagestring = voyagestring;
-        
-        if ([self checkInternet]) {
-            [self.c.result setRouteData :voyagestring :self.c :self.labelDistanceOutput :self.atobviacActivity :self.calculateButton];
-        } else {
-            self.labelDistanceOutput.text = @"no internet!";
-            self.atobviacActivity.hidden=true;
-            [self.atobviacActivity stopAnimating];
-        }
-    }
+    [self loadRouteData :false];
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -869,17 +849,6 @@ UITextField *activeField;
     self.textTCEPerDay.text = [formatter stringFromNumber:[self.c.result getTcEqv]];
     self.labelDistanceOutput.text = @"";
     
-    /*
-    NSLog(@"gross freight:%@",self.c.result.gross_freight);
-    NSLog(@"bunker HFO expesnes:%@",self.c.result.hfo_bunker.getExpenses);
-    NSLog(@"bunker HFO price:%@",self.c.result.hfo_bunker.price);
-    NSLog(@"bunker HFO additonal:%@",self.c.result.hfo_bunker.additionals);
-    NSLog(@"bunker HFO units:%@",self.c.result.hfo_bunker.units);
-    */
-    
-    
-    
-    
 }
 
 
@@ -890,7 +859,6 @@ UITextField *activeField;
 {
     if ([[Reachability reachabilityForInternetConnection]currentReachabilityStatus]==NotReachable)
     {
-        
         return false;
     }
     else
@@ -1163,9 +1131,55 @@ UITextField *activeField;
     }
 }
 
-/* created 20160816 */
-/* todo - optimize the calls by using its own imagestring like voyagestring; also pan and zoom would be nice! */
-- (IBAction)getMap:(id)sender {
+/* created 20160818 */
+/* needs to be executed on its own and with the map */
+-(void)loadRouteData :(bool) isMapBatchJob {
+    cargoNSO *d_port = [self.c.cargoios lastObject];
+    cargoNSO *l_port = [self.c.cargoios firstObject];
+    
+    NSString *voyagestring;
+    NSString *apikey;
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    apikey = appDelegate.apikey;
+    
+    
+    if (self.c.port_ballast_from !=nil) {
+        voyagestring = [NSString stringWithFormat:@"Voyage?port=%@&port=%@&port=%@", self.c.port_ballast_from.abc_code, l_port.port.abc_code, d_port.port.abc_code];
+    } else {
+        voyagestring = [NSString stringWithFormat:@"Voyage?port=%@&port=%@&port=%@", l_port.port.abc_code, l_port.port.abc_code, d_port.port.abc_code];
+    }
+    
+    if (![[self.c.result voyagestring] isEqualToString:voyagestring] && ![d_port.port.code isEqualToString:@""]  && ![l_port.port.code isEqualToString:@""]) {
+        
+        self.mapDetailButton.hidden = true;
+        
+        self.atobviacActivity.hidden=false;
+        [self.atobviacActivity startAnimating];
+        self.calculateButton.enabled = false;
+        
+        self.labelDistanceOutput.text = @"requesting distance";
+        
+        self.c.result.voyagestring = voyagestring;
+        
+        if (!isMapBatchJob) {
+            if ([self checkInternet]) {
+                [self.c.result setRouteData :voyagestring :self.c :self.labelDistanceOutput :self.atobviacActivity :self.calculateButton];
+            } else {
+                self.labelDistanceOutput.text = @"no internet!";
+                self.atobviacActivity.hidden=true;
+                [self.atobviacActivity stopAnimating];
+            }
+        }
+    }
+
+}
+    
+/* created 20160818 */
+/* could go into route item?? */
+-(void) loadMap {
+
+    [self loadRouteData :true];
     
     cargoNSO *d_port = [self.c.cargoios lastObject];
     cargoNSO *l_port = [self.c.cargoios firstObject];
@@ -1186,19 +1200,26 @@ UITextField *activeField;
     self.atobviacActivity.hidden=false;
     [self.atobviacActivity startAnimating];
     self.calculateButton.enabled = false;
-        
+    
     self.labelDistanceOutput.text = @"requesting map";
-        
-    self.c.result.voyagestring = voyagestring;
-        
+    
+    
     if ([self checkInternet]) {
-        [self.c.result setMapData :voyagestring :self.c :self.labelDistanceOutput :self.atobviacActivity :self.calculateButton :self.mapImageView];
+        [self.c.result setMapData :voyagestring :self.c :self.labelDistanceOutput :self.atobviacActivity :self.calculateButton :self.mapImageView :self.mapDetailButton];
     } else {
         self.labelDistanceOutput.text = @"no internet!";
         self.atobviacActivity.hidden=true;
         [self.atobviacActivity stopAnimating];
     }
-    
+
+}
+
+
+
+/* created 20160816 */
+/* todo - optimize the calls by using its own imagestring like voyagestring; also pan and zoom would be nice! */
+- (IBAction)getMap:(id)sender {
+    [self loadMap];
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView

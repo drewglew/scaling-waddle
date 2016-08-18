@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A21B9981D64D45B00282A64 /* routedetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A21B9971D64D45B00282A64 /* routedetailVC.m */; };
+		3A21B99B1D64DC9400282A64 /* routeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A21B99A1D64DC9400282A64 /* routeCell.m */; };
+		3A21B99E1D650FD000282A64 /* routeNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A21B99D1D650FD000282A64 /* routeNSO.m */; };
 		3A2744B61D40183000CB23BD /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A2744B51D40183000CB23BD /* libsqlite3.tbd */; };
 		3A2744DB1D412D1000CB23BD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2744C71D412D1000CB23BD /* AppDelegate.m */; };
 		3A2744DC1D412D1000CB23BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A2744C81D412D1000CB23BD /* Assets.xcassets */; };
@@ -41,6 +44,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A21B9961D64D45B00282A64 /* routedetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = routedetailVC.h; sourceTree = "<group>"; };
+		3A21B9971D64D45B00282A64 /* routedetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = routedetailVC.m; sourceTree = "<group>"; };
+		3A21B9991D64DC9400282A64 /* routeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = routeCell.h; sourceTree = "<group>"; };
+		3A21B99A1D64DC9400282A64 /* routeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = routeCell.m; sourceTree = "<group>"; };
+		3A21B99C1D650FD000282A64 /* routeNSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = routeNSO.h; sourceTree = "<group>"; };
+		3A21B99D1D650FD000282A64 /* routeNSO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = routeNSO.m; sourceTree = "<group>"; };
 		3A2744941D40156500CB23BD /* RoastChicken.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RoastChicken.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A2744B51D40183000CB23BD /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		3A2744C61D412D1000CB23BD /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -170,6 +179,8 @@
 				3A4ED01E1D49BEE300609696 /* cargoCell.m */,
 				3A4ED0211D49C3C200609696 /* calculationCell.h */,
 				3A4ED0221D49C3C200609696 /* calculationCell.m */,
+				3A21B9991D64DC9400282A64 /* routeCell.h */,
+				3A21B99A1D64DC9400282A64 /* routeCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -185,6 +196,8 @@
 				3A520E221D416D7800D7DEC6 /* searchVC.m */,
 				3A2744F61D4130AD00CB23BD /* calculationDetailVC.h */,
 				3A2744F71D4130AD00CB23BD /* calculationDetailVC.m */,
+				3A21B9961D64D45B00282A64 /* routedetailVC.h */,
+				3A21B9971D64D45B00282A64 /* routedetailVC.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -223,6 +236,8 @@
 				3A5B8FA81D62CF8400FE7BC9 /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
 				3A5B8FA41D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.h */,
 				3A5B8FA51D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.m */,
+				3A21B99C1D650FD000282A64 /* routeNSO.h */,
+				3A21B99D1D650FD000282A64 /* routeNSO.m */,
 			);
 			name = NSObjects;
 			sourceTree = "<group>";
@@ -308,10 +323,12 @@
 				3A4ED01F1D49BEE300609696 /* cargoCell.m in Sources */,
 				3A2744E61D412D1000CB23BD /* vesselNSO.m in Sources */,
 				3ABC9F8F1D454A6700328249 /* Reachability.m in Sources */,
+				3A21B9981D64D45B00282A64 /* routedetailVC.m in Sources */,
 				3A4ED0231D49C3C200609696 /* calculationCell.m in Sources */,
 				3A520E231D416D7800D7DEC6 /* searchVC.m in Sources */,
 				3A2744F21D412E7200CB23BD /* dbHelper.m in Sources */,
 				3A2744DB1D412D1000CB23BD /* AppDelegate.m in Sources */,
+				3A21B99E1D650FD000282A64 /* routeNSO.m in Sources */,
 				3A37CFB01D50F03F005D101E /* timeNSO.m in Sources */,
 				3A4ED02A1D4A821900609696 /* dbManager.m in Sources */,
 				3A2744E51D412D1000CB23BD /* portNSO.m in Sources */,
@@ -321,6 +338,7 @@
 				3A2744DE1D412D1000CB23BD /* calculationListVC.m in Sources */,
 				3A4ED0261D49C53300609696 /* cargoNSO.m in Sources */,
 				3A2744E31D412D1000CB23BD /* main.m in Sources */,
+				3A21B99B1D64DC9400282A64 /* routeCell.m in Sources */,
 				3A37CFAD1D50EA70005D101E /* resultNSO.m in Sources */,
 				3ABC9F921D466E5000328249 /* cargoVC.m in Sources */,
 				3A2744F81D4130AD00CB23BD /* calculationDetailVC.m in Sources */,
