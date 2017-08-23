@@ -39,10 +39,10 @@
         [defaults setValue:@"demo" forKey:@"api-key"];
     }
     self.apikey = [defaults valueForKey:@"api-key"];
-
     
-    dbManager *sharedDBManager = [dbManager shareDBManager];
-    [sharedDBManager dbInit:@"tankchartcalc.db"];
+//    dbManager *sharedDBManager = [dbManager shareDBManager];
+//    [sharedDBManager dbInit:@"tankchartcalc.db"];
+
     
     return YES;
 }

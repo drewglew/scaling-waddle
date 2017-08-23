@@ -12,6 +12,7 @@
 #import "calculationCell.h"
 #import "calculationNC.h"
 #import "calculationDetailVC.h"
+#import "refreshCacheVC.h"
 #import "dbHelper.h"
 #import "dbManager.h"
 

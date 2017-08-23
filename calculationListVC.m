@@ -9,7 +9,7 @@
 #import "calculationListVC.h"
 
 
-@interface calculationListVC () <calcDetailDelegate, UISearchResultsUpdating>
+@interface calculationListVC () <calcDetailDelegate, refreshCacheDelegate, UISearchResultsUpdating>
 
 @end
 
@@ -316,11 +316,11 @@ UIImageView *navBarHairlineImageView;
         controller.opencalcs = [self.db getCalculations :self.selectedcalcs];
         controller.c = [controller.opencalcs firstObject];
         
+    } else if([segue.identifier isEqualToString:@"updateData"]){
+        refreshCacheVC *controller = (refreshCacheVC *)segue.destinationViewController;
+        controller.delegate = self;
+        controller.db = self.db;
     }
-    
-    
-    
-    
 }
 
 

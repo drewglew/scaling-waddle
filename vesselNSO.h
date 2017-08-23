@@ -17,6 +17,7 @@
 @property (nonatomic) NSNumber *nr;
 @property (nonatomic) NSString *ref_nr;
 @property (nonatomic) NSString *name;
+@property (nonatomic) NSString *imo;
 @property (nonatomic) NSString *searchstring;
 @property (strong, nonatomic) consumptionNSO *ballast_cons;
 @property (strong, nonatomic) consumptionNSO *laden_cons;

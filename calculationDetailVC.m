@@ -589,9 +589,7 @@ UITextField *activeField;
     
     self.textDesc.text = self.c.descr;
     self.textVessel.text = [self.c.vessel getVesselFullName];
-    
-    
-    
+
     [self loadRouteData :false];
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
@@ -1166,6 +1164,7 @@ UITextField *activeField;
         
         self.c.result.voyagestring = voyagestring;
         
+        /* this allows the map to call this itself once thread is done with image method of web service */
         if (!isMapBatchJob) {
             if ([self checkInternet]) {
                 [self.c.result setRouteData :voyagestring :self.c :self.labelDistanceOutput :self.atobviacActivity :self.calculateButton];
@@ -1180,9 +1179,8 @@ UITextField *activeField;
 }
     
 /* created 20160818 */
-/* could go into route item?? */
 -(void) loadMap {
-
+    /* calls the route to obtain the voyage string and set things in motion */
     [self loadRouteData :true];
     
     cargoNSO *d_port = [self.c.cargoios lastObject];
@@ -1210,6 +1208,7 @@ UITextField *activeField;
     
     if ([self checkInternet]) {
         self.mapImageView.image = [UIImage imageNamed:@""];
+        /* setMapData method manages a lot of the flow including the routing data */
         [self.c.result setMapData :voyagestring :self.c :self.labelDistanceOutput :self.atobviacActivity :self.calculateButton :self.mapImageView :self.mapDetailButton];
          self.mapScrollView.zoomScale=0.1f;
     } else {

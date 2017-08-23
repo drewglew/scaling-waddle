@@ -77,29 +77,37 @@
         vesselNSO *v;
         // Configure the cell...
         if (isSearching) {
-            v = [self.filteredContentList objectAtIndex:indexPath.row];
+            if (self.filteredContentList.count != 0) {
+                v = [self.filteredContentList objectAtIndex:indexPath.row];
+                cell.itemLabel.text = v.searchstring;
+                cell.ref = v.nr;
+                cell.indexLabel.text = [NSString stringWithFormat:@"%@",v.nr];
+                cell.ref = v.nr;
+            }
         }
         else {
             v = [self.searchItems objectAtIndex:indexPath.row];
+            cell.itemLabel.text = v.searchstring;
+            cell.ref = v.nr;
+            cell.indexLabel.text = [NSString stringWithFormat:@"%@",v.nr];
+            cell.ref = v.nr;
         }
-
-        cell.itemLabel.text = v.searchstring;
-        cell.ref = v.nr;
-        cell.indexLabel.text = [NSString stringWithFormat:@"%@",v.nr];
-        cell.ref = v.nr;
         
     } else if ([self.searchtype isEqual:@"ballfromport"] || [self.searchtype isEqual:@"cargoport"] ){
         portNSO *p;
         // Configure the cell...
         if (isSearching) {
-            p = [self.filteredContentList objectAtIndex:indexPath.row];
+            if (self.filteredContentList.count != 0) {
+                p = [self.filteredContentList objectAtIndex:indexPath.row];
+                cell.itemLabel.text = p.searchstring;
+                cell.portref = p.code;
+            }
         }
         else {
             p = [self.searchItems objectAtIndex:indexPath.row];
+            cell.itemLabel.text = p.searchstring;
+            cell.portref = p.code;
         }
-        
-        cell.itemLabel.text = p.searchstring;
-        cell.portref = p.code;
     }
 
     //[cell setNeedsDisplay];
@@ -110,8 +118,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    //where indexPath.row is the selected cell
-
     
     if ([self.searchtype isEqualToString:@"vessel"]) {
     
@@ -134,10 +140,7 @@
             p = [self.searchItems objectAtIndex:indexPath.row];
         }
         [self.delegate didPickPortItem:p.code :self.searchtype];
-        
-        
     }
-    
 }
 
 

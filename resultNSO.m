@@ -122,6 +122,7 @@
                                                        self.mapImage = [UIImage imageWithData:
                                                                                    [NSData dataWithContentsOfURL:location]];
                                                        
+                                                       /* Vital block back to main thread to load the image data and to process the routing data. validations inside check if this is current or not */
                                                        dispatch_sync(dispatch_get_main_queue(), ^{
                                                            [map setImage:self.mapImage];
                                                            

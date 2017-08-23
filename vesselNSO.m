@@ -13,6 +13,7 @@
 @synthesize ref_nr;
 @synthesize nr;
 @synthesize name;
+@synthesize imo;
 @synthesize searchstring;
 @synthesize laden_cons;
 @synthesize ballast_cons;
@@ -98,7 +99,6 @@
         v.nr = [obj objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_nr"]];
         v.ref_nr = [obj objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_ref_nr"]];
         v.name = [obj objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_name"]];
-        
         v.searchstring = self.getVesselFullName;
         [vessellist addObject:v];
     }

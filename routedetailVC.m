@@ -17,10 +17,9 @@
 @synthesize mapImage;
 @synthesize listing;
 
+/* last modified 20160818 */
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-
 
     if (self.mapImage==nil) {
         [self.mapImageView setImage:[UIImage imageNamed:@""]];
@@ -31,13 +30,35 @@
     self.mapScrollView.maximumZoomScale=10.0f;
     self.mapScrollView.contentSize=CGSizeMake(4096, 3072);
     self.mapScrollView.delegate=self;
-    self.listing = [[NSMutableArray alloc] init];
+    
+    [self buildRouteListing];
+
+    [self.routingTableView reloadData];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.mapScrollView.zoomScale=0.2f;
+    
    
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.mapImageView;
+}
+
+
+/* created 20160818 */
+/* a complex method to read the JSON generated dictionary and locate the names and distances of ports.  Also we must manually find the names of the ports that were passed as codes. */
+-(void)buildRouteListing {
+    
+    self.listing = [[NSMutableArray alloc] init];
+    
     [self.routing enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL* stopRouting) {
         
         routeNSO *fromPort = [[routeNSO alloc] init];
         routeNSO *toPort = [[routeNSO alloc] init];
-        
         
         NSString *lastPortName;
         
@@ -51,7 +72,7 @@
                 
                 for (NSDictionary *leg in Legs) {
                     for(id key in leg) {
-
+                        
                         if ([key isEqual:@"FromPort"]) {
                             NSDictionary *fromP = [leg objectForKey:key];
                             if (legIndex==0) {
@@ -95,10 +116,9 @@
                                         if ([distanceToLoadPort floatValue]!=0.0f) {
                                             r.distanceFromStart = [NSNumber numberWithFloat:[r.distanceFromStart floatValue] + [distanceToLoadPort floatValue]];
                                         }
-                                        
                                     }
                                 }
-
+                                
                                 if (![r.nameofport isEqualToString:lastPortName] ) {
                                     [self.listing addObject:r];
                                 } else {
@@ -115,31 +135,13 @@
                         }
                     }
                     legIndex++;
-
                 }
             }
         }
     }];
-    
-   // NSLog(@"%@",wayPoints );
-    [self.routingTableView reloadData];
 }
 
 
-
-
-
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.mapScrollView.zoomScale=0.2f;
-    
-   
-}
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    return self.mapImageView;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -173,15 +175,10 @@
     static NSString *CellIdentifier = @"routeCell";
     
     routeCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    
-    
-    
+
     if (cell == nil) {
         cell = [[routeCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    
-    
     routeNSO *r;
     r = [self.listing objectAtIndex:indexPath.row];
     
@@ -200,9 +197,6 @@
         [cell.indicatorLabel setHidden:NO];
     }
     return cell;
-    
-    
-    
 }
 
 

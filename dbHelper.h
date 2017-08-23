@@ -34,4 +34,8 @@
 -(bool) prepareld :(calculationNSO *) c;
 -(NSNumber*) getWorldScaleRate :(NSString*) portcombo;
 -(bool) insertWorldScaleRate :(NSString*) portcombo :(NSNumber*) rate;
+-(bool) insertPortData :(portNSO *) p;
+-(bool) insertConsumptionData :(consumptionNSO*) c :(NSNumber*) vessel_nr :(NSNumber*) cons_type;
+-(bool) insertVesselData :(vesselNSO *) v;
+
 @end
