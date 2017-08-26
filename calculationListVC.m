@@ -32,32 +32,18 @@ UIImageView *navBarHairlineImageView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
+
     //dbManager *sharedDBManager = [dbManager shareDBManager];
     //[sharedDBManager dbInit:@"tankchartcalc.db"];
     
     [self initDB];
-     self.filteredContentList = [[NSMutableArray alloc] init];
+ self.filteredContentList = [[NSMutableArray alloc] init];
     
 #if TARGET_IPHONE_SIMULATOR
     // where are you?
     NSLog(@"Documents Directory: %@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
 #endif
- /*
-    portNSO *p = [[portNSO alloc] init];
-    [p setPort:@"LON" :@"GB0067" :@"London"];
-    [p insertPort];
-    NSMutableArray *testP = [[NSMutableArray alloc] init];
-    testP = [p getPorts];
     
-    vesselNSO *v = [[vesselNSO alloc] init];
-    [v setVessel:[NSNumber numberWithInt:10] :@"010" :@"Alice"];
-    [v insertVesselData];
-    NSMutableArray *testV = [[NSMutableArray alloc] init];
-    testV = [v getVessels];
-*/
-  
     self.selectedcalcs = [[NSMutableArray alloc] init];
     self.tableView.backgroundColor = [UIColor clearColor];
 
@@ -72,10 +58,7 @@ UIImageView *navBarHairlineImageView;
     [super viewDidAppear:animated];
     isSearching = NO;
     
-    
-    
     self.listing = [self.db getListing];
-    
     
     [self.tableView reloadData];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
