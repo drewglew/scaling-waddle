@@ -973,9 +973,36 @@
         
     }
     
+    return true;
+}
+
+
+
+/* created 20170825 */
+-(bool) deleteWorldScaleRate {
     
     
+    sqlite3_stmt *statement;
+    const char *dbpath = [_databasePath UTF8String];
     
+    if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
+        
+        NSString *deleteSQL = @"DELETE FROM worldscales";
+        
+        const char *deleteStatement = [deleteSQL UTF8String];
+        sqlite3_prepare_v2(_DB, deleteStatement, -1, &statement, NULL);
+        
+        if (sqlite3_step(statement) != SQLITE_DONE) {
+            NSLog(@"Failed to delete worldscales from table");
+            sqlite3_close(_DB);
+            return false;
+        } else {
+            NSLog(@"Successfuly deleted all worldscales from table");
+        }
+        
+    }
+    
+    sqlite3_close(_DB);
     
     return true;
 }
@@ -1124,7 +1151,34 @@
 }
 
 
-
+/* created 20170825 */
+-(bool) deleteConsumptions {
+    
+    
+    sqlite3_stmt *statement;
+    const char *dbpath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
+        
+        NSString *deleteSQL = @"DELETE FROM consumptions";
+        
+        const char *deleteStatement = [deleteSQL UTF8String];
+        sqlite3_prepare_v2(_DB, deleteStatement, -1, &statement, NULL);
+        
+        if (sqlite3_step(statement) != SQLITE_DONE) {
+            NSLog(@"Failed to delete consumptions from table");
+            sqlite3_close(_DB);
+            return false;
+        } else {
+            NSLog(@"Successfuly deleted all consumptions from table");
+        }
+        
+    }
+    
+    sqlite3_close(_DB);
+    
+    return true;
+}
 
 
 

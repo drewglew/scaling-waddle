@@ -381,15 +381,52 @@ UITextField *activeField;
     [sender resignFirstResponder];
 }
 
+/* created 20170826 */
+/* purpose is to call the remote webservice and load the reponse into a dictionary object */
+-(void)fetchFromTankers:(NSString *)url withDictionary:(void (^)(NSDictionary* data))dictionary{
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest  requestWithURL:[NSURL URLWithString:url]];
+    [request setHTTPMethod:@"GET"];
+    
+    [request setValue:@"CEEC5067A7BDD7D0DC5F75725DE93908814441A812B74DFCF751FFEC5150F594" forHTTPHeaderField:@"tankers-api-key"];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      NSDictionary *dicData = [NSJSONSerialization JSONObjectWithData:data
+                                                                                              options:0
+                                                                                                error:NULL];
+                                      dictionary(dicData);
+                                  }];
+    [task resume];
+}
+
+
+/*
+ created 20170825
+ last updatd 20170826
+ */
 - (void)didPickItem :(NSNumber*)ref :(NSString*)searchitem {
 
     if ([searchitem isEqualToString:@"vessel"]) {
+        
+        //NSString *tempVessel = self.c.vessel.ref_nr;
         self.c.vessel = [self.db getVesselByVesselNr:ref :self.c.vessel];
         
+        NSString *url = [NSString stringWithFormat:@"https://testapi.maersktankers.com/api/v1/Fleet/GetApproxVesselBunkerPrice?refno=%@", self.c.vessel.ref_nr];
         
-        
+        [self fetchFromTankers:url withDictionary:^(NSDictionary *data) {
+            self.c.result.hfo_bunker.price = [data objectForKey:@"HSFO"];
+            self.c.result.do_bunker.price = [data objectForKey:@"LSGO"];
+            self.c.result.mgo_bunker.price = [data objectForKey:@"HSGO"];
+            self.c.result.lsfo_bunker.price = [data objectForKey:@"LSFO"];
+        }];
         
         self.textVessel.text = [self.c.vessel getVesselFullName];
+        //}
     }
     [self.navigationController popViewControllerAnimated:YES];
 
@@ -715,6 +752,8 @@ UITextField *activeField;
 
 
 /* modified 20160803 */
+
+
 -(void)calculate  {
     
     cargoNSO *d_port = [self.c.cargoios lastObject];
@@ -744,7 +783,6 @@ UITextField *activeField;
                     // per MT - TODO validate this
                     self.c.rate = [f numberFromString:self.textFlatRate.text];
                 }
-                
                 
             } else {
                 
@@ -813,8 +851,6 @@ UITextField *activeField;
     }
  
 }
-
-
 
 -(void) updateResultsData :(cargoNSO *) l_port :(cargoNSO *) d_port {
     

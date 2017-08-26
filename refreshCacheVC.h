@@ -17,5 +17,11 @@
 @interface refreshCacheVC : UIViewController
 @property (nonatomic, weak) id <refreshCacheDelegate> delegate;
 @property (strong, nonatomic) dbHelper *db;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentZones;
+@property (strong, nonatomic) NSMutableArray *vessels;
+@property (weak, nonatomic) IBOutlet UILabel *labelInfo;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
+@property (weak, nonatomic) IBOutlet UIStepper *stepperYear;
+@property (weak, nonatomic) IBOutlet UILabel *labelYear;
 
 @end
