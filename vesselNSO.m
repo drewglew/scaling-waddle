@@ -18,6 +18,9 @@
 @synthesize laden_cons;
 @synthesize ballast_cons;
 @synthesize atport_cons;
+@synthesize selected;
+@synthesize type_id;
+@synthesize type_name;
 
 - (id)init
 {
@@ -70,13 +73,23 @@
 -(void) setVesselByVesselNr :(NSNumber*) vessel_nr {
     
     dbManager *sharedDBManager = [dbManager shareDBManager];
-    NSString *query = [NSString stringWithFormat:@"SELECT vessel_nr,vessel_ref_nr,vessel_name FROM vessels WHERE vessel_nr=%@",vessel_nr];
+    NSString *query = [NSString stringWithFormat:@"SELECT vessel_nr,vessel_ref_nr,vessel_name,vessel_selected,vessel_type_name,vessel_type_id FROM vessels WHERE vessel_nr=%@",vessel_nr];
     NSMutableArray *vessels = [[NSMutableArray alloc] initWithArray: [sharedDBManager loadDataFromDB:query]];
 
     self.nr = [[vessels objectAtIndex:0] objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_nr"]];
     self.ref_nr = [[vessels objectAtIndex:0] objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_ref_nr"]];
     self.name = [[vessels objectAtIndex:0] objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_name"]];
-
+    self.type_name = [[vessels objectAtIndex:0] objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_type_name"]];
+    self.type_id = [[vessels objectAtIndex:0] objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_type_id"]];
+    NSNumber *temp = [[vessels objectAtIndex:0] objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_selected"]];
+    
+    if ([temp intValue]==1) {
+        self.selected = true;
+    }
+    else {
+        self.selected = false;
+    }
+        
     [self.atport_cons setConsumptionByVesselAndType :self.nr :[NSNumber numberWithInt:0]];
     [self.ballast_cons setConsumptionByVesselAndType :self.nr :[NSNumber numberWithInt:1]];
     [self.laden_cons setConsumptionByVesselAndType :self.nr :[NSNumber numberWithInt:2]];
@@ -89,7 +102,7 @@
 -(NSMutableArray*) getVessels {
     
     dbManager *sharedDBManager = [dbManager shareDBManager];
-    NSString *query = @"SELECT vessel_nr, vessel_ref_nr, vessel_name from vessels ORDER BY vessel_name DESC";
+    NSString *query = @"SELECT vessel_nr, vessel_ref_nr, vessel_name, vessel_selected, vessel_type_id, vessel_type_name from vessels ORDER BY vessel_name DESC";
     NSMutableArray *vessels = [[NSMutableArray alloc] initWithArray: [sharedDBManager loadDataFromDB:query]];
     
     NSMutableArray *vessellist = [[NSMutableArray alloc] init];
@@ -99,6 +112,9 @@
         v.nr = [obj objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_nr"]];
         v.ref_nr = [obj objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_ref_nr"]];
         v.name = [obj objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_name"]];
+        //v.selected = [obj objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_selected"]];
+        v.type_name = [obj objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_type_name"]];
+        v.type_id = [obj objectAtIndex:[sharedDBManager.arrColumnNames indexOfObject:@"vessel_type_id"]];
         v.searchstring = self.getVesselFullName;
         [vessellist addObject:v];
     }
@@ -119,6 +135,9 @@
     [vesselCopy setLaden_cons:[[self laden_cons] copyWithZone:zone]];
     [vesselCopy setBallast_cons:[[self ballast_cons] copyWithZone:zone]];
     [vesselCopy setAtport_cons:[[self atport_cons] copyWithZone:zone]];
+    [vesselCopy setType_id:self.type_id];
+    [vesselCopy setSelected:self.selected];
+    [vesselCopy setType_name:self.type_name];
     return vesselCopy;
 }
 

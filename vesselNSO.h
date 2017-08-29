@@ -18,6 +18,9 @@
 @property (nonatomic) NSString *ref_nr;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *imo;
+@property (nonatomic) Boolean selected;
+@property (nonatomic) NSString *type_name;
+@property (nonatomic) NSNumber *type_id;
 @property (nonatomic) NSString *searchstring;
 @property (strong, nonatomic) consumptionNSO *ballast_cons;
 @property (strong, nonatomic) consumptionNSO *laden_cons;

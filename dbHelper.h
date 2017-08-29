@@ -23,6 +23,7 @@
 -(bool)dbCreate :(NSString*) databaseName;
 -(NSMutableArray*) getCalculations :(NSMutableArray*) listing;
 -(vesselNSO *) getVesselByVesselNr :(NSNumber *) vessel_nr :(vesselNSO *) v;
+-(vesselNSO*) getVesselByVesselRefNr :(NSString*) ref_nr :(vesselNSO*) v;
 -(NSMutableArray*) getVessels;
 -(NSMutableArray*) getPorts;
 -(portNSO*) getPortByPortCode :(NSString*) port_code :(portNSO*) p;

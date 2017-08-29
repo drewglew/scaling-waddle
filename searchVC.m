@@ -9,6 +9,7 @@
 #import "searchVC.h"
 
 @interface searchVC () <UISearchResultsUpdating>
+@property (nonatomic, strong) id previewingContext;
 
 @end
 
@@ -17,6 +18,7 @@
 @synthesize searchItems;
 @synthesize filteredContentList;
 @synthesize searchtype;
+@synthesize loadport;
 
 
 
@@ -24,6 +26,10 @@
     [super viewDidLoad];
     self.filteredContentList = [[NSMutableArray alloc] init];
      self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    if ([self isForceTouchAvailable]) {
+        self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
+    
     // Do any additional setup after loading the view.
 }
 
@@ -235,6 +241,82 @@
 
 - (void)didPickPortItem :(NSString*)refport :(NSString*)searchitem {
     
+}
+
+- (BOOL)isForceTouchAvailable {
+    BOOL isForceTouchAvailable = NO;
+    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)]) {
+        isForceTouchAvailable = self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable;
+    }
+    return isForceTouchAvailable;
+}
+
+
+- (UIViewController *)previewingContext:(id )previewingContext viewControllerForLocation:(CGPoint)location{
+    // check if we're not already displaying a preview controller (WebViewController is my preview controller)
+    if ([self.presentedViewController isKindOfClass:[VesselPreviewTVC class]]) {
+        return nil;
+    }
+    
+    CGPoint cellPostion = [self.tableView convertPoint:location fromView:self.view];
+    NSIndexPath *path = [self.tableView indexPathForRowAtPoint:cellPostion];
+    
+    if (path) {
+        searchCell *cell = [self.tableView cellForRowAtIndexPath:path];
+        
+        // get your UIStoryboard
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        // set the view controller by initializing it form the storyboard
+        VesselPreviewTVC *previewController = [storyboard instantiateViewControllerWithIdentifier:@"vesselPreview"];
+        
+        previewController.loadport = self.loadport;
+        
+        if ([self.searchtype isEqualToString:@"vessel"]) {
+            
+            vesselNSO *v;
+            
+            if (isSearching) {
+                v = [self.filteredContentList objectAtIndex:path.row];
+            } else {
+                v = [self.searchItems objectAtIndex:path.row];
+            }
+            
+            previewController.vessel = v;
+            previewController.db = self.db;
+        }
+        // if you want to transport date use your custom "detailItem" function like this:
+        //previewController.detailItem = [self.data objectAtIndex:path.row];
+        
+        //previewingContext.sourceRect = [self.view convertRect:tableCell.frame fromView:self.tableView];
+        
+        return previewController;
+    }
+    return nil;
+}
+ 
+
+- (void)previewingContext:(id )previewingContext commitViewController: (UIViewController *)viewControllerToCommit {
+    
+    // if you want to present the selected view controller as it self us this:
+    // [self presentViewController:viewControllerToCommit animated:YES completion:nil];
+    
+    // to render it with a navigation controller (more common) you should use this:
+    [self.navigationController showViewController:viewControllerToCommit sender:nil];
+}
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    if ([self isForceTouchAvailable]) {
+        if (!self.previewingContext) {
+            self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
+        }
+    } else {
+        if (self.previewingContext) {
+            [self unregisterForPreviewingWithContext:self.previewingContext];
+            self.previewingContext = nil;
+        }
+    }
 }
 
 

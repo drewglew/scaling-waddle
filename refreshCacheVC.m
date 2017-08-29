@@ -93,7 +93,7 @@
  
  */
 - (IBAction)refreshVesselsPressed:(id)sender {
-    NSString *url = @"https://testapi.maersktankers.com/api/v1/fleet/getVessels?active=yes&fields=name,ref_nr,nr,imo_number,active";
+    NSString *url = @"https://testapi.maersktankers.com/api/v1/fleet/getVessels?active=yes&fields=name,ref_nr,nr,imo_number,active,type_id,type_name";
     
     [self fetchFromTankers:url withDictionary:^(NSDictionary *data) {
         for (NSDictionary *dict in data) {
@@ -103,6 +103,8 @@
                 v.nr = [dict objectForKey:@"Nr"];
                 v.ref_nr = [dict objectForKey:@"Ref_Nr"];
                 v.name = [dict objectForKey:@"Name"];
+                v.type_name = [dict objectForKey:@"Type_Name"];
+                v.type_id = [dict objectForKey:@"Type_Id"];
                 [self.db insertVesselData:v];
                 
             } else {

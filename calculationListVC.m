@@ -61,8 +61,11 @@ UIImageView *navBarHairlineImageView;
     self.listing = [self.db getListing];
     
     [self.tableView reloadData];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     
+    if (self.listing.count>0) {
+    
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -271,9 +274,9 @@ UIImageView *navBarHairlineImageView;
     // Pass the selected object to the new view controller.
     
     NSMutableArray *items = [[NSMutableArray alloc] init];
-    
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    
+    if (self.listing.count>0) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    }
     if([segue.identifier isEqualToString:@"calculation"]){
         calculationDetailVC *controller = (calculationDetailVC *)segue.destinationViewController;
         controller.delegate = self;

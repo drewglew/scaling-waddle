@@ -306,7 +306,11 @@ UITextField *activeField;
         controller.searchItems = [self.db getVessels];
         controller.searchtype = @"vessel";
         
-        //controller.c = [sender c];
+        cargoNSO *l_port = [self.c.cargoios firstObject];
+        controller.loadport = l_port.port;
+        controller.db = self.db;
+        
+        
     
     } else if([segue.identifier isEqualToString:@"ballfromportsearch"]){
         

@@ -10,6 +10,7 @@
 #import "searchCell.h"
 #import "vesselNSO.h"
 #import "portNSO.h"
+#import "VesselPreviewTVC.h"
 
 
 @protocol searchDelegate <NSObject>
@@ -17,12 +18,11 @@
 - (void)didPickPortItem :(NSString*)refport :(NSString*)searchitem;
 @end
 
-@interface searchVC : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface searchVC : UIViewController <UITableViewDelegate, UITableViewDataSource, UIViewControllerPreviewingDelegate>  {
 BOOL isSearching;
     NSMutableArray *searchItems;
     NSMutableArray *filteredContentList;
     NSString *searchtype;
-    
 }
 @property (nonatomic, weak) id <searchDelegate> delegate;
 @property (strong, nonatomic) NSString *searchtype;
@@ -31,5 +31,6 @@ BOOL isSearching;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchbar;
 @property (strong, nonatomic) IBOutlet UISearchController *searchController;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
+@property (strong, nonatomic) portNSO *loadport;
+@property (strong, nonatomic) dbHelper *db;
 @end

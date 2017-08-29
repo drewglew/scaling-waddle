@@ -297,10 +297,6 @@
     dirPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     docsDir = dirPaths[0];
     
-    /* clean up old db */
-    //[self deleteDB:@"tankchartcalc.db"];
-    
-    
     _databasePath = [[NSString alloc] initWithString:[docsDir stringByAppendingPathComponent:databaseName]];
     
     NSFileManager *filemgr = [NSFileManager defaultManager];
@@ -312,8 +308,8 @@
             char *errorMessage;
             
             /* number 1:  vessels */
-            
-            const char *sql_statement = "CREATE TABLE vessels(vessel_nr INTEGER PRIMARY KEY, vessel_ref_nr TEXT, vessel_name TEXT)";
+            // TODO extend to include IMO; SELECTED; SEGMENT; TYPE
+            const char *sql_statement = "CREATE TABLE vessels(vessel_nr INTEGER PRIMARY KEY, vessel_ref_nr TEXT, vessel_name TEXT, vessel_type_name TEXT, vessel_type_id INTEGER, vessel_selected INTEGER DEFAULT 1)";
             
             if(sqlite3_exec(_DB, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK) {
                 NSLog(@"failed to create vessels table");
@@ -322,6 +318,7 @@
             }
             
              /* number 2: ports */
+            // TODO extend to include COUNTRY
             sql_statement = "CREATE TABLE ports(port_code TEXT PRIMARY KEY, port_abc_code TEXT, port_name TEXT)";
             if(sqlite3_exec(_DB, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK) {
                 NSLog(@"failed to create table ports");
@@ -330,8 +327,6 @@
             }
             
             sql_statement = "CREATE TABLE calculations(calc_id INTEGER PRIMARY KEY, calc_vessel_nr INTEGER, calc_description TEXT, calc_rate DECIMAL(10, 5), calc_flatrate DECIMAL(10, 5), calc_tce DECIMAL(10, 5), calc_port_ballast_from TEXT, calc_created DATETIME, calc_last_modified DATETIME, calc_ld_ports TEXT, calc_hfo_price DECIMAL(10, 2), calc_do_price DECIMAL(10, 2), calc_mgo_price DECIMAL(10, 2), calc_lsfo_price DECIMAL(10, 2), calc_address_commission DECIMAL(10, 2), calc_broker_commission DECIMAL(10, 2), calc_add_idle_days INTEGER, calc_add_ballasted_days INTEGER, calc_add_laden_days INTEGER, calc_add_expenses INTEGER, calc_add_hfo INTEGER, calc_add_do INTEGER, calc_add_mgo INTEGER, calc_add_lsfo INTEGER, calc_voyagestring TEXT, calc_miles_ball DECIMAL(12, 4), calc_miles_laden DECIMAL(12, 4), FOREIGN KEY(calc_vessel_nr) REFERENCES vessels(vessel_nr), FOREIGN KEY(calc_port_ballast_from) REFERENCES ports(port_code) )";
-            
-            
             
             if(sqlite3_exec(_DB, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK) {
                 NSLog(@"failed to create calculations table");
@@ -373,12 +368,14 @@
             /* number 5: worldscales index  */
             sql_statement = "CREATE UNIQUE INDEX idx_portcombo ON worldscales (ws_portcombo);";
             if(sqlite3_exec(_DB, sql_statement, NULL, NULL, &errorMessage) != SQLITE_OK) {
-                NSLog(@"failed to create index idx_portcomboon worldscales");
+                NSLog(@"failed to create index idx_portcombo on worldscales");
                 sqlite3_close(_DB);
                 return false;
             } else {
                 NSLog(@"Whoopee successul in creating index idx_portcombo on worldscales");
             }
+            
+            // WE NEED TO DELETE THIS PART.
             
             /* now we populate the database with dummy data */
             vesselNSO *v = [[vesselNSO alloc] init];
@@ -905,6 +902,39 @@
         NSLog(@"Cannot open database");
     }
 
+    v.atport_cons = [self getConsumptionByVesselAndType:v.nr :[NSNumber numberWithInt:0]];
+    v.ballast_cons = [self getConsumptionByVesselAndType:v.nr :[NSNumber numberWithInt:1]];
+    v.laden_cons = [self getConsumptionByVesselAndType:v.nr :[NSNumber numberWithInt:2]];
+    
+    return v;
+    
+}
+
+/* created 28/aug/17 */
+-(vesselNSO*) getVesselByVesselRefNr :(NSString*) ref_nr :(vesselNSO*) v  {
+    
+    sqlite3_stmt *statement;
+    const char *dbpath = [_databasePath UTF8String];
+    
+    if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
+        NSString *selectSQL = [NSString stringWithFormat:@"SELECT vessel_name FROM vessels WHERE vessel_ref_nr=%@",ref_nr];
+        
+        const char *select_statement = [selectSQL UTF8String];
+        
+        if (sqlite3_prepare_v2(_DB, select_statement, -1, &statement, NULL) == SQLITE_OK)
+        {
+            if (sqlite3_step(statement) == SQLITE_ROW) {
+                v.name = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 0)] ;
+            } else {
+                NSLog(@"cannot obtain vessel data");
+            }
+        }
+        sqlite3_finalize(statement);
+        sqlite3_close(_DB);
+    } else {
+        NSLog(@"Cannot open database");
+    }
+    
     v.atport_cons = [self getConsumptionByVesselAndType:v.nr :[NSNumber numberWithInt:0]];
     v.ballast_cons = [self getConsumptionByVesselAndType:v.nr :[NSNumber numberWithInt:1]];
     v.laden_cons = [self getConsumptionByVesselAndType:v.nr :[NSNumber numberWithInt:2]];
