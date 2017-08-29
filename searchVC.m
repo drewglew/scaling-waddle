@@ -254,21 +254,25 @@
 
 - (UIViewController *)previewingContext:(id )previewingContext viewControllerForLocation:(CGPoint)location{
     // check if we're not already displaying a preview controller (WebViewController is my preview controller)
-    if ([self.presentedViewController isKindOfClass:[VesselPreviewTVC class]]) {
+    if ([self.presentedViewController isKindOfClass:[vesselSuggestionVC class]]) {
         return nil;
     }
+    // without a loadport we are unable to suggest which vessel is closest to us.
+    if (self.loadport.abc_code==nil) {
+        return nil;
+    }
+    
     
     CGPoint cellPostion = [self.tableView convertPoint:location fromView:self.view];
     NSIndexPath *path = [self.tableView indexPathForRowAtPoint:cellPostion];
     
     if (path) {
-        searchCell *cell = [self.tableView cellForRowAtIndexPath:path];
         
         // get your UIStoryboard
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         
         // set the view controller by initializing it form the storyboard
-        VesselPreviewTVC *previewController = [storyboard instantiateViewControllerWithIdentifier:@"vesselPreview"];
+        vesselSuggestionVC *previewController = [storyboard instantiateViewControllerWithIdentifier:@"vesselPreview"];
         
         previewController.loadport = self.loadport;
         

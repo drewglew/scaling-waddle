@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "routeCell.h"
 #import "routeNSO.h"
+#import "AppDelegate.h"
 
 @protocol routedetailDelegate <NSObject>
 @end

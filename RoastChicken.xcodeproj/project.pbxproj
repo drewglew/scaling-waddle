@@ -38,9 +38,9 @@
 		3A520E231D416D7800D7DEC6 /* searchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A520E221D416D7800D7DEC6 /* searchVC.m */; };
 		3A5B8FA61D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B8FA51D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.m */; };
 		3A5B8FA91D62CF8400FE7BC9 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5B8FA81D62CF8400FE7BC9 /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
-		3A5E1EB51F5497FA007E7EDB /* VesselPreviewTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E1EB41F5497FA007E7EDB /* VesselPreviewTVC.m */; };
 		3A5E1EB81F549FD6007E7EDB /* vesselCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E1EB71F549FD6007E7EDB /* vesselCell.m */; };
 		3A5E1EBB1F54A1E3007E7EDB /* vesselPosNSO.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E1EBA1F54A1E3007E7EDB /* vesselPosNSO.m */; };
+		3A5E1EC11F55CFD4007E7EDB /* vesselSuggestionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E1EC01F55CFD4007E7EDB /* vesselSuggestionVC.m */; };
 		3A7EB9591F4DF388002061EB /* refreshCacheVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A7EB9581F4DF388002061EB /* refreshCacheVC.m */; };
 		3ABC9F8F1D454A6700328249 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC9F8E1D454A6700328249 /* Reachability.m */; };
 		3ABC9F921D466E5000328249 /* cargoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ABC9F911D466E5000328249 /* cargoVC.m */; };
@@ -103,12 +103,12 @@
 		3A5B8FA51D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		3A5B8FA71D62CF8400FE7BC9 /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
 		3A5B8FA81D62CF8400FE7BC9 /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
-		3A5E1EB31F5497FA007E7EDB /* VesselPreviewTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VesselPreviewTVC.h; sourceTree = "<group>"; };
-		3A5E1EB41F5497FA007E7EDB /* VesselPreviewTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VesselPreviewTVC.m; sourceTree = "<group>"; };
 		3A5E1EB61F549FD6007E7EDB /* vesselCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vesselCell.h; sourceTree = "<group>"; };
 		3A5E1EB71F549FD6007E7EDB /* vesselCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vesselCell.m; sourceTree = "<group>"; };
 		3A5E1EB91F54A1E3007E7EDB /* vesselPosNSO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vesselPosNSO.h; sourceTree = "<group>"; };
 		3A5E1EBA1F54A1E3007E7EDB /* vesselPosNSO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vesselPosNSO.m; sourceTree = "<group>"; };
+		3A5E1EBF1F55CFD4007E7EDB /* vesselSuggestionVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vesselSuggestionVC.h; sourceTree = "<group>"; };
+		3A5E1EC01F55CFD4007E7EDB /* vesselSuggestionVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vesselSuggestionVC.m; sourceTree = "<group>"; };
 		3A7EB9571F4DF388002061EB /* refreshCacheVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = refreshCacheVC.h; sourceTree = "<group>"; };
 		3A7EB9581F4DF388002061EB /* refreshCacheVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = refreshCacheVC.m; sourceTree = "<group>"; };
 		3ABC9F8D1D454A6700328249 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -214,8 +214,8 @@
 				3A21B9971D64D45B00282A64 /* routedetailVC.m */,
 				3A7EB9571F4DF388002061EB /* refreshCacheVC.h */,
 				3A7EB9581F4DF388002061EB /* refreshCacheVC.m */,
-				3A5E1EB31F5497FA007E7EDB /* VesselPreviewTVC.h */,
-				3A5E1EB41F5497FA007E7EDB /* VesselPreviewTVC.m */,
+				3A5E1EBF1F55CFD4007E7EDB /* vesselSuggestionVC.h */,
+				3A5E1EC01F55CFD4007E7EDB /* vesselSuggestionVC.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -340,6 +340,7 @@
 			files = (
 				3A2744FB1D41318D00CB23BD /* calculationNC.m in Sources */,
 				3ABC9F9F1D47B63800328249 /* listingItemNSO.m in Sources */,
+				3A5E1EC11F55CFD4007E7EDB /* vesselSuggestionVC.m in Sources */,
 				3A4ED01F1D49BEE300609696 /* cargoCell.m in Sources */,
 				3A2744E61D412D1000CB23BD /* vesselNSO.m in Sources */,
 				3ABC9F8F1D454A6700328249 /* Reachability.m in Sources */,
@@ -367,7 +368,6 @@
 				3A5E1EBB1F54A1E3007E7EDB /* vesselPosNSO.m in Sources */,
 				3A37CFAA1D50EA5B005D101E /* consumptionNSO.m in Sources */,
 				3A5B8FA61D62CDF800FE7BC9 /* TPKeyboardAvoidingScrollView.m in Sources */,
-				3A5E1EB51F5497FA007E7EDB /* VesselPreviewTVC.m in Sources */,
 				3A37183D1D49BDF9003446C4 /* searchCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -20,7 +20,7 @@
 /* last modified 20160818 */
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [self restrictRotation:NO];
     if (self.mapImage==nil) {
         [self.mapImageView setImage:[UIImage imageNamed:@""]];
     } else {
@@ -36,11 +36,20 @@
     [self.routingTableView reloadData];
 }
 
+-(void) restrictRotation:(BOOL) restriction
+{
+    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    appDelegate.restrictRotation = restriction;
+}
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.mapScrollView.zoomScale=0.2f;
-    
-   
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self restrictRotation:YES];
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView

@@ -1,18 +1,19 @@
 //
-//  VesselPreviewTVC.m
+//  vesselSuggestionVC.m
 //  RoastChicken
 //
-//  Created by andrew glew on 28/08/2017.
+//  Created by andrew glew on 29/08/2017.
 //  Copyright © 2017 andrew glew. All rights reserved.
 //
 
-#import "VesselPreviewTVC.h"
+#import "vesselSuggestionVC.h"
 
-@interface VesselPreviewTVC ()
+@interface vesselSuggestionVC ()
 
 @end
 
-@implementation VesselPreviewTVC
+@implementation vesselSuggestionVC
+
 @synthesize vessel;
 @synthesize loadport;
 @synthesize posData;
@@ -24,27 +25,29 @@
     [super viewDidLoad];
     self.posData = [[NSMutableArray alloc] init];
     
-    //NSString *tempVessel = self.c.vessel.ref_nr;
-    //api/v1/DataFeed/GetPosListByTypeWithVesselRef?ref_nr={ref_nr}&max_days_old={max_days_old}
+    self.labelHeader.text = [NSString stringWithFormat:@"Sister Ships of %@ in order of distance from %@",self.vessel.name, self.loadport.name];
+    
     NSString *url = [NSString stringWithFormat:@"https://testapi.maersktankers.com/api/v1/DataFeed/GetPosListByTypeWithVesselRef?ref_nr=%@&max_days_old=30", self.vessel.ref_nr];
+    
+    
     
     [self fetchFromTankers:url withDictionary:^(NSDictionary *data) {
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         
-         for (NSDictionary *positem in data) {
+        for (NSDictionary *positem in data) {
             vesselPosNSO *pos = [[vesselPosNSO alloc] init];
             pos.vessel.ref_nr = [positem objectForKey:@"Ref_Nr"];
             pos.vessel.name = [positem objectForKey:@"Vessel_Name"];
-             
+            pos.lastKnownVoyageNr = [positem objectForKey:@"LastKnownVoyage"];
             pos.port.code = [positem objectForKey:@"Port_Code_From"];
             pos.port.name = [positem objectForKey:@"Port_Name_From"];
             pos.port.abc_code = [positem objectForKey:@"Abc_Port_Code_From"];
-             
+            
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
             [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.atobviaconline.com/v1/Distance?port=%@&port=%@&api_key=%@", pos.port.abc_code, self.loadport.abc_code, appDelegate.apikey]]];
-             
+            
             [request setHTTPMethod:@"GET"];
-             
+            
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
             [[session dataTaskWithRequest:request completionHandler:^(NSData *dataabc, NSURLResponse *response, NSError *error) {
                 NSString *requestDistance = [[NSString alloc] initWithData:dataabc encoding:NSASCIIStringEncoding];
@@ -63,23 +66,25 @@
                             NSComparisonResult result =  [first compare:second];
                             return  result;
                         }];
-                     [self.tableView reloadData];
+                        [self.tableView reloadData];
+                        self.activityIndictor.hidden = true;
+                        self.tableView.hidden = false;
                     }
                     
                 });
             }] resume];
-             
-         }
+            
+        }
         
     }];
-
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     //[[self navigationController] setNavigationBarHidden:NO animated:YES];
     //UINavigationBar *bar = [self.navigationController navigationBar];
-   // [bar setTintColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0]];
+    // [bar setTintColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0]];
     //[bar setBackgroundColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1.0]];
 }
 
@@ -87,7 +92,7 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-   // self.posSortedData = [NSArray arrayWithArray:self.posData];
+    // self.posSortedData = [NSArray arrayWithArray:self.posData];
     
     
 }
@@ -129,7 +134,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     return self.posSortedData.count;
 }
 
@@ -147,9 +152,14 @@
     
     pos = [self.posSortedData objectAtIndex:indexPath.row];
     
-    cell.vesselNameLabel.text = [NSString stringWithFormat:@"%@ - %@",pos.vessel.ref_nr, pos.vessel.name];
-    cell.DistanceLabel.text = [NSString stringWithFormat:@"%@",pos.distance];
+    cell.vesselNameLabel.text = [NSString stringWithFormat:@"(%@) %@",pos.vessel.ref_nr, pos.vessel.name];
+    
+    
+    NSString *modelDistance = [NSString localizedStringWithFormat:@"%@", pos.distance];
+    
+    cell.DistanceLabel.text = [NSString stringWithFormat:@"%@ nm",modelDistance];
     cell.PortNameLabel.text = [NSString stringWithFormat:@"%@",pos.port.name];
+    cell.VoyageLabel.text =[NSString stringWithFormat:@"%@", [pos.lastKnownVoyageNr substringFromIndex:2]];
     [cell layoutSubviews];
     
     return cell;
@@ -166,39 +176,40 @@
 }
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
+

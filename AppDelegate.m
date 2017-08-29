@@ -39,12 +39,21 @@
         [defaults setValue:@"demo" forKey:@"api-key"];
     }
     self.apikey = [defaults valueForKey:@"api-key"];
+    self.restrictRotation = true;
     
 //    dbManager *sharedDBManager = [dbManager shareDBManager];
 //    [sharedDBManager dbInit:@"tankchartcalc.db"];
 
     
     return YES;
+}
+
+-(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    if(self.restrictRotation)
+        return UIInterfaceOrientationMaskPortrait;
+    else
+        return UIInterfaceOrientationMaskAll;
 }
 
 

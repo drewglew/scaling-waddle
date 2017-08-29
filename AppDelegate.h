@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) NSString *apikey;
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
+@property BOOL restrictRotation;
 
 - (void)saveContext;
 

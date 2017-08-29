@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *vesselNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *DistanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *PortNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *VoyageLabel;
 
 @end

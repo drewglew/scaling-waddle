@@ -10,7 +10,7 @@
 #import "searchCell.h"
 #import "vesselNSO.h"
 #import "portNSO.h"
-#import "VesselPreviewTVC.h"
+#import "vesselSuggestionVC.h"
 
 
 @protocol searchDelegate <NSObject>

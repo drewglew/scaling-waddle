@@ -34,13 +34,15 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="601"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" translucent="NO" id="xoT-vU-yeX">
+                                <searchBar key="tableHeaderView" opaque="NO" contentMode="redraw" translucent="NO" id="xoT-vU-yeX">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.1764705882" green="0.23137254900000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="44" id="h5z-xQ-66W"/>
                                     </constraints>
-                                    <color key="barTintColor" red="0.1764705882352941" green="0.23137254901960785" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="barTintColor" red="0.1764705882" green="0.23137254900000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
                                         <outlet property="delegate" destination="ra8-wf-rxb" id="jte-dU-tFf"/>
@@ -62,18 +64,8 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="60" id="CoR-zX-me1"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="18"/>
-                                                            <color key="textColor" red="0.84313725490000002" green="0.1960784314" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last modified" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mee-NU-FiO">
-                                                            <rect key="frame" x="164" y="5" width="200" height="16"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="16" id="3OV-sn-09F"/>
-                                                                <constraint firstAttribute="width" constant="200" id="N6m-OA-6Ii"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="12"/>
-                                                            <color key="textColor" red="0.1764705882" green="0.23137254900000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="22"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ports" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0w-0c-H1w">
@@ -82,7 +74,7 @@
                                                                 <constraint firstAttribute="height" constant="22" id="Wwd-Q5-r5q"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="12"/>
-                                                            <color key="textColor" red="0.1764705882" green="0.23137254900000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vessel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsO-GU-Vj8">
@@ -91,11 +83,21 @@
                                                                 <constraint firstAttribute="height" constant="22" id="85W-wX-73k"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="12"/>
-                                                            <color key="textColor" red="0.1764705882" green="0.23137254900000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="last modified" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mee-NU-FiO">
+                                                            <rect key="frame" x="160" y="5" width="200" height="16"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="16" id="3OV-sn-09F"/>
+                                                                <constraint firstAttribute="width" constant="200" id="N6m-OA-6Ii"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="12"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.71764705880000002" green="0.69803921570000005" blue="0.68235294120000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.27450980390000002" green="0.58039215690000001" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="U0w-0c-H1w" firstAttribute="top" secondItem="fsO-GU-Vj8" secondAttribute="bottom" id="4MR-HN-0nT"/>
                                                         <constraint firstItem="fTq-lY-5tB" firstAttribute="leading" secondItem="niC-cp-M7f" secondAttribute="leading" constant="10" id="5VD-q4-mhh"/>
@@ -104,7 +106,7 @@
                                                         <constraint firstItem="mee-NU-FiO" firstAttribute="top" secondItem="niC-cp-M7f" secondAttribute="top" constant="5" id="GVF-bk-Pfa"/>
                                                         <constraint firstItem="fTq-lY-5tB" firstAttribute="top" secondItem="niC-cp-M7f" secondAttribute="top" constant="18" id="KEe-Te-fjQ"/>
                                                         <constraint firstItem="U0w-0c-H1w" firstAttribute="leading" secondItem="niC-cp-M7f" secondAttribute="leading" constant="10" id="XMK-Qr-lCx"/>
-                                                        <constraint firstAttribute="trailing" secondItem="mee-NU-FiO" secondAttribute="trailing" id="Zgi-4y-pIJ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="mee-NU-FiO" secondAttribute="trailing" constant="10" id="Zgi-4y-pIJ"/>
                                                         <constraint firstAttribute="trailing" secondItem="U0w-0c-H1w" secondAttribute="trailing" constant="10" id="dFn-w8-eid"/>
                                                         <constraint firstAttribute="trailing" secondItem="fTq-lY-5tB" secondAttribute="trailing" constant="10" id="f3O-hb-Soe"/>
                                                         <constraint firstItem="fsO-GU-Vj8" firstAttribute="leading" secondItem="niC-cp-M7f" secondAttribute="leading" constant="10" id="o8a-ht-3nl"/>
@@ -204,68 +206,10 @@
             </objects>
             <point key="canvasLocation" x="-192.80000000000001" y="150.67466266866569"/>
         </scene>
-        <!--Related Vessels-->
-        <scene sceneID="GGc-nC-wgj">
-            <objects>
-                <tableViewController storyboardIdentifier="vesselPreview" title="Related Vessels" id="6Ac-AY-Hjk" customClass="VesselPreviewTVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="USC-kk-XdW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="vesselCell" rowHeight="80" id="OnP-Yo-wZe" customClass="vesselCell">
-                                <rect key="frame" x="0.0" y="28" width="375" height="80"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OnP-Yo-wZe" id="osQ-D5-1FY">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="VesselName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bji-Rq-1UJ">
-                                            <rect key="frame" x="8" y="4" width="355" height="34"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Distance" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0D-AP-Na5">
-                                            <rect key="frame" x="230" y="40" width="133" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Port" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UmF-xh-dxU">
-                                            <rect key="frame" x="8" y="40" width="236" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="DistanceLabel" destination="y0D-AP-Na5" id="hK4-eG-TkR"/>
-                                    <outlet property="PortNameLabel" destination="UmF-xh-dxU" id="MVX-t1-paV"/>
-                                    <outlet property="vesselNameLabel" destination="bji-Rq-1UJ" id="cOo-vR-J6G"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="6Ac-AY-Hjk" id="fy1-ts-1dk"/>
-                            <outlet property="delegate" destination="6Ac-AY-Hjk" id="YDU-Yt-UPt"/>
-                        </connections>
-                    </tableView>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="n4z-wO-etM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3696.8000000000002" y="-46.326836581709152"/>
-        </scene>
-        <!--View Controller-->
+        <!--Suggested Vessels-->
         <scene sceneID="W27-95-biw">
             <objects>
-                <viewController id="A8F-ta-3gD" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="vesselPreview" title="Suggested Vessels" id="A8F-ta-3gD" customClass="vesselSuggestionVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FQq-pd-AoG"/>
                         <viewControllerLayoutGuide type="bottom" id="6oW-Uj-UvZ"/>
@@ -274,17 +218,58 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VUK-Tl-ris">
-                                <rect key="frame" x="0.0" y="120" width="375" height="447"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3Zb-Ym-MuW">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                                <color key="backgroundColor" red="0.27450980390000002" green="0.58039215690000001" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VUK-Tl-ris">
+                                <rect key="frame" x="0.0" y="70" width="375" height="547"/>
+                                <color key="backgroundColor" red="0.27450980390000002" green="0.58039215690000001" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="dk7-Jm-Tbl" customClass="vesselCell">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="80"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="vesselCell" rowHeight="70" id="dk7-Jm-Tbl" customClass="vesselCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dk7-Jm-Tbl" id="hyj-fh-ezb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="VesselName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJT-a5-teu">
+                                                    <rect key="frame" x="8" y="0.0" width="272" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Port" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NEQ-P5-zx5">
+                                                    <rect key="frame" x="8" y="35" width="272" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Distance" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5H2-2J-qzq">
+                                                    <rect key="frame" x="283" y="35" width="84" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Voyage" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1a-lB-hVo">
+                                                    <rect key="frame" x="283" y="0.0" width="84" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="22"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="DistanceLabel" destination="5H2-2J-qzq" id="bv4-fv-48c"/>
+                                            <outlet property="PortNameLabel" destination="NEQ-P5-zx5" id="72z-0U-mTG"/>
+                                            <outlet property="VoyageLabel" destination="b1a-lB-hVo" id="Ftu-ZD-SSV"/>
+                                            <outlet property="vesselNameLabel" destination="vJT-a5-teu" id="WJa-y7-pQI"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -292,25 +277,41 @@
                                     <outlet property="delegate" destination="A8F-ta-3gD" id="Hjs-bo-czG"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRz-1Q-tXW">
-                                <rect key="frame" x="0.0" y="20" width="375" height="100"/>
-                                <color key="backgroundColor" red="0.6588235294" green="0.85490196080000003" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eRz-1Q-tXW" userLabel="topView">
+                                <rect key="frame" x="0.0" y="20" width="375" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vessels of class nearby" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XO8-zP-7vt">
+                                        <rect key="frame" x="10" y="10" width="355" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="HXi-Xb-46Z"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.27450980390000002" green="0.58039215690000001" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="ufc-zH-UiD"/>
+                                    <constraint firstAttribute="trailing" secondItem="XO8-zP-7vt" secondAttribute="trailing" constant="10" id="KAE-MW-3wA"/>
+                                    <constraint firstItem="XO8-zP-7vt" firstAttribute="leading" secondItem="eRz-1Q-tXW" secondAttribute="leading" constant="10" id="Pck-Uo-gQF"/>
+                                    <constraint firstItem="XO8-zP-7vt" firstAttribute="top" secondItem="eRz-1Q-tXW" secondAttribute="top" constant="10" id="bGT-AP-qTr"/>
+                                    <constraint firstAttribute="height" constant="50" id="ufc-zH-UiD"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GSL-Gg-pjk">
-                                <rect key="frame" x="0.0" y="567" width="375" height="100"/>
-                                <color key="backgroundColor" red="0.6588235294" green="0.85490196080000003" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GSL-Gg-pjk" userLabel="bottomView">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" red="0.27450980390000002" green="0.58039215690000001" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="APt-tb-1Xp"/>
+                                    <constraint firstAttribute="height" constant="50" id="APt-tb-1Xp"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.27450980390000002" green="0.58039215690000001" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eRz-1Q-tXW" secondAttribute="trailing" id="3WB-0l-90m"/>
+                            <constraint firstItem="3Zb-Ym-MuW" firstAttribute="centerY" secondItem="xZJ-Rh-8Mo" secondAttribute="centerY" id="Bbg-od-jgd"/>
                             <constraint firstAttribute="trailing" secondItem="VUK-Tl-ris" secondAttribute="trailing" id="I35-fG-rOa"/>
+                            <constraint firstItem="3Zb-Ym-MuW" firstAttribute="centerX" secondItem="xZJ-Rh-8Mo" secondAttribute="centerX" id="LSV-mq-686"/>
                             <constraint firstItem="GSL-Gg-pjk" firstAttribute="leading" secondItem="xZJ-Rh-8Mo" secondAttribute="leading" id="WBe-TN-Iie"/>
                             <constraint firstItem="GSL-Gg-pjk" firstAttribute="top" secondItem="VUK-Tl-ris" secondAttribute="bottom" id="XIi-1c-TrT"/>
                             <constraint firstItem="VUK-Tl-ris" firstAttribute="top" secondItem="eRz-1Q-tXW" secondAttribute="bottom" id="ZEj-7o-jSb"/>
@@ -321,6 +322,11 @@
                             <constraint firstItem="eRz-1Q-tXW" firstAttribute="leading" secondItem="xZJ-Rh-8Mo" secondAttribute="leading" id="zL7-iM-vcK"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="activityIndictor" destination="3Zb-Ym-MuW" id="oKO-83-PXn"/>
+                        <outlet property="labelHeader" destination="XO8-zP-7vt" id="wWd-Xh-coV"/>
+                        <outlet property="tableView" destination="VUK-Tl-ris" id="Ogi-Nl-X6O"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hwl-hN-V8r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -535,7 +541,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5D-Sh-UU7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="608.79999999999995" y="-400.74962518740631"/>
+            <point key="canvasLocation" x="-1236" y="-590"/>
         </scene>
         <!--Calculation DetailVC-->
         <scene sceneID="lNf-U3-T2z">
@@ -1313,6 +1319,7 @@
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="tintColor" red="0.27450980390000002" green="0.58039215690000001" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="fnw-L4-UgN" secondAttribute="bottom" constant="-480" id="hbC-Sq-7bD"/>
                                             <constraint firstItem="fnw-L4-UgN" firstAttribute="leading" secondItem="xyP-9k-frG" secondAttribute="leading" id="mzp-If-I55"/>
@@ -1327,7 +1334,7 @@
                                             <constraint firstAttribute="width" constant="200" id="DIW-S8-pge"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
-                                        <color key="textColor" red="0.84313725490000002" green="0.1960784314" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#ref" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTC-mT-nay">
@@ -1337,7 +1344,7 @@
                                             <constraint firstAttribute="width" constant="42" id="W6Q-yH-7w0"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
-                                        <color key="textColor" red="0.84313725490196079" green="0.19607843137254902" blue="0.058823529411764705" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7LG-SQ-xHO">
@@ -1366,7 +1373,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="2GF-ZW-yFA"/>
                                         </constraints>
-                                        <color key="textColor" red="0.84313725490000002" green="0.1960784314" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="24"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
@@ -1381,7 +1388,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.71764705882352942" green="0.69803921568627447" blue="0.68235294117647061" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.27450980390000002" green="0.58039215690000001" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="bm9-xo-TuJ" firstAttribute="top" secondItem="zNV-rX-ume" secondAttribute="top" constant="5" id="1kL-yI-q3q"/>
                                     <constraint firstItem="bm9-xo-TuJ" firstAttribute="leading" secondItem="zNV-rX-ume" secondAttribute="leading" constant="5" id="5hx-pe-fTP"/>
@@ -1778,20 +1785,6 @@
                                     <outlet property="delegate" destination="g6M-jn-Wh4" id="T0k-J3-IEr"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VgM-Og-MEu">
-                                <rect key="frame" x="238" y="14" width="121" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Vessels Near">
-                                            <attributes>
-                                                <color key="NSColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <font key="NSFont" metaFont="system" size="18"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.30588235289999999" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -2060,8 +2053,8 @@
         <image name="world" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Jq0-Fw-i3a"/>
-        <segue reference="NNj-Vk-wNC"/>
+        <segue reference="Rgt-Qm-Nxl"/>
+        <segue reference="Noh-6x-dKw"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.27450980390000002" green="0.58039215690000001" blue="0.67450980390000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
