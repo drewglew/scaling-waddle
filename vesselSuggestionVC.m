@@ -43,6 +43,16 @@
             pos.port.name = [positem objectForKey:@"Port_Name_From"];
             pos.port.abc_code = [positem objectForKey:@"Abc_Port_Code_From"];
             
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+            pos.estVoyageEnd_DT = [formatter dateFromString:[positem objectForKey:@"Estimated_Voyage_End_DT"]];
+            
+           /* NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS"];
+            pos.estVoyageEnd_DT = [positem objectForKey:@"Estimated_Voyage_End_DT"];
+            */
+            //pos.estVoyageEnd_DT = [positem objectForKey:@"Estimated_Voyage_End_DT"];
+            
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
             [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.atobviaconline.com/v1/Distance?port=%@&port=%@&api_key=%@", pos.port.abc_code, self.loadport.abc_code, appDelegate.apikey]]];
             
@@ -160,6 +170,11 @@
     cell.DistanceLabel.text = [NSString stringWithFormat:@"%@ nm",modelDistance];
     cell.PortNameLabel.text = [NSString stringWithFormat:@"%@",pos.port.name];
     cell.VoyageLabel.text =[NSString stringWithFormat:@"%@", [pos.lastKnownVoyageNr substringFromIndex:2]];
+    
+    NSDateFormatter * formatter =  [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MMM HH:mm"];
+    cell.EstEndDateLabel.text = [formatter stringFromDate:pos.estVoyageEnd_DT];
+    
     [cell layoutSubviews];
     
     return cell;

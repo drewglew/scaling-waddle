@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *DistanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *PortNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *VoyageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *EstEndDateLabel;
 
 @end

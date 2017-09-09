@@ -1054,12 +1054,12 @@ UITextField *activeField;
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
     
-    if (self.textAddHsfoAmt.text && self.textAddHsfoAmt.text.length>0 ) {
-        self.c.result.do_bunker.additionals = [f numberFromString:self.textAddHsfoAmt.text];
+    if (self.textAddHsgoAmt.text && self.textAddHsgoAmt.text.length>0 ) {
+        self.c.result.do_bunker.additionals = [f numberFromString:self.textAddHsgoAmt.text];
     } else {
         self.c.result.do_bunker.additionals = [NSNumber numberWithFloat:0.0f];
     }
-    self.textAddHsfoAmt.text = [NSString stringWithFormat:@"%@", self.c.result.do_bunker.additionals];
+    self.textAddHsgoAmt.text = [NSString stringWithFormat:@"%@", self.c.result.do_bunker.additionals];
 }
 
 /* modified 20160815 */

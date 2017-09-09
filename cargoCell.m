@@ -106,7 +106,7 @@
     } else {
         self.cargo.estimated = [NSNumber numberWithInt:0];
     }
-    self.estText.text = [NSString stringWithFormat:@"%@", self.cargo.units];
+    self.estText.text = [NSString stringWithFormat:@"%@", self.cargo.estimated];
 }
 
 /* modified 20160815 */
@@ -119,7 +119,7 @@
     } else {
         self.cargo.expense = [NSNumber numberWithInt:0];
     }
-    self.estText.text = [NSString stringWithFormat:@"%@", self.cargo.expense];
+    self.PEXText.text = [NSString stringWithFormat:@"%@", self.cargo.expense];
 }
 
 - (IBAction)segTypeValueChanged:(id)sender {

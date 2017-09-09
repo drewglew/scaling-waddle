@@ -136,7 +136,7 @@
 
 /*
  created on: 20170823
- last updated: 20170824
+ last updated: 20170901
  
  */
 - (IBAction)refreshConsumptionsPressed:(id)sender {
@@ -146,11 +146,6 @@
     [self.db deleteConsumptions];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]]; // or since you're not doing anything special here, use `sharedSession`
-    
-    // since we're going to block a thread in the process of controlling the degree of
-    // concurrency, let's do this on a background queue; we're still blocking
-    // a GCD worker thread as these run (which isn't ideal), but we're only using
-    // one worker thread.
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -162,9 +157,16 @@
             
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER); // wait for one of the four slots to open up
             
-            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://testapi.maersktankers.com/api/v1/Fleet/GetVesselAvgConsumption?refno=%@",v.ref_nr]]
-                                                          cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                      timeoutInterval:10];
+            NSString *urlConsumption;
+            if (self.segmentSpeed.selectedSegmentIndex==0) {
+                urlConsumption = [NSString stringWithFormat:@"https://testapi.maersktankers.com/api/v1/Fleet/GetVesselSlowConsumption?refno=%@",v.ref_nr];
+            } else if (self.segmentSpeed.selectedSegmentIndex==1) {
+                urlConsumption = [NSString stringWithFormat:@"https://testapi.maersktankers.com/api/v1/Fleet/GetVesselAvgConsumption?refno=%@",v.ref_nr];
+            } else {
+                urlConsumption = [NSString stringWithFormat:@"https://testapi.maersktankers.com/api/v1/Fleet/GetVesselFastConsumption?refno=%@",v.ref_nr];
+            }
+                
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlConsumption] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
             
             [request setHTTPMethod:@"GET"];
             [request setValue:@"CEEC5067A7BDD7D0DC5F75725DE93908814441A812B74DFCF751FFEC5150F594" forHTTPHeaderField:@"tankers-api-key"];

@@ -15,4 +15,6 @@
 @property (strong, nonatomic) portNSO *port;
 @property (nonatomic) NSNumber *distance;
 @property (nonatomic) NSString *lastKnownVoyageNr;
+@property (nonatomic) NSDate *estVoyageEnd_DT;
+
 @end

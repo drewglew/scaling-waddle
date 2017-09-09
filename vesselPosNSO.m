@@ -13,6 +13,7 @@
 @synthesize port;
 @synthesize distance;
 @synthesize lastKnownVoyageNr;
+@synthesize estVoyageEnd_DT;
 
 
 /* modified 20160805 */

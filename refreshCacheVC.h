@@ -23,5 +23,6 @@
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (weak, nonatomic) IBOutlet UIStepper *stepperYear;
 @property (weak, nonatomic) IBOutlet UILabel *labelYear;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentSpeed;
 
 @end
