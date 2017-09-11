@@ -19,9 +19,10 @@
 @synthesize filteredContentList;
 @synthesize searchtype;
 @synthesize loadport;
+@synthesize existingitem;
 
 
-
+/* modified 20170911 */
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.filteredContentList = [[NSMutableArray alloc] init];
@@ -30,24 +31,53 @@
         self.previewingContext = [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
     
+    /* if a value is already existing in port/vesel try and locate the row in the list */
+    if (![self.existingitem isEqualToString:@""]) {
+        if ([self.searchtype isEqual:@"vessel"]) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self returnIndexFromRefNrProperty :self.existingitem] inSection:0];
+            [self.tableView scrollToRowAtIndexPath:indexPath
+                                  atScrollPosition:UITableViewScrollPositionTop
+                                          animated:YES];
+        } else if ([self.searchtype isEqual:@"ballfromport"] || [self.searchtype isEqual:@"cargoport"] ) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self returnIndexFromNameProperty :self.existingitem] inSection:0];
+            [self.tableView scrollToRowAtIndexPath:indexPath
+                                  atScrollPosition:UITableViewScrollPositionTop
+                                          animated:YES];
+        }
+    }
     // Do any additional setup after loading the view.
 }
+
+/* created 20170911 */
+-(NSInteger)returnIndexFromNameProperty:(NSString *)property{
+    NSInteger index=0;
+    
+    for (int i = 0; i < [searchItems  count]; i++){
+        if([property isEqualToString:[[searchItems objectAtIndex:i]name]]){
+            index = i;
+        }
+    }
+    return index;
+}
+
+/* created 20170911 */
+-(NSInteger)returnIndexFromRefNrProperty:(NSString *)property{
+    NSInteger index=0;
+    
+    for (int i = 0; i < [searchItems  count]; i++){
+        if([property isEqualToString:[[searchItems objectAtIndex:i]ref_nr]]){
+            index = i;
+        }
+    }
+    return index;
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
@@ -63,10 +93,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
-
-
-
-/* not working yet so TODO */
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -234,13 +260,9 @@
 */
 
 - (void)didPickItem :(NSNumber*)ref :(NSString*)searchtype {
-    
-    
-    
 }
 
 - (void)didPickPortItem :(NSString*)refport :(NSString*)searchitem {
-    
 }
 
 - (BOOL)isForceTouchAvailable {

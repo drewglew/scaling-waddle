@@ -476,7 +476,7 @@
 /* modified 20160726 */
 -(bool) insertCargoPort :(cargoNSO *) cargo {
     
-    
+    /* TODO_201709 - needs a change perhaps */
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO cargoio (cargoio_id,cargoio_units,cargoio_expense,cargoio_estimated,cargoio_notice_time,cargoio_type_id,cargoio_purpose_code,cargoio_port_code,cargoio_calc_id) VALUES (%@,%@,%@,%@,%@,%@,'%@','%@',%@)", cargo.id, cargo.units, cargo.expense, cargo.estimated, cargo.notice_time, cargo.type_id, cargo.purpose_code, cargo.port.code, cargo.calc_id];
     
     sqlite3_stmt *statement;
@@ -497,7 +497,9 @@
 /* created 20160725 */
 /* modified 20160726 */
 -(bool) prepareld :(calculationNSO *) c {
-
+    
+    /* TODO_201709 */
+    /* this inserts into the db 20170910 */
     cargoNSO *loadport = [c.cargoios firstObject];
     loadport.calc_id = c.id;
     [self insertCargoPort:loadport];
@@ -643,7 +645,7 @@
 }
 
 /* created 20160721 */
-/* modified 20160802 */
+/* modified 20170910 */
 -(calculationNSO *) updateCalculationData :(calculationNSO *) c {
     
     
@@ -671,36 +673,26 @@
         }
         sqlite3_finalize(statement);
         
-        cargoNSO *l_port = [c.cargoios firstObject];
+        /* DONE_201709 */
+        
+        NSString *deleteSQL = [NSString stringWithFormat:@"DELETE FROM cargoio where cargoio.cargoio_calc_id=%@", c.id];
         
         
-        updateSQL = [NSString stringWithFormat:@"UPDATE cargoio set cargoio_units=%@, cargoio_expense=%@, cargoio_estimated=%@, cargoio_notice_time=%@, cargoio_type_id=%@,cargoio_purpose_code='L', cargoio_port_code='%@' where cargoio_calc_id=%@ and cargoio_id=1", l_port.units, l_port.expense, l_port.estimated, l_port.notice_time, l_port.type_id, l_port.port.code, c.id];
-        
-        
-        update_statement = [updateSQL UTF8String];
-        sqlite3_prepare_v2(_DB, update_statement, -1, &statement, NULL);
+        const char *delete_statement = [deleteSQL UTF8String];
+        sqlite3_prepare_v2(_DB, delete_statement, -1, &statement, NULL);
         if (sqlite3_step(statement) != SQLITE_DONE) {
-            NSLog(@"Failed to update Load port record inside cargo table");
+            NSLog(@"Failed to delete Load port record inside cargo table");
         } else {
-            NSLog(@"Update of Load port to cargo table successful");
+            NSLog(@"Modify cargoio phase I/II - deletion of records inside cargo table successful");
         }
         sqlite3_finalize(statement);
-
- 
-        cargoNSO *d_port = [c.cargoios lastObject];
         
-        updateSQL = [NSString stringWithFormat:@"UPDATE cargoio set cargoio_units=%@, cargoio_expense=%@, cargoio_estimated=%@, cargoio_notice_time=%@, cargoio_type_id=%@,cargoio_purpose_code='D', cargoio_port_code='%@' where cargoio_calc_id=%@ and cargoio_id=2", d_port.units, d_port.expense, d_port.estimated, d_port.notice_time, d_port.type_id, d_port.port.code, c.id];
-        
-        update_statement = [updateSQL UTF8String];
-        sqlite3_prepare_v2(_DB, update_statement, -1, &statement, NULL);
-        if (sqlite3_step(statement) != SQLITE_DONE) {
-            NSLog(@"Failed to update Discharge port record inside cargo table");
-        } else {
-            NSLog(@"Update of Discharge port to cargo table successful");
+        for (cargoNSO *io in c.cargoios) {
+            [self insertCargoPort:io];
         }
-        sqlite3_finalize(statement);
-
-        //sqlite3_close(_DB);
+        
+        NSLog(@"Modify cargoio phase II/II - insert of records inside cargo table");
+        
     }
     
     return c;
@@ -715,7 +707,7 @@
     
     if (sqlite3_open(dbpath, &_DB) == SQLITE_OK) {
         
-        NSString *selectSQL = @"SELECT calculations.calc_id, calculations.calc_vessel_nr, '(' || vessels.vessel_ref_nr || ')' || vessels.vessel_name, calculations.calc_description, calculations.calc_last_modified, calculations.calc_ld_ports from calculations, vessels WHERE vessels.vessel_nr = calculations.calc_vessel_nr ORDER BY calc_id DESC";
+        NSString *selectSQL = @"SELECT calculations.calc_id, calculations.calc_vessel_nr, '(' || vessels.vessel_ref_nr || ') ' || vessels.vessel_name, calculations.calc_description, calculations.calc_last_modified, calculations.calc_ld_ports, calculations.calc_tce  from calculations, vessels WHERE vessels.vessel_nr = calculations.calc_vessel_nr ORDER BY calc_id DESC";
         
         
         const char *select_statement = [selectSQL UTF8String];
@@ -738,6 +730,7 @@
                 [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                 l.lastmodified = [dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)]];
                 l.ld_ports = [NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)] ;
+                l.tce = [NSNumber numberWithDouble:sqlite3_column_double(statement, 6)];
                 l.searchstring = [NSString stringWithFormat:@"%@%@%@",l.full_name_vessel,l.descr,l.ld_ports];
                 [listing addObject:l];
             }

@@ -45,7 +45,7 @@
 -(NSMutableArray*) getCalculations :(NSMutableArray*) listing;
 -(NSMutableArray*) getListing;
 -(void) updateCalculationData;
-
+-(void)AddToCargos :(cargoNSO*) c;
 
 
 @end

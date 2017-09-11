@@ -17,4 +17,5 @@
 @property (nonatomic) NSString *ld_ports;
 @property (nonatomic) NSDate  *lastmodified;
 @property (nonatomic) NSString *searchstring;
+@property (nonatomic) NSNumber *tce;
 @end

@@ -67,6 +67,7 @@
 
 /* created 20160802 */
 /* modified 20160818 */
+/* modified 20170910 */
 /* calls atobviac webservice and stores routing in property, while focusing on distance and minutes while vessel is sailing */
 /* optimize - perhaps we do not need to send ballastPort etc as single parms */
 -(void) setRouteData :(NSString*) voyagequerystring :(calculationNSO*) calculation :(UILabel*) status :(UIActivityIndicatorView*) atobviacActivity :(UIButton*) calculateButton {
@@ -81,8 +82,21 @@
     
     [self fetchFromUrl:url withDictionary:^(NSDictionary *data) {
         self.routing = data;
-        self.miles_sailing_ballasted = [NSNumber numberWithFloat:[[[data valueForKeyPath:@"Legs"][0] valueForKey:@"Distance"] floatValue]];
-        self.miles_sailing_laden = [NSNumber numberWithFloat:[[[data valueForKeyPath:@"Legs"][1] valueForKey:@"Distance"] floatValue]];
+        
+        bool ballast_leg = true;
+        
+        /* reset miles sailing laden */
+        self.miles_sailing_laden = [NSNumber numberWithFloat:0.0f];
+        
+        for(id leg in [data valueForKeyPath:@"Legs"]) {
+            if (ballast_leg && calculation.port_ballast_from != nil) {
+                self.miles_sailing_ballasted = [NSNumber numberWithFloat:[[leg valueForKey:@"Distance"] floatValue]];
+                ballast_leg = false;
+            } else {
+                 self.miles_sailing_laden = [NSNumber numberWithFloat:[self.miles_sailing_laden floatValue] + [[leg valueForKey:@"Distance"] floatValue]];
+            }
+        }
+
         NSNumber *isRouteData = [NSNumber numberWithInt:0];
         [self performSelectorOnMainThread:@selector(updateActivity:) withObject:@[atobviacActivity,status,calculateButton,isRouteData] waitUntilDone:YES];
     }];

@@ -31,6 +31,7 @@
 /* modified 20160802 */
 - (id)init
 {
+    /* TODO_201709 */
     self = [super init];
     if (nil == self) return nil;
     self.vessel = [[vesselNSO alloc] init];
@@ -58,36 +59,42 @@
     return self;
 }
 
+-(void)AddToCargos :(cargoNSO*) c {
+     [self.cargoios addObject:[c copy]];
+}
+
 
 /* created 20160806 */
+/* modified 20170910 */
 -(NSString*)getbldportcodes {
-    
-    cargoNSO *loadPort = [self.cargoios firstObject];
-    cargoNSO *dischargePort = [self.cargoios lastObject];
-    NSString *returnVal = @"";
-    if (![loadPort.port.name isEqualToString:@""]) {
-        returnVal = [NSString stringWithFormat:@"%@%@%@", self.port_ballast_from.code, loadPort.port.code,dischargePort.port.code];
+    NSString *returnVal = [NSString stringWithFormat:@"%@",self.port_ballast_from.code];
+    for (cargoNSO *c in self.cargoios) {
+       returnVal = [NSString stringWithFormat:@"%@%@",returnVal, c.port.code];
     }
     return returnVal;
 }
 
+/* modified 20170910 */
 -(NSString*)getldportnames {
-
-    cargoNSO *loadPort = [self.cargoios firstObject];
-    cargoNSO *dischargePort = [self.cargoios lastObject];
+    /* TODO_201709 */
     NSString *returnVal = @"";
-    if (![loadPort.port.name isEqualToString:@""]) {
-        returnVal = [NSString stringWithFormat:@"%@ - %@", loadPort.port.name,dischargePort.port.name];
+    bool firstport = true;
+    for (cargoNSO *c in self.cargoios) {
+        if (firstport) {
+            returnVal = [NSString stringWithFormat:@"%@%@",returnVal, c.port.name];
+            firstport = false;
+        } else {
+            returnVal = [NSString stringWithFormat:@"%@ - %@",returnVal, c.port.name];
+        }
     }
     return returnVal;
 }
 
+/* modified 20170910 */
 -(NSString*)getldportcombo {
-    cargoNSO *loadPort = [self.cargoios firstObject];
-    cargoNSO *dischargePort = [self.cargoios lastObject];
     NSString *returnVal = @"";
-    if (![loadPort.port.name isEqualToString:@""]) {
-        returnVal = [NSString stringWithFormat:@"%@%@", loadPort.port.code,dischargePort.port.code];
+    for (cargoNSO *c in self.cargoios) {
+        returnVal = [NSString stringWithFormat:@"%@%@",returnVal, c.port.code];
     }
     return returnVal;
 }
@@ -223,6 +230,11 @@
     dbManager *sharedDBManager = [dbManager shareDBManager];
     [sharedDBManager executeQuery:query];
     
+    /* TODO_201709 */
+    /* for sure we are going to have to loop through the whole load/discharge ports listed */
+    
+    /* should be easier than the modify */
+    
     cargoNSO *l_port = [self.cargoios firstObject];
     query = [NSString stringWithFormat:@"INSERT INTO cargoio (cargoio_id,cargoio_units,cargoio_expense,cargoio_estimated,cargoio_notice_time,cargoio_type_id,cargoio_purpose_code,cargoio_port_code,cargoio_calc_id) VALUES (%@,%@,%@,%@,%@,%@,'%@','%@',%@)", l_port.id, l_port.units, l_port.expense, l_port.estimated, l_port.notice_time, l_port.type_id, l_port.purpose_code, l_port.port.code, l_port.calc_id];
     [sharedDBManager executeQuery:query];
@@ -250,7 +262,14 @@
     [sharedDBManager executeQuery:query];
 
     self.lastmodified = last_mod;
-
+    
+    /* TODO_201709 */
+    /* same again, we are going to have to loop through the whole array */
+    
+    /* suggestion here is that we delete all and then insert again. */
+    
+    
+    
     cargoNSO *l_port = [self.cargoios firstObject];
     query = [NSString stringWithFormat:@"UPDATE cargoio set cargoio_units=%@, cargoio_expense=%@, cargoio_estimated=%@, cargoio_notice_time=%@, cargoio_type_id=%@,cargoio_purpose_code='L', cargoio_port_code='%@' where cargoio_calc_id=%@ and cargoio_id=1", l_port.units, l_port.expense, l_port.estimated, l_port.notice_time, l_port.type_id, l_port.port.code, self.id];
     [sharedDBManager executeQuery:query];

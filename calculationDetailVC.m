@@ -207,19 +207,6 @@ UITextField *activeField;
 
 
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
-
 - (IBAction)cloneCalcPressed:(id)sender {
     
     
@@ -309,61 +296,30 @@ UITextField *activeField;
         cargoNSO *l_port = [self.c.cargoios firstObject];
         controller.loadport = l_port.port;
         controller.db = self.db;
+        controller.existingitem = self.c.vessel.ref_nr;
         
-        
-    
     } else if([segue.identifier isEqualToString:@"ballfromportsearch"]){
         
         searchVC *controller = (searchVC *)segue.destinationViewController;
         controller.delegate = self;
-        
-        
-        //TODO - should pass the dbHelper through the segues
         controller.searchItems = [self.db getPorts];
-        
         controller.searchtype = @"ballfromport";
+        controller.existingitem = self.c.port_ballast_from.name;
         
-    } else if([segue.identifier isEqualToString:@"toportsearch"]){
-        
-        searchVC *controller = (searchVC *)segue.destinationViewController;
-        controller.delegate = self;
-        
-        
-        //TODO - should pass the dbHelper through the segues
-        controller.searchItems = [self.db getPorts];
-        
-        controller.searchtype = @"toport";
-        
-    } else if([segue.identifier isEqualToString:@"fromportsearch"]){
-            
-            searchVC *controller = (searchVC *)segue.destinationViewController;
-            controller.delegate = self;
-            
-            
-            //TODO - should pass the dbHelper through the segues
-            controller.searchItems = [self.db getPorts];
-            
-            controller.searchtype = @"fromport";
-            
-            //controller.c = [sender c];
     } else if([segue.identifier isEqualToString:@"clonecalculation"]) {
-        
         
         calculationDetailVC *controller = (calculationDetailVC *)segue.destinationViewController;
         controller.delegate = self;
-
         controller.c = self.c.copy;
         controller.c.descr = @"clone";
         controller.cloneid = [NSNumber numberWithInt:[self.cloneid intValue] + 1 ];
         
     } else if([segue.identifier isEqualToString:@"cargoes"]) {
         
-        
         cargoVC *controller = (cargoVC *)segue.destinationViewController;
         controller.delegate = self;
         controller.ports = self.c.cargoios;
-        controller.c = self.c.copy;
-        controller.c.descr = @"clone";
+        controller.c = self.c;
         controller.db = self.db;
         
     }else if([segue.identifier isEqualToString:@"route"]) {
@@ -411,7 +367,7 @@ UITextField *activeField;
 
 /*
  created 20170825
- last updatd 20170826
+ last updated 20170826
  */
 - (void)didPickItem :(NSNumber*)ref :(NSString*)searchitem {
 
@@ -756,20 +712,41 @@ UITextField *activeField;
 
 
 /* modified 20160803 */
-
+/* modified 20170910 */
 
 -(void)calculate  {
+    /* TODO_201709 */
+    /* here we also need to manage possibly multiple discharge ports.  possibly even multiple load port too? */
     
-    cargoNSO *d_port = [self.c.cargoios lastObject];
-    cargoNSO *l_port = [self.c.cargoios firstObject];
+    // validate cargo io's
     
-    self.labelDistanceOutput.text = @"working...";
+    bool firstCargoio = true;
+    bool uniterror = false;
+    float unitlevel = 0.0f;
     
-    if ([d_port.units floatValue] + [l_port.units floatValue]!=0.0f) {
+    for (cargoNSO *io in self.c.cargoios) {
+        if (firstCargoio) {
+            if ([io.purpose_code isEqualToString:@"D"]) {
+                self.labelDistanceOutput.text = @"cannot start with discharge!";
+                uniterror = true;
+                break;
+            }
+            firstCargoio = false;
+        }
+        unitlevel += [io.units floatValue];
+        if (unitlevel<0.0f) {
+            self.labelDistanceOutput.text = @"cannot have negative unit level!";
+            uniterror = true;
+            break;
+        }
+    }
+    if (unitlevel!=0.0f && !uniterror) {
         self.labelDistanceOutput.text = @"load/discharge mismatch!";
-        
-    } else {
-
+        uniterror = true;
+    }
+    
+    if (!uniterror) {
+        self.labelDistanceOutput.text = @"working...";
         NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
         f.numberStyle = NSNumberFormatterDecimalStyle;
         self.c.rate = [f numberFromString:self.textMainRate.text];
@@ -813,7 +790,7 @@ UITextField *activeField;
                                                                        self.textFlatRate.text = [NSString stringWithFormat:@"%@",self.c.flatrate];
                                                                        
                                                                        [self.db insertWorldScaleRate:[self.c getldportcombo] :self.c.flatrate];
-                                                                       [self updateResultsData :l_port :d_port];
+                                                                       [self updateResultsData :self.c.cargoios];
 
                                                                        
                                                                    }
@@ -836,7 +813,7 @@ UITextField *activeField;
                     [self presentViewController:alert animated:true completion:nil];
                 } else {
                     // we have the rate we just need to verify the rest.
-                    [self updateResultsData :l_port :d_port];
+                    [self updateResultsData :self.c.cargoios];
 
                     self.textFlatRate.text = [NSString stringWithFormat:@"%@",self.c.flatrate];
                 }
@@ -844,23 +821,30 @@ UITextField *activeField;
             
         } else if (self.segRateType.selectedSegmentIndex==0 && self.c.rate!=[NSNumber numberWithFloat:0.0f])  {
             // Per MT
-            [self updateResultsData :l_port :d_port];
+            [self updateResultsData :self.c.cargoios];
             
         } else {
             self.labelDistanceOutput.text = @"empty rate amount!";
             
         }
-        
-
     }
- 
 }
 
--(void) updateResultsData :(cargoNSO *) l_port :(cargoNSO *) d_port {
+/* created 20170910 */
+/* modified 20170911 */
+
+-(void) updateResultsData :(NSMutableArray *) ios {
     
     [self.c.result setSailingData :self.c];
     // we set the total units to the single load amount
-    [self.c.result setTotal_units:l_port.units];
+    
+    self.c.result.total_units =  [NSNumber numberWithInt:0];
+    
+    for (cargoNSO *io in ios) {
+        if ([io.purpose_code isEqualToString:@"L"]) {
+            [self.c.result setTotal_units: [NSNumber numberWithInt:[self.c.result.total_units intValue] + [io.units intValue]]];
+        }
+    }
     
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
@@ -869,28 +853,32 @@ UITextField *activeField;
     
     self.c.result.address_commission_percent = [f numberFromString:self.textAddressCommission.text];
     self.c.result.broker_commission_percent = [f numberFromString:self.textBrokerCommission.text];
-
+    
     [self.c.result setRateData:self.c.rate :self.switchUseLocalFlatRate.selected :flatRate :rateType];
-        
+    
     [self.c.result setCommissionAmts];
     
     self.c.result.minutes_notice_time = [NSNumber numberWithInt:0];
-    [self.c.result setAtPortMinutes :l_port];
-    [self.c.result setAtPortMinutes :d_port];
     
+    for (cargoNSO *io in ios) {
+        [self.c.result setAtPortMinutes :io];
+    }
+        
     [self.c.result setAtPortData :self.c];
     
-    [self.c.result setTotal_expenses:[NSNumber numberWithInt:[l_port.expense intValue] + [d_port.expense intValue]]];
+    [self.c.result setTotal_expenses:[NSNumber numberWithInt:0]];
     
+    for (cargoNSO *io in ios) {
+        [self.c.result setTotal_expenses:[NSNumber numberWithInt:[self.c.result.total_expenses intValue] + [io.expense intValue]]];
+    }
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle]; // this line is important!
-
+    
     [formatter setMaximumFractionDigits:2];
     [formatter setMinimumFractionDigits:2];
     self.textTCEPerDay.text = [formatter stringFromNumber:[self.c.result getTcEqv]];
     self.labelDistanceOutput.text = @"";
-    
 }
 
 
@@ -1174,25 +1162,30 @@ UITextField *activeField;
 }
 
 /* created 20160818 */
+/* modified 20170910 */
 /* needs to be executed on its own and with the map */
 -(void)loadRouteData :(bool) isMapBatchJob {
-    cargoNSO *d_port = [self.c.cargoios lastObject];
-    cargoNSO *l_port = [self.c.cargoios firstObject];
     
-    NSString *voyagestring;
-    NSString *apikey;
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    apikey = appDelegate.apikey;
-    
+    NSMutableArray *ports = [[NSMutableArray alloc] init];
     
     if (self.c.port_ballast_from !=nil) {
-        voyagestring = [NSString stringWithFormat:@"Voyage?port=%@&port=%@&port=%@", self.c.port_ballast_from.abc_code, l_port.port.abc_code, d_port.port.abc_code];
-    } else {
-        voyagestring = [NSString stringWithFormat:@"Voyage?port=%@&port=%@&port=%@", l_port.port.abc_code, l_port.port.abc_code, d_port.port.abc_code];
+        [ports addObject:self.c.port_ballast_from];
+    }
+    for (cargoNSO *io in self.c.cargoios) {
+        [ports addObject:io.port];
     }
     
-    if (![[self.c.result voyagestring] isEqualToString:voyagestring] && ![d_port.port.code isEqualToString:@""]  && ![l_port.port.code isEqualToString:@""]) {
+    NSString *voyagestring = @"Voyage?";
+    int portCounter = 0;
+    for (portNSO *p in ports) {
+        portCounter ++;
+        if (portCounter!=1) {
+            voyagestring = [NSString stringWithFormat:@"%@&", voyagestring];
+        }
+        voyagestring = [NSString stringWithFormat:@"%@port=%@", voyagestring, p.abc_code];
+    }
+    
+    if (![[self.c.result voyagestring] isEqualToString:voyagestring] && portCounter > 1) {
         
         self.mapDetailButton.hidden = true;
         
@@ -1223,28 +1216,38 @@ UITextField *activeField;
     /* calls the route to obtain the voyage string and set things in motion */
     [self loadRouteData :true];
     
-    cargoNSO *d_port = [self.c.cargoios lastObject];
-    cargoNSO *l_port = [self.c.cargoios firstObject];
+    NSMutableArray *ports = [[NSMutableArray alloc] init];
     
-    NSString *voyagestring;
+    if (self.c.port_ballast_from !=nil) {
+        [ports addObject:self.c.port_ballast_from];
+    }
+    for (cargoNSO *io in self.c.cargoios) {
+        [ports addObject:io.port];
+    }
+    
+    NSString *voyagestring = @"Image?";
+    int portCounter = 0;
+    for (portNSO *p in ports) {
+        portCounter ++;
+        if (portCounter!=1) {
+            voyagestring = [NSString stringWithFormat:@"%@&", voyagestring];
+        }
+        voyagestring = [NSString stringWithFormat:@"%@port=%@", voyagestring, p.abc_code];
+    }
+    
+    voyagestring = [NSString stringWithFormat:@"%@&width=4096&height=3072&showSecaZones=false&antipiracy=true&envnavreg=true", voyagestring];
+    
+    //NSString *voyagestring;
     NSString *apikey;
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     apikey = appDelegate.apikey;
-    
-    
-    if (self.c.port_ballast_from !=nil) {
-        voyagestring = [NSString stringWithFormat:@"Image?port=%@&port=%@&port=%@&width=4096&height=3072&showSecaZones=false&antipiracy=true&envnavreg=true", self.c.port_ballast_from.abc_code, l_port.port.abc_code, d_port.port.abc_code];
-    } else {
-        voyagestring = [NSString stringWithFormat:@"Image?port=%@&port=%@&port=%@&width=4096&height=3072&showSecaZones=false&antipiracy=true&envnavreg=true", l_port.port.abc_code, l_port.port.abc_code, d_port.port.abc_code];
-    }
     
     self.atobviacActivity.hidden=false;
     [self.atobviacActivity startAnimating];
     self.calculateButton.enabled = false;
     
     self.labelDistanceOutput.text = @"requesting map";
-    
     
     if ([self checkInternet]) {
         self.mapImageView.image = [UIImage imageNamed:@""];

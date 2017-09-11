@@ -18,5 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIView *viewbackground;
 @property (strong, nonatomic) IBOutlet UILabel *lastmodifiedlabel;
 @property (strong, nonatomic) IBOutlet UILabel *ldportslabel;
+@property (weak, nonatomic) IBOutlet UILabel *tcelabel;
+
 
 @end

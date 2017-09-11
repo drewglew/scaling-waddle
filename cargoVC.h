@@ -24,4 +24,5 @@
 @property (strong, nonatomic) IBOutlet UIButton *searchPortButton;
 @property (strong, nonatomic) dbHelper *db;
 @property (strong, nonatomic) NSIndexPath* buttonPressedIndexPath;
+@property (weak, nonatomic) IBOutlet UIButton *editButton;
 @end

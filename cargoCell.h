@@ -17,13 +17,14 @@
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segType;
 @property (strong, nonatomic) IBOutlet UIButton *searchPortButton;
 
-
-
-
 @property (strong, nonatomic) IBOutlet UITextField *noticeText;
 @property (strong, nonatomic) IBOutlet UITextField *estText;
 @property (strong, nonatomic) IBOutlet UIButton *openPortButton;
 @property (strong, nonatomic) IBOutlet UIView *viewbackground;
 @property (strong, nonatomic) cargoNSO *cargo;
-@property (strong, nonatomic) IBOutlet UILabel *ldLabel;
+@property (strong, nonatomic) IBOutlet UILabel *idLabel;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *ldSegment;
+
+
+
 @end

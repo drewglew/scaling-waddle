@@ -73,12 +73,8 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-//    self.viewbackground.layer.cornerRadius = 5.0;;
-//    self.viewbackground.layer.masksToBounds = YES;
-//    self.viewbackground.layer.borderWidth = 1.0f; //make border 1px thick
-//    self.viewbackground.layer.borderColor = [UIColor colorWithRed:43.0f/255.0f green:51.0f/255.0f blue:70.0f/255.0f alpha:1.0].CGColor;
-    
-
+    self.viewbackground.layer.cornerRadius = 5.0;;
+    self.viewbackground.layer.masksToBounds = YES;
 }
 
 /* modified 20160815 */
@@ -88,12 +84,13 @@
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
     
-    if (self.qtyText.text && self.qtyText.text.length>0 ) {
+    if (self.qtyText.text && self.qtyText.text.length > 0 ) {
         self.cargo.units = [f numberFromString:self.qtyText.text];
     } else {
         self.cargo.units = [NSNumber numberWithInt:0];
     }
     self.qtyText.text = [NSString stringWithFormat:@"%@", self.cargo.units];
+    
 }
 
 /* modified 20160815 */

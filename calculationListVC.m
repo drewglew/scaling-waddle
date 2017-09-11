@@ -137,6 +137,7 @@ UIImageView *navBarHairlineImageView;
     NSString *dateLastModified=[dateFormat stringFromDate:l.lastmodified];
     cell.lastmodifiedlabel.text = [NSString stringWithFormat:@"%@",dateLastModified];
     cell.ldportslabel.text = l.ld_ports;
+    cell.tcelabel.text = [NSString stringWithFormat:@"TCE Per Day: %.2f", [l.tce doubleValue]];
     cell.l = l;
     cell.multipleSelectionBackgroundView.backgroundColor = [UIColor clearColor];
     

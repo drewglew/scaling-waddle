@@ -26,6 +26,7 @@ BOOL isSearching;
 }
 @property (nonatomic, weak) id <searchDelegate> delegate;
 @property (strong, nonatomic) NSString *searchtype;
+@property (strong, nonatomic) NSString *existingitem;
 @property (strong, nonatomic) NSMutableArray *searchItems;
 @property (strong, nonatomic) NSArray *filteredContentList;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchbar;

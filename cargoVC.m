@@ -12,10 +12,7 @@
 @interface cargoVC () <searchDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-
-
 @end
-
 
 
 @implementation cargoVC
@@ -25,14 +22,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-
+    
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem.action = @selector(editButtonPressed);
+    
 }
-/*
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-*/
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES]; // This line is needed for the 'auto slide up'
@@ -41,10 +35,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-    
-
-    
 }
 
 
@@ -104,6 +94,7 @@
         self.tableView.contentInset = UIEdgeInsetsZero;
         self.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
     }];
+    
 }
 
 
@@ -120,9 +111,6 @@
         searchVC *controller = (searchVC *)segue.destinationViewController;
         controller.delegate = self;
         
-        
-
-        
         CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
         self.buttonPressedIndexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
        
@@ -130,7 +118,8 @@
         controller.searchItems = [self.db getPorts];
         controller.searchtype = @"cargoport";
         
-        //controller.c = [sender c];
+        cargoCell *cell = [self.tableView cellForRowAtIndexPath:self.buttonPressedIndexPath];
+        controller.existingitem = cell.cargo.port.name;
         
     }
  
@@ -145,10 +134,46 @@
     return [self.c.cargoios count];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+/* created 20170909 */
+/* modified 20170911 */
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    cargoNSO *movedCargo = [self.c.cargoios objectAtIndex:sourceIndexPath.row];
+    [self.c.cargoios removeObjectAtIndex:sourceIndexPath.row];
+    [self.c.cargoios insertObject:movedCargo atIndex:destinationIndexPath.row];
+    /* reset id's so if calculation is saved the order is maintained */
+    int counter = 1;
+    for (cargoNSO *io in self.c.cargoios) {
+        io.id = [NSNumber numberWithInt:counter];
+        counter ++;
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
 
 
-/* last modified 20160204 */
 
+/* created 20170910 */
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.c.cargoios removeObjectAtIndex:indexPath.row];
+        [self.tableView reloadData]; // tell table to refresh now
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableview shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+ 
+
+/* modified 20160204 */
 - (cargoCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"cargoport";
@@ -166,7 +191,12 @@
     cell.estText.text = [NSString stringWithFormat:@"%@",cargo.estimated];
     cell.PEXText.text = [NSString stringWithFormat:@"%@",cargo.expense];
     cell.noticeText.text = [NSString stringWithFormat:@"%@",cargo.notice_time];
-    cell.ldLabel.text = cargo.purpose_code;
+    cell.idLabel.text = [NSString stringWithFormat:@"%@", cargo.id];
+    if ([cargo.purpose_code isEqualToString:@"L"]) {
+        cell.ldSegment.selectedSegmentIndex=0;
+    } else {
+        cell.ldSegment.selectedSegmentIndex=1;
+    }
     cell.cargo = cargo;
    
     return cell;
@@ -178,11 +208,7 @@
 
 
 
-
-
 - (IBAction)searchPortPressed:(id)sender {
-    
-    
     
 }
 
@@ -191,28 +217,17 @@
 }
 
 
-
-
-
 - (void)didPickItem :(NSNumber*)ref :(NSString*)searchitem {
 
 }
 
-
-
-
+/* modified 20170910 */
 - (void)didPickPortItem :(NSString*)refport :(NSString*)searchitem {
     
     if ([searchitem isEqualToString:@"cargoport"]) {
-        
         cargoCell *cell = [self.tableView cellForRowAtIndexPath:self.buttonPressedIndexPath];
-        
         cargoNSO *cargo;
-        if ([cell.ldLabel.text isEqualToString:@"L"]) {
-             cargo = [self.c.cargoios firstObject];
-        } else {
-            cargo = [self.c.cargoios lastObject];
-        }
+        cargo = [self.c.cargoios objectAtIndex:self.buttonPressedIndexPath.row];
         cargo.port = [self.db getPortByPortCode :refport :cargo.port];
         cell.portText.text = [cargo.port getPortFullName];
     }
@@ -221,6 +236,36 @@
     
 }
 
+/* add new cargo to array. 20170909 */
+- (IBAction)newCargoPressed:(id)sender {
+    // oddly the new object is not going into calling controller..
+    
+    NSMutableArray *io = [[NSMutableArray alloc] initWithArray:self.c.cargoios];
+    cargoNSO *lastport = [io lastObject];
+    
+    cargoNSO *newport = [[cargoNSO alloc ] init];
+    newport.id = [NSNumber numberWithInteger:self.c.cargoios.count + 1];
+    newport.purpose_code = lastport.purpose_code;
+    newport.type_id = lastport.type_id;
+    newport.calc_id = lastport.calc_id;
+    
+    float unitlevel = 0.0f;
+    
+    for (cargoNSO *io in self.c.cargoios) {
+        unitlevel += [io.units floatValue];
+    }
+    
+    newport.units = [NSNumber numberWithFloat:unitlevel * -1];
+    
+    [io addObject:newport];
+    self.c.cargoios = io;
+    [self.tableView reloadData];
+}
+
+
+-(void)editButtonPressed {
+    [self.tableView setEditing:![self.tableView isEditing] animated:YES];
+}
 
 
 @end
