@@ -141,6 +141,9 @@
 /* created 20170909 */
 /* modified 20170911 */
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    
+    // NSLog(NSStringFromClass([self.c.cargoios class]));
+    
     cargoNSO *movedCargo = [self.c.cargoios objectAtIndex:sourceIndexPath.row];
     [self.c.cargoios removeObjectAtIndex:sourceIndexPath.row];
     [self.c.cargoios insertObject:movedCargo atIndex:destinationIndexPath.row];

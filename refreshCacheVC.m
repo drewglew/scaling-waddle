@@ -68,14 +68,17 @@
 
 /*
  created on: 20170823
- last updated: 20170826
+ last updated: 20180310
  */
 - (IBAction)refreshPortsPressed:(id)sender {
     
-    NSString *url = @"https://testapi.maersktankers.com/api/v1/Ports/GetPortList";
+    NSString *url = @"https://testapi.maersktankers.com/api/v1/DataFeed/GetPortList";
     
     [self fetchFromTankers:url withDictionary:^(NSDictionary *data) {
-        for (NSDictionary *dict in data) {
+        
+        NSDictionary *resultObject = [data objectForKey:@"Object"];
+        
+        for (NSDictionary *dict in resultObject) {
             
             portNSO *p = [[portNSO alloc] init];
             p.code = [dict objectForKey:@"Code"];
@@ -136,7 +139,7 @@
 
 /*
  created on: 20170823
- last updated: 20170901
+ last updated: 20180310
  
  */
 - (IBAction)refreshConsumptionsPressed:(id)sender {
@@ -157,13 +160,15 @@
             
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER); // wait for one of the four slots to open up
             
+            // GetVesselConsumption SpeedClass detail 0=average;1=fast;2=slow
+            
             NSString *urlConsumption;
             if (self.segmentSpeed.selectedSegmentIndex==0) {
-                urlConsumption = [NSString stringWithFormat:@"https://testapi.maersktankers.com/api/v1/Fleet/GetVesselSlowConsumption?refno=%@",v.ref_nr];
+                urlConsumption = [NSString stringWithFormat:@"https://testapi.maersktankers.com/api/v1/Fleet/GetVesselConsumption?refno=%@&speedclass=%d",v.ref_nr, 2];
             } else if (self.segmentSpeed.selectedSegmentIndex==1) {
-                urlConsumption = [NSString stringWithFormat:@"https://testapi.maersktankers.com/api/v1/Fleet/GetVesselAvgConsumption?refno=%@",v.ref_nr];
+                urlConsumption = [NSString stringWithFormat:@"https://testapi.maersktankers.com/api/v1/Fleet/GetVesselConsumption?refno=%@&speedclass=%d",v.ref_nr, 0];
             } else {
-                urlConsumption = [NSString stringWithFormat:@"https://testapi.maersktankers.com/api/v1/Fleet/GetVesselFastConsumption?refno=%@",v.ref_nr];
+                urlConsumption = [NSString stringWithFormat:@"https://testapi.maersktankers.com/api/v1/Fleet/GetVesselConsumption?refno=%@&speedclass=%d",v.ref_nr, 1];
             }
                 
             NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlConsumption] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
@@ -184,8 +189,9 @@
                         
                         dispatch_async(dispatch_get_main_queue(), ^{
                             
+                            NSDictionary *resultObject = [consumptions objectForKey:@"Object"];
                             
-                            for (NSDictionary *cons in consumptions) {
+                            for (NSDictionary *cons in resultObject) {
                                 // better to have the same index of zone in the web service as the segment index.
                                 if (([[cons objectForKey:@"Zone"] isEqualToString:@"HSFO"] && self.segmentZones.selectedSegmentIndex == 0) || ([[cons objectForKey:@"Zone"] isEqualToString:@"LSGO"] && self.segmentZones.selectedSegmentIndex == 1) || ([[cons objectForKey:@"Zone"] isEqualToString:@"ULSFO"] && self.segmentZones.selectedSegmentIndex == 2) ) {
                                     

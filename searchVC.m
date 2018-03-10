@@ -35,14 +35,19 @@
     if (![self.existingitem isEqualToString:@""]) {
         if ([self.searchtype isEqual:@"vessel"]) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self returnIndexFromRefNrProperty :self.existingitem] inSection:0];
-            [self.tableView scrollToRowAtIndexPath:indexPath
-                                  atScrollPosition:UITableViewScrollPositionTop
-                                          animated:YES];
+            //[self.tableView scrollToRowAtIndexPath:indexPath
+            //                      atScrollPosition:UITableViewScrollPositionTop
+            //                              animated:YES];
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+            
+            [self setTitle:@"Vessels"];
         } else if ([self.searchtype isEqual:@"ballfromport"] || [self.searchtype isEqual:@"cargoport"] ) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self returnIndexFromNameProperty :self.existingitem] inSection:0];
-            [self.tableView scrollToRowAtIndexPath:indexPath
-                                  atScrollPosition:UITableViewScrollPositionTop
-                                          animated:YES];
+            //[self.tableView scrollToRowAtIndexPath:indexPath
+            //                      atScrollPosition:UITableViewScrollPositionTop
+            //                              animated:YES];
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+            [self setTitle:@"Ports"];
         }
     }
     // Do any additional setup after loading the view.

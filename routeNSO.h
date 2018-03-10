@@ -13,5 +13,5 @@
 @property (nonatomic) NSString *nameofport;
 @property (nonatomic) NSString *codeofport;
 @property (nonatomic) NSString *purposeofport;
-
+@property (nonatomic) NSString *routingpoint;
 @end

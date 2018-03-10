@@ -37,257 +37,6 @@
 }
 
 
--(bool)dbLoadDefaults {
-    
-    
-    /* now we populate the database with dummy data */
-    
-    vesselNSO *v = [[vesselNSO alloc] init];
-    v.nr = [NSNumber numberWithInt:4];
-    v.ref_nr = @"004";
-    v.name = @"Hans Scholl";
-    
-    v.laden_cons.speed = [NSNumber numberWithFloat:10.0];
-    v.laden_cons.hfo_amt = [NSNumber numberWithFloat:15.1];
-    v.laden_cons.do_amt = [NSNumber numberWithFloat:0.0];
-    v.laden_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
-    v.laden_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
-    
-    v.ballast_cons.speed = [NSNumber numberWithFloat:9.5];
-    v.ballast_cons.hfo_amt = [NSNumber numberWithFloat:14.9];
-    v.ballast_cons.do_amt = [NSNumber numberWithFloat:0.0];
-    v.ballast_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
-    v.ballast_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
-    
-    v.atport_cons.speed = [NSNumber numberWithFloat:0.0];
-    v.atport_cons.hfo_amt = [NSNumber numberWithFloat:5.0];
-    v.atport_cons.do_amt = [NSNumber numberWithFloat:0.0];
-    v.atport_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
-    v.atport_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
-    [self insertVesselData:v];
-    
-    [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
-    [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
-    [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
-    
-    v.nr = [NSNumber numberWithInt:5];
-    v.ref_nr = @"555";
-    v.name = @"Andys Magic";
-    [self insertVesselData:v];
-    [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
-    [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
-    [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
-    
-    v.nr = [NSNumber numberWithInt:6];
-    v.ref_nr = @"ABC";
-    v.name = @"Alice";
-    [self insertVesselData:v];
-    [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
-    [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
-    [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
-    
-    
-    v.nr = [NSNumber numberWithInt:7];
-    v.ref_nr = @"DEF";
-    v.name = @"Bro Developer";
-    [self insertVesselData:v];
-    [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
-    [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
-    [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
-    
-    
-    v.nr = [NSNumber numberWithInt:8];
-    v.ref_nr = @"GHI";
-    v.name = @"Helle Maersk";
-    [self insertVesselData:v];
-    [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
-    [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
-    [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
-    
-    
-    v.nr = [NSNumber numberWithInt:9];
-    v.ref_nr = @"JKL";
-    v.name = @"Maersk Simon";
-    [self insertVesselData:v];
-    [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
-    [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
-    [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
-    
-    
-    v.nr = [NSNumber numberWithInt:10];
-    v.ref_nr = @"MNO";
-    v.name = @"Maersk Henry";
-    [self insertVesselData:v];
-    [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
-    [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
-    [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
-    
-    
-    v.nr = [NSNumber numberWithInt:11];
-    v.ref_nr = @"PQR";
-    v.name = @"Miguel Maersk";
-    [self insertVesselData:v];
-    [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
-    [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
-    [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
-    
-    v.nr = [NSNumber numberWithInt:12];
-    v.ref_nr = @"STU";
-    v.name = @"Bro Designer";
-    [self insertVesselData:v];
-    [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
-    [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
-    [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
-    
-    v.nr = [NSNumber numberWithInt:13];
-    v.ref_nr = @"VWX";
-    v.name = @"Sophie";
-    [self insertVesselData:v];
-    [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
-    [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
-    [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
-    
-    
-    // real life data
-    v.nr = [NSNumber numberWithInt:14];
-    v.ref_nr = @"O21";
-    v.name = @"Maersk Matsuyama";
-    [self insertVesselData:v];
-    
-    v.laden_cons.speed = [NSNumber numberWithFloat:15.2];
-    v.laden_cons.hfo_amt = [NSNumber numberWithFloat:38.5];
-    v.laden_cons.do_amt = [NSNumber numberWithFloat:0.0];
-    v.laden_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
-    v.laden_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
-    
-    v.ballast_cons.speed = [NSNumber numberWithFloat:15.9];
-    v.ballast_cons.hfo_amt = [NSNumber numberWithFloat:38.4];
-    v.ballast_cons.do_amt = [NSNumber numberWithFloat:0.0];
-    v.ballast_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
-    v.ballast_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
-    
-    v.atport_cons.speed = [NSNumber numberWithFloat:0.0];
-    v.atport_cons.hfo_amt = [NSNumber numberWithFloat:5.0];
-    v.atport_cons.do_amt = [NSNumber numberWithFloat:0.0];
-    v.atport_cons.mgo_amt = [NSNumber numberWithFloat:0.0];
-    v.atport_cons.lsfo_amt = [NSNumber numberWithFloat:0.0];
-    
-    
-    [self insertConsumptionData:v.atport_cons :v.nr :[NSNumber numberWithInt:0]];   //atport consumptions
-    [self insertConsumptionData:v.ballast_cons :v.nr :[NSNumber numberWithInt:1]];  //ballast consumptions
-    [self insertConsumptionData:v.laden_cons :v.nr :[NSNumber numberWithInt:2]];   //laden consumptions
-    
-    
-    
-    portNSO *p = [[portNSO alloc] init];
-    p.code = @"LON";
-    //p.abc_code = @"GB0004";
-    p.abc_code = @"London";
-    p.name = @"London";
-    [self insertPortData :p];
-    
-    p.code = @"HAM";
-    //p.abc_code = @"DE0005";
-    p.abc_code = @"Hamburg";
-    p.name = @"Hamburg";
-    [self insertPortData :p];
-    
-    p.code = @"RAS";
-    p.abc_code = @"AE0038";
-    p.name = @"Port Rashid";
-    [self insertPortData :p];
-    
-    p.code = @"CPH";
-    p.abc_code = @"DK0021";
-    p.name = @"Copenhagen";
-    [self insertPortData :p];
-    
-    p.code = @"NOV";
-    p.abc_code = @"RU0119";
-    p.name = @"Novorossiysk";
-    [self insertPortData :p];
-    
-    
-    p.code = @"CHI";
-    p.abc_code = @"JP0018";
-    p.name = @"Chiba";
-    [self insertPortData :p];
-    
-    p.code = @"LOO";
-    p.abc_code = @"UM0001";
-    p.name = @"LOOP Terminal";
-    [self insertPortData :p];
-    
-    p.code = @"MEB";
-    p.abc_code = @"AU0181";
-    p.name = @"Melbourne";
-    [self insertPortData :p];
-    
-    
-    p.code = @"NYC";
-    p.abc_code = @"US0509";
-    p.name = @"New York";
-    [self insertPortData :p];
-    
-    p.code = @"PHL";
-    p.abc_code = @"US0583";
-    p.name = @"Philadelphia";
-    [self insertPortData :p];
-    
-    
-    p.code = @"LPC";
-    p.abc_code = @"FR0110";
-    p.name = @"La Pallice";
-    [self insertPortData :p];
-    
-    calculationNSO *c = [[calculationNSO alloc] init];
-    
-    c.descr = @"Sample Calculation with dummy data";
-    c.rate = [NSNumber numberWithDouble:20.5];
-    c.tce = [NSNumber numberWithDouble:100.5];
-    c.vessel.nr =  [NSNumber numberWithInt:5];
-    c.created =  [NSDate date];
-    c.result.hfo_bunker.price = [NSNumber numberWithDouble:100.05];
-    c.result.do_bunker.price = [NSNumber numberWithDouble:90.50];
-    c.result.mgo_bunker.price = [NSNumber numberWithDouble:120.10];
-    c.result.lsfo_bunker.price = [NSNumber numberWithDouble:83.00];
-    c.result.broker_commission_percent = [NSNumber numberWithDouble:1.0];
-    c.result.address_commission_percent = [NSNumber numberWithDouble:1.125];
-    
-    // soon to be discarded..
-    c.ld_ports = @"Copenhagen-Melbourne";
-    
-    c.port_ballast_from.code = @"CPH";
-    [self insertCalculationData :c];
-    
-    //lets add this to calculation and lose the calc_id!
-    cargoNSO *cargo = [[cargoNSO alloc] init];
-    
-    cargo.id = [NSNumber numberWithInt:1];  // this is actually the sort order
-    cargo.calc_id = c.id;
-    cargo.units = [NSNumber numberWithInt:2000];
-    cargo.expense = [NSNumber numberWithDouble:200.00];
-    cargo.estimated = [NSNumber numberWithDouble:1000.00];
-    cargo.notice_time = [NSNumber numberWithInt:5];
-    cargo.type_id = [NSNumber numberWithInt:1];
-    cargo.purpose_code = @"L";
-    cargo.port.code = @"CPH";
-    [self insertCargoPort :cargo];
-    cargo.id = [NSNumber numberWithInt:2];  // this is actually the sort order
-    cargo.calc_id = c.id;
-    cargo.units = [NSNumber numberWithInt:2000];
-    cargo.expense = [NSNumber numberWithDouble:175.00];
-    cargo.estimated = [NSNumber numberWithDouble:500.00];
-    cargo.notice_time = [NSNumber numberWithInt:2];
-    cargo.type_id = [NSNumber numberWithInt:1];
-    cargo.purpose_code = @"D";
-    cargo.port.code = @"MEB";
-    [self insertCargoPort :cargo];
-    
-    return true;
-}
-
-
 
 -(bool)dbCreate :(NSString*) databaseName {
     NSString *docsDir;
@@ -514,6 +263,7 @@
 
 
 /* created 20160721 */
+/* modified 20170912 */
 -(bool) insertVesselData :(vesselNSO *) v {
     
     NSString *insertSQL = [NSString stringWithFormat:@"INSERT INTO vessels (vessel_nr,vessel_ref_nr,vessel_name) VALUES (%@,'%@','%@')", v.nr, v.ref_nr, v.name];
@@ -525,8 +275,19 @@
         const char *insert_statement = [insertSQL UTF8String];
         sqlite3_prepare_v2(_DB, insert_statement, -1, &statement, NULL);
         if (sqlite3_step(statement) != SQLITE_DONE) {
-            NSLog(@"Failed to insert new vessel record inside vessels table");
-            return false;
+            NSLog(@"failed to insert new vessel record - try to modify");
+            
+            /* modify vessel name */
+            NSString *updateSQL = [NSString stringWithFormat:@"UPDATE vessels SET vessel_name='%@' WHERE vessel_nr=%@", v.name, v.nr];
+            const char *update_statement = [updateSQL UTF8String];
+            sqlite3_prepare_v2(_DB, update_statement, -1, &statement, NULL);
+            
+            if (sqlite3_step(statement) != SQLITE_DONE) {
+                NSLog(@"failed to modifiy existing vessel record");
+                return false;
+            } else {
+                NSLog(@"Updated vessel record!");
+            }
         } else {
             NSLog(@"Inserted new vessel record inside vessels table!");
         }

@@ -282,6 +282,7 @@
 
 
 /* created 20160722 */
+/* modified 20170912 */
 -(id) copyWithZone: (NSZone *) zone
 {
     calculationNSO *calcCopy = [[calculationNSO allocWithZone: zone] init];
@@ -292,15 +293,16 @@
     [calcCopy setTce:self.tce];
     [calcCopy setVessel:[[self vessel] copyWithZone:zone]];
     [calcCopy setPort_ballast_from:[[self port_ballast_from] copyWithZone:zone]];
-    [calcCopy setCargoios:[[self cargoios] copyWithZone:zone]];
+    [calcCopy setCargoios:[[self cargoios] mutableCopy]];
     [calcCopy setLd_ports:self.ld_ports];
-    
     [calcCopy setAdd_idle_days:self.add_idle_days];
     [calcCopy setAdd_ballasted_days:self.add_ballasted_days];
     [calcCopy setAdd_laden_days:self.add_laden_days];
     [calcCopy setAdd_expenses:self.add_expenses];
     
     [calcCopy setResult:[[self result] copyWithZone:zone]];
+    
+
     return calcCopy;
 }
 

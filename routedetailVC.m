@@ -62,6 +62,14 @@
 /* a complex method to read the JSON generated dictionary and locate the names and distances of ports.  Also we must manually find the names of the ports that were passed as codes. */
 -(void)buildRouteListing {
     
+    /*
+     design strategy:
+     
+     
+     
+     */
+    
+    
     self.listing = [[NSMutableArray alloc] init];
     
     [self.routing enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL* stopRouting) {
@@ -125,10 +133,12 @@
                                         if ([distanceToLoadPort floatValue]!=0.0f) {
                                             r.distanceFromStart = [NSNumber numberWithFloat:[r.distanceFromStart floatValue] + [distanceToLoadPort floatValue]];
                                         }
+                                    } else if ([keyWP isEqual:@"RoutingPoint"]) {
+                                        r.routingpoint = [waypoint valueForKey:keyWP];
                                     }
                                 }
                                 
-                                if (![r.nameofport isEqualToString:lastPortName] ) {
+                                if (![r.nameofport isEqualToString:lastPortName] && ![r.nameofport isEqualToString:@""]) {
                                     [self.listing addObject:r];
                                 } else {
                                     routeNSO *prevPort = [[routeNSO alloc] init];

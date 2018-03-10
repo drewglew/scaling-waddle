@@ -18,20 +18,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.0f/255.0f green:78.0f/255.0f blue:107.0f/255.0f alpha:1.0]];
+    
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:45.0f/255.0f green:59.0f/255.0f blue:64.0f/255.0f alpha:1.0]];
+    
     [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0]];
-    //2B3346
-    
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage new]
-                                                  forBarMetrics:UIBarMetricsDefault];
-    [UINavigationBar appearance].shadowImage = [UIImage new];
-    [UINavigationBar appearance].translucent = YES;
-    
-    [[UINavigationBar appearance] setTitleTextAttributes:
-     [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIColor whiteColor], NSForegroundColorAttributeName,
-      [UIFont fontWithName:@"Verdana" size:16.0], NSFontAttributeName,nil]];
- 
     
     /* get configuration settings & manage them */
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

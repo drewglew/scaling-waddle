@@ -13,4 +13,5 @@
 @synthesize nameofport;
 @synthesize codeofport;
 @synthesize purposeofport;
+@synthesize routingpoint;
 @end
